@@ -15,12 +15,15 @@ struct ScoreView: View {
     var body: some View {
         VStack {
             Text(playerName)
-                .bold()
             Text(String(score))
+                .fontWeight(.light)
         }
+        .frame(minWidth: 50)
         .padding(10)
-        .background(.green)
-        .cornerRadius(5)
+        .background(.black)
+        .cornerRadius(10)
+        .foregroundColor(.white)
+        .shadow(radius: 2, x: -2, y: 2)
     }
 }
 

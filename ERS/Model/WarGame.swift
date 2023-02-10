@@ -55,7 +55,7 @@ class WarGame: ObservableObject {
             return .one
         }
         if(player1Card.value.rawValue < player2Card.value.rawValue) {
-            return .two
+            return .one
         }
         return .none
     }

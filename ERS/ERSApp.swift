@@ -11,7 +11,7 @@ import SwiftUI
 struct ERSApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(currentView: .menu)
         }
     }
 }

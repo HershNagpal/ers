@@ -17,7 +17,12 @@
 		B31B8D19297A611B00FDC910 /* CardTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8D18297A611B00FDC910 /* CardTest.swift */; };
 		B31B8D1B297A662300FDC910 /* DeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8D1A297A662300FDC910 /* DeckTest.swift */; };
 		B3786020297CF81A00E5DB92 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B378601F297CF81A00E5DB92 /* CardView.swift */; };
-		B3DDE269298A4D9E00D5D776 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DDE268298A4D9E00D5D776 /* ButtonView.swift */; };
+		B38E314B2995FBE7005254F9 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E314A2995FBE7005254F9 /* MenuView.swift */; };
+		B38E314D2995FD57005254F9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E314C2995FD57005254F9 /* SettingsView.swift */; };
+		B38E315129960E10005254F9 /* TitleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E315029960E10005254F9 /* TitleText.swift */; };
+		B38E315329961037005254F9 /* NavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E315229961037005254F9 /* NavigationButton.swift */; };
+		B38E315529961581005254F9 /* DealButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E315429961581005254F9 /* DealButton.swift */; };
+		B3DDE269298A4D9E00D5D776 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DDE268298A4D9E00D5D776 /* BackButton.swift */; };
 		B3DDE26B29932AB400D5D776 /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DDE26A29932AB400D5D776 /* ScoreView.swift */; };
 		B3DDE26D29934AD600D5D776 /* WarGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DDE26C29934AD600D5D776 /* WarGame.swift */; };
 /* End PBXBuildFile section */
@@ -45,7 +50,12 @@
 		B31B8D18297A611B00FDC910 /* CardTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTest.swift; sourceTree = "<group>"; };
 		B31B8D1A297A662300FDC910 /* DeckTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckTest.swift; sourceTree = "<group>"; };
 		B378601F297CF81A00E5DB92 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		B3DDE268298A4D9E00D5D776 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+		B38E314A2995FBE7005254F9 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		B38E314C2995FD57005254F9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B38E315029960E10005254F9 /* TitleText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleText.swift; sourceTree = "<group>"; };
+		B38E315229961037005254F9 /* NavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButton.swift; sourceTree = "<group>"; };
+		B38E315429961581005254F9 /* DealButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealButton.swift; sourceTree = "<group>"; };
+		B3DDE268298A4D9E00D5D776 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		B3DDE26A29932AB400D5D776 /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
 		B3DDE26C29934AD600D5D776 /* WarGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -121,10 +131,8 @@
 		B31B8CFC297A2C1100FDC910 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B31B8D04297A5CC000FDC910 /* GameView.swift */,
-				B378601F297CF81A00E5DB92 /* CardView.swift */,
-				B3DDE268298A4D9E00D5D776 /* ButtonView.swift */,
-				B3DDE26A29932AB400D5D776 /* ScoreView.swift */,
+				B38E314F29960DCF005254F9 /* Pages */,
+				B38E314E29960DC6005254F9 /* Components */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -151,6 +159,29 @@
 				B31B8D1A297A662300FDC910 /* DeckTest.swift */,
 			);
 			path = ModelTests;
+			sourceTree = "<group>";
+		};
+		B38E314E29960DC6005254F9 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B378601F297CF81A00E5DB92 /* CardView.swift */,
+				B3DDE26A29932AB400D5D776 /* ScoreView.swift */,
+				B3DDE268298A4D9E00D5D776 /* BackButton.swift */,
+				B38E315029960E10005254F9 /* TitleText.swift */,
+				B38E315229961037005254F9 /* NavigationButton.swift */,
+				B38E315429961581005254F9 /* DealButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		B38E314F29960DCF005254F9 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				B31B8D04297A5CC000FDC910 /* GameView.swift */,
+				B38E314A2995FBE7005254F9 /* MenuView.swift */,
+				B38E314C2995FD57005254F9 /* SettingsView.swift */,
+			);
+			path = Pages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,14 +285,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				B31B8D03297A2D4C00FDC910 /* Deck.swift in Sources */,
+				B38E315129960E10005254F9 /* TitleText.swift in Sources */,
 				B3786020297CF81A00E5DB92 /* CardView.swift in Sources */,
 				B31B8CF0297A2BAE00FDC910 /* ContentView.swift in Sources */,
 				B31B8CFF297A2C7500FDC910 /* Card.swift in Sources */,
 				B3DDE26D29934AD600D5D776 /* WarGame.swift in Sources */,
+				B38E314B2995FBE7005254F9 /* MenuView.swift in Sources */,
 				B31B8CEE297A2BAE00FDC910 /* ERSApp.swift in Sources */,
 				B31B8D05297A5CC000FDC910 /* GameView.swift in Sources */,
-				B3DDE269298A4D9E00D5D776 /* ButtonView.swift in Sources */,
+				B3DDE269298A4D9E00D5D776 /* BackButton.swift in Sources */,
 				B3DDE26B29932AB400D5D776 /* ScoreView.swift in Sources */,
+				B38E315529961581005254F9 /* DealButton.swift in Sources */,
+				B38E314D2995FD57005254F9 /* SettingsView.swift in Sources */,
+				B38E315329961037005254F9 /* NavigationButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
