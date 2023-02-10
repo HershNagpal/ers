@@ -25,14 +25,31 @@ class DeckTest: XCTestCase {
                 XCTAssertTrue(deck.draw()?.toString() == "\(value) of \(suit)")
             }
         }
-        XCTAssertTrue(deck.deck.isEmpty)
+        XCTAssertTrue(deck.numCards() == 0)
     }
     
-    func testDeckPeekDraw() throws {
+    func testDeckDraw() throws {
         let deck = Deck()
-        XCTAssertTrue(deck.deck.count == 52)
+        XCTAssertTrue(deck.numCards() == 52)
         XCTAssertTrue(deck.draw()?.toString() == "ace of diamonds")
-        XCTAssertTrue(deck.deck.count == 51)
+        XCTAssertTrue(deck.numCards() == 51)
+    }
+    
+    func testDeckPeek() throws {
+        let deck = Deck()
+        XCTAssertTrue(deck.numCards() == 52)
+        XCTAssertTrue(deck.peek()?.toString() == "ace of diamonds")
+        XCTAssertTrue(deck.numCards() == 52)
+    }
+    
+    func testDeckShuffle() throws {
+        let deck = Deck()
+        let shuffled = Deck()
+        XCTAssertTrue(deck.peek()?.toString() == "ace of diamonds")
+        XCTAssertTrue(shuffled.peek()?.toString() == "ace of diamonds")
+        shuffled.shuffle()
+        XCTAssertTrue(deck.peek()?.toString() == "ace of diamonds")
+        XCTAssertFalse(shuffled.peek()?.toString() == "ace of diamonds")
     }
     
     func testDiscard() throws {
@@ -40,6 +57,16 @@ class DeckTest: XCTestCase {
         XCTAssertTrue(deck.peek()?.toString() == "ace of diamonds")
         deck.discard(26)
         XCTAssertTrue(deck.peek()?.toString() == "ace of hearts")
+    }
+    
+    func testAddCards() throws {
+        let deck = Deck()
+        XCTAssertTrue(deck.peek()?.toString() == "ace of diamonds")
+        XCTAssertTrue(deck.numCards() == 52)
+        deck.addCards([Card(value: .queen, suit: .hearts)])
+        XCTAssertTrue(deck.numCards() == 53)
+        deck.addCards([Card(value: .queen, suit: .hearts), Card(value: .queen, suit: .hearts)])
+        XCTAssertTrue(deck.numCards() == 55)
     }
 
     func testPerformanceExample() throws {
