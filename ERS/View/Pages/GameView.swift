@@ -38,7 +38,7 @@ struct GameView: View {
                     CardView(game.drawHistory.isEmpty ? nil : game.drawHistory[0])
                         .shadow(radius: 2, x: 2, y: 2)
                         .padding(.bottom)
-                    ScoreView(playerName: player1Name, score: game.deck2.numCards())
+                    ScoreView(playerName: player1Name, score: game.deck1.numCards())
                 }
                 VStack() {
                     CardView(game.drawHistory.isEmpty ? nil : game.drawHistory[1])
