@@ -30,6 +30,7 @@ class Deck: ObservableObject {
             case .one:
                 for suit in [Suit.diamonds, Suit.hearts] {
                     for value in Value.allCases {
+                        guard value != .none else { continue }
                         deck.append(Card(value: value, suit: suit))
                     }
                 }
@@ -37,6 +38,7 @@ class Deck: ObservableObject {
             case .two:
                 for suit in [Suit.clubs, Suit.spades] {
                     for value in Value.allCases {
+                        guard value != .none else { continue }
                         deck.append(Card(value: value, suit: suit))
                     }
                 }
@@ -66,7 +68,7 @@ class Deck: ObservableObject {
     }
     
     func addCards(_ cards: [Card]) {
-        deck += cards
+        deck.append(contentsOf: cards)
     }
     
     func numCards() -> Int {

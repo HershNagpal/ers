@@ -20,24 +20,36 @@ struct ERSView: View {
     }
     
     var body: some View {
-        VStack {
-            HStack {
-                Text("\(game.deck2.numCards())")
-                VStack() {
-                    DealButton(text: "slap", onPress: {game.slap()})
-                    DealButton(text: "deal", onPress: {} )
+        ZStack {
+            VStack {
+                HStack {
+                    VStack() {
+                        DealButton(text: "deal", onPress: {game.drawCard(.two)} )
+                        DealButton(text: "slap", onPress: {game.slap(.two)})
+                    }
+                    Text("\(game.deck2.numCards())")
+                }
+                .rotationEffect(Angle(degrees: 180))
+                
+                ERSStackView(game: game)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                
+                HStack {
+                    VStack() {
+                        DealButton(text: "deal", onPress: {game.drawCard(.one)} )
+                        DealButton(text: "slap", onPress: {game.slap(.one)})
+                        DealButton(text: "print", onPress: {print(game.stack[0].toString())})
+                    }
+                    Text("\(game.deck1.numCards())")
                 }
             }
-            
-            ERSStackView(stack: game.stack)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-            
-            HStack {
-                VStack() {
-                    DealButton(text: "deal", onPress: {} )
-                    DealButton(text: "slap", onPress: {game.slap()})
+            if (game.winner != .none) {
+                VStack {
+                    Text("Player \(game.winner.rawValue) wins")
+                    NavigationButton(text: "Back to menu", onPress: back)
                 }
-                Text("\(game.deck1.numCards())")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    .background(.ultraThinMaterial)
             }
         }
     }

@@ -8,33 +8,50 @@
 import SwiftUI
 
 struct ERSStackView: View {
-    @State var stack: [Card]
+    @StateObject var game: ERSGame
     
     var body: some View {
-        ZStack() {
-            CardView(stack[2])
-                .offset(x: -60, y: -40)
-                .shadow(radius: 2, x: 2, y: 2)
-                .padding(.bottom)
-                .frame(width: 200)
-            CardView(stack[1])
-                .offset(x: 0, y: 0)
-                .shadow(radius: 2, x: 2, y: 2)
-                .padding(.bottom)
-                .frame(width: 200)
-            CardView(stack[0])
-                .offset(x: 60, y: 40)
-                .shadow(radius: 2, x: 2, y: 2)
-                .padding(.bottom)
-                .frame(width: 200)
+        VStack {
+            HStack {
+                Text("Stack: \(game.stack.count)")
+                Text("Burned: \(game.burnPile.count)")
+            }
+                .rotationEffect(Angle(degrees: 180))
+                .offset(x: 0, y: -50)
+            ZStack() {
+                CardView(
+                    game.stack.count > 2 ? game.stack[2] : Card(value: .none, suit: .none)
+                )
+                    .offset(x: -60, y: -40)
+                    .shadow(radius: 2, x: 2, y: 2)
+                    .padding(.bottom)
+                    .frame(width: 200)
+                CardView(
+                    game.stack.count > 1 ? game.stack[1] : Card(value: .none, suit: .none)
+                )
+                    .offset(x: 0, y: 0)
+                    .shadow(radius: 2, x: 2, y: 2)
+                    .padding(.bottom)
+                    .frame(width: 200)
+                CardView(
+                    game.stack.count >= 1 ? game.stack[0] : Card(value: .none, suit: .none)
+                )
+                    .offset(x: 60, y: 40)
+                    .shadow(radius: 2, x: 2, y: 2)
+                    .padding(.bottom)
+                    .frame(width: 200)
+            }
+            HStack {
+                Text("Stack: \(game.stack.count)")
+                Text("Burned: \(game.burnPile.count)")
+            }
+                .offset(x: 0, y: 50)
         }
     }
 }
 
 struct ERSStackView_Previews: PreviewProvider {
     static var previews: some View {
-        ERSStackView(stack: [Card(value: .jack, suit: .hearts),
-                     Card(value: .queen, suit: .hearts),
-                     Card(value: .king, suit: .hearts)])
+        ERSStackView(game: ERSGame())
     }
 }
