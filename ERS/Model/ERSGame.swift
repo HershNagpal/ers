@@ -18,7 +18,11 @@ class ERSGame: ObservableObject {
     init() {
         self.deck1 = Deck(player: .one)
         self.deck2 = Deck(player: .two)
-        stack = []
+        stack = [
+            Card(value: .none, suit: .none),
+            Card(value: .none, suit: .none),
+            Card(value: .none, suit: .none),
+        ]
         drawHistory = []
         winner = .none
         currentPlayer = .one

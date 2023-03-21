@@ -8,23 +8,21 @@
 import SwiftUI
 
 struct ERSStackView: View {
-    @State var card1: Card
-    @State var card2: Card
-    @State var card3: Card
+    @State var stack: [Card]
     
     var body: some View {
         ZStack() {
-            CardView(card3)
+            CardView(stack[2])
                 .offset(x: -60, y: -40)
                 .shadow(radius: 2, x: 2, y: 2)
                 .padding(.bottom)
                 .frame(width: 200)
-            CardView(card2)
+            CardView(stack[1])
                 .offset(x: 0, y: 0)
                 .shadow(radius: 2, x: 2, y: 2)
                 .padding(.bottom)
                 .frame(width: 200)
-            CardView(card1)
+            CardView(stack[0])
                 .offset(x: 60, y: 40)
                 .shadow(radius: 2, x: 2, y: 2)
                 .padding(.bottom)
@@ -35,8 +33,8 @@ struct ERSStackView: View {
 
 struct ERSStackView_Previews: PreviewProvider {
     static var previews: some View {
-        ERSStackView(card1: Card(value: .jack, suit: .hearts),
-                     card2: Card(value: .queen, suit: .hearts),
-                     card3: Card(value: .king, suit: .hearts))
+        ERSStackView(stack: [Card(value: .jack, suit: .hearts),
+                     Card(value: .queen, suit: .hearts),
+                     Card(value: .king, suit: .hearts)])
     }
 }
