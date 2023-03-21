@@ -13,7 +13,6 @@
 		B31B8CF5297A2BB000FDC910 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B31B8CF4297A2BB000FDC910 /* Preview Assets.xcassets */; };
 		B31B8CFF297A2C7500FDC910 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8CFE297A2C7500FDC910 /* Card.swift */; };
 		B31B8D03297A2D4C00FDC910 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8D02297A2D4C00FDC910 /* Deck.swift */; };
-		B31B8D05297A5CC000FDC910 /* WarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8D04297A5CC000FDC910 /* WarView.swift */; };
 		B31B8D19297A611B00FDC910 /* CardTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8D18297A611B00FDC910 /* CardTest.swift */; };
 		B31B8D1B297A662300FDC910 /* DeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8D1A297A662300FDC910 /* DeckTest.swift */; };
 		B3786020297CF81A00E5DB92 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B378601F297CF81A00E5DB92 /* CardView.swift */; };
@@ -27,7 +26,6 @@
 		B3AE84F629CA1C1A00D735F9 /* ERSStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84F529CA1C1A00D735F9 /* ERSStackView.swift */; };
 		B3DDE269298A4D9E00D5D776 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DDE268298A4D9E00D5D776 /* BackButton.swift */; };
 		B3DDE26B29932AB400D5D776 /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DDE26A29932AB400D5D776 /* ScoreView.swift */; };
-		B3DDE26D29934AD600D5D776 /* WarGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DDE26C29934AD600D5D776 /* WarGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +46,6 @@
 		B31B8CF4297A2BB000FDC910 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B31B8CFE297A2C7500FDC910 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		B31B8D02297A2D4C00FDC910 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
-		B31B8D04297A5CC000FDC910 /* WarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarView.swift; sourceTree = "<group>"; };
 		B31B8D0E297A60D400FDC910 /* ERSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ERSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B31B8D18297A611B00FDC910 /* CardTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTest.swift; sourceTree = "<group>"; };
 		B31B8D1A297A662300FDC910 /* DeckTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckTest.swift; sourceTree = "<group>"; };
@@ -64,7 +61,6 @@
 		B3AE84F729CA1D7600D735F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B3DDE268298A4D9E00D5D776 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		B3DDE26A29932AB400D5D776 /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
-		B3DDE26C29934AD600D5D776 /* WarGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,7 +127,6 @@
 			children = (
 				B31B8CFE297A2C7500FDC910 /* Card.swift */,
 				B31B8D02297A2D4C00FDC910 /* Deck.swift */,
-				B3DDE26C29934AD600D5D776 /* WarGame.swift */,
 				B3AE84F329C94CDC00D735F9 /* ERSGame.swift */,
 			);
 			path = Model;
@@ -187,7 +182,6 @@
 		B38E314F29960DCF005254F9 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				B31B8D04297A5CC000FDC910 /* WarView.swift */,
 				B38E314A2995FBE7005254F9 /* MenuView.swift */,
 				B38E314C2995FD57005254F9 /* SettingsView.swift */,
 				B3AE84F129C94CBA00D735F9 /* ERSView.swift */,
@@ -300,10 +294,8 @@
 				B3786020297CF81A00E5DB92 /* CardView.swift in Sources */,
 				B31B8CF0297A2BAE00FDC910 /* ContentView.swift in Sources */,
 				B31B8CFF297A2C7500FDC910 /* Card.swift in Sources */,
-				B3DDE26D29934AD600D5D776 /* WarGame.swift in Sources */,
 				B38E314B2995FBE7005254F9 /* MenuView.swift in Sources */,
 				B31B8CEE297A2BAE00FDC910 /* ERSApp.swift in Sources */,
-				B31B8D05297A5CC000FDC910 /* WarView.swift in Sources */,
 				B3DDE269298A4D9E00D5D776 /* BackButton.swift in Sources */,
 				B3AE84F629CA1C1A00D735F9 /* ERSStackView.swift in Sources */,
 				B3DDE26B29932AB400D5D776 /* ScoreView.swift in Sources */,
