@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ERSView: View {
-    @StateObject var game = WarGame()
+    @StateObject var game = ERSGame()
     @State var card1: Card
     @State var card2: Card
     @State var card3: Card
@@ -19,9 +19,9 @@ struct ERSView: View {
     init(player1Name: String, player2Name: String, back: @escaping () -> Void) {
         self.player1Name = player1Name
         self.player2Name = player2Name
-        self.card1 = Card(value: .king, suit: .hearts)
-        self.card2 = Card(value: .queen, suit: .hearts)
-        self.card3 = Card(value: .jack, suit: .hearts)
+        self.card1 = Card(value: .none, suit: .none)
+        self.card2 = Card(value: .none, suit: .none)
+        self.card3 = Card(value: .none, suit: .none)
         self.back = back
     }
     
@@ -33,7 +33,14 @@ struct ERSView: View {
     
     var body: some View {
         VStack {
-            Spacer()
+            HStack {
+                Text("\(game.deck2.numCards())")
+                VStack() {
+                    DealButton(text: "slap", onPress: {game.slap()})
+                    DealButton(text: "deal", onPress: {addToViewStack(card: Card(value: .ace, suit: .spades))} )
+                }
+            }
+            
             ZStack() {
                 CardView(card3)
                     .offset(x: -60, y: -40)
@@ -51,9 +58,15 @@ struct ERSView: View {
                     .padding(.bottom)
                     .frame(width: 200)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                .background(Color.blue)
-            DealButton(text: "deal", onPress: {addToViewStack(card: Card(value: .ace, suit: .spades))} )
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            
+            HStack {
+                VStack() {
+                    DealButton(text: "deal", onPress: {addToViewStack(card: Card(value: .ace, suit: .spades))} )
+                    DealButton(text: "slap", onPress: {game.slap()})
+                }
+                Text("\(game.deck1.numCards())")
+            }
         }
     }
 }

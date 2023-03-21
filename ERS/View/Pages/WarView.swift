@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WarView: View {
     
-    @StateObject var game = WarGame()
+    @StateObject var warGame = WarGame()
     @State var card1: Card
     @State var card2: Card
     var player1Name: String
@@ -27,31 +27,31 @@ struct WarView: View {
     var body: some View {
         VStack() {
             Spacer()
-            game.winner == .one
+            warGame.winner == .one
             ? TitleText(text: player1Name + " Wins")
-            : game.winner == .two
+            : warGame.winner == .two
                 ? TitleText(text: player2Name + " Wins")
             : TitleText(text: "War Game")
             Spacer()
             HStack() {
                 VStack() {
-                    CardView(game.drawHistory.isEmpty ? nil : game.drawHistory[0])
+                    CardView(warGame.drawHistory.isEmpty ? nil : warGame.drawHistory[0])
                         .shadow(radius: 2, x: 2, y: 2)
                         .padding(.bottom)
-                    ScoreView(playerName: player1Name, score: game.deck1.numCards())
+                    ScoreView(playerName: player1Name, score: warGame.deck1.numCards())
                 }
                 VStack() {
-                    CardView(game.drawHistory.isEmpty ? nil : game.drawHistory[1])
+                    CardView(warGame.drawHistory.isEmpty ? nil : warGame.drawHistory[1])
                         .shadow(radius: 2, x: 2, y: 2)
                         .padding(.bottom)
-                    ScoreView(playerName: player2Name, score: game.deck2.numCards())
+                    ScoreView(playerName: player2Name, score: warGame.deck2.numCards())
                 }
             }
             Spacer()
-            game.winner == .none ? DealButton(onPress: game.takeTurn)
+            warGame.winner == .none ? DealButton(onPress: warGame.takeTurn)
             : DealButton(text: "Game Over", onPress: {})
             Spacer()
-            ScoreView(playerName: "Stack", score: game.stack.count)
+            ScoreView(playerName: "Stack", score: warGame.stack.count)
             Spacer()
             BackButton(onPress: back)
         }
@@ -61,6 +61,6 @@ struct WarView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        ERSView(player1Name: "Yee yee", player2Name: "Dogwater", back: {})
+        WarView(player1Name: "Yee yee", player2Name: "Dogwater", back: {})
     }
 }

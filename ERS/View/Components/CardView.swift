@@ -36,6 +36,7 @@ struct CardView: View {
     }
     
     func getCardUrl(_ card: Card) -> URL? {
+        guard card.value != .none && card.suit != .none else { return getCardBackUrl() }
         return URL(string: (cardImgApi + card.abbreviation() + cardImgExt))
     }
     

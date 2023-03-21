@@ -8,8 +8,8 @@
 import Foundation
 
 class ERSGame: ObservableObject {
-    @Published var deck1: Deck
-    @Published var deck2: Deck
+    var deck1: Deck
+    var deck2: Deck
     @Published var stack: [Card]
     @Published var drawHistory: [Card]
     @Published var winner: PlayerNumber
@@ -26,19 +26,43 @@ class ERSGame: ObservableObject {
         deck2.shuffle()
     }
     
-    func drawCard() {
+    func drawCard() -> Void {
         currentPlayer == .one
             ? stack.insert(deck1.draw()!, at: 0)
             : stack.insert(deck1.draw()!, at: 0)
     }
     
-    func takeTurn() -> Void {
-        guard winner == .none
-        else { return }
-        checkVictory()
+    func changePlayer() -> Void {
+        currentPlayer = currentPlayer == .one
+            ? .two
+            : .one
     }
     
-    func checkVictory() {
+    func slap() -> Bool {
+        return false
+    }
+    
+    func isDoubles() -> Bool {
+        return false
+    }
+    
+    func isCouples() -> Bool {
+        return false
+    }
+    
+    func isSandwich() -> Bool {
+        return false
+    }
+    
+    func isDivorce() -> Bool {
+        return false
+    }
+    
+    func isQueenOfDeath() -> Bool {
+        return false
+    }
+    
+    func checkVictory() -> Void {
         if deck1.numCards() < 1 || deck2.numCards() > 51 {
             winner = .two
         } else if deck2.numCards() < 1 || deck1.numCards() > 51 {

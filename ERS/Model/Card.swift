@@ -41,8 +41,9 @@ enum Suit: String, CaseIterable {
     case spades = "S"
     case hearts = "H"
     case clubs = "C"
+    case none = "N"
 }
 
 enum Value: Int, CaseIterable {
-    case ace = 1, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king
+    case none = 0, ace = 1, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king
 }
