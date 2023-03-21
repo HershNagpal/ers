@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GameView: View {
+struct WarView: View {
     
     @StateObject var game = WarGame()
     @State var card1: Card
@@ -61,6 +61,6 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(player1Name: "Yee yee", player2Name: "Dogwater", back: {})
+        ERSView(player1Name: "Yee yee", player2Name: "Dogwater", back: {})
     }
 }

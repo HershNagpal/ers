@@ -61,6 +61,3 @@ class WarGame: ObservableObject {
     }
 }
 
-enum PlayerNumber: String {
-    case one, two, none
-}

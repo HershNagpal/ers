@@ -16,7 +16,7 @@ struct ContentView: View {
     var body: some View {
         switch (currentView) {
         case .game:
-            GameView(player1Name: player1Name ?? "Player 1", player2Name: player2Name ?? "Player 2", back: {self.changeView(.menu)})
+            ERSView(player1Name: player1Name ?? "Player 1", player2Name: player2Name ?? "Player 2", back: {self.changeView(.menu)})
         case .menu:
             MenuView(openGame: {self.changeView(.game)}, openSettings: {self.changeView(.settings)})
         case .settings:
