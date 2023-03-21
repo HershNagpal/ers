@@ -61,6 +61,7 @@
 		B3AE84F129C94CBA00D735F9 /* ERSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERSView.swift; sourceTree = "<group>"; };
 		B3AE84F329C94CDC00D735F9 /* ERSGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERSGame.swift; sourceTree = "<group>"; };
 		B3AE84F529CA1C1A00D735F9 /* ERSStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERSStackView.swift; sourceTree = "<group>"; };
+		B3AE84F729CA1D7600D735F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B3DDE268298A4D9E00D5D776 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		B3DDE26A29932AB400D5D776 /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
 		B3DDE26C29934AD600D5D776 /* WarGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarGame.swift; sourceTree = "<group>"; };
@@ -105,6 +106,7 @@
 		B31B8CEC297A2BAE00FDC910 /* ERS */ = {
 			isa = PBXGroup;
 			children = (
+				B3AE84F729CA1D7600D735F9 /* Info.plist */,
 				B31B8CFD297A2C1900FDC910 /* ViewModel */,
 				B31B8CFC297A2C1100FDC910 /* View */,
 				B31B8CFB297A2C0900FDC910 /* Model */,
@@ -457,7 +459,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ERS/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = ERS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -485,7 +487,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ERS/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = ERS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
