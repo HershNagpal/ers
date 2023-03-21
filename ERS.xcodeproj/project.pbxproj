@@ -24,6 +24,7 @@
 		B3AE84F229C94CBA00D735F9 /* ERSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84F129C94CBA00D735F9 /* ERSView.swift */; };
 		B3AE84F429C94CDC00D735F9 /* ERSGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84F329C94CDC00D735F9 /* ERSGame.swift */; };
 		B3AE84F629CA1C1A00D735F9 /* ERSStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84F529CA1C1A00D735F9 /* ERSStackView.swift */; };
+		B3AE84F929CA4B3400D735F9 /* PlayerInteractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84F829CA4B3400D735F9 /* PlayerInteractionView.swift */; };
 		B3DDE269298A4D9E00D5D776 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DDE268298A4D9E00D5D776 /* BackButton.swift */; };
 		B3DDE26B29932AB400D5D776 /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DDE26A29932AB400D5D776 /* ScoreView.swift */; };
 /* End PBXBuildFile section */
@@ -59,6 +60,7 @@
 		B3AE84F329C94CDC00D735F9 /* ERSGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERSGame.swift; sourceTree = "<group>"; };
 		B3AE84F529CA1C1A00D735F9 /* ERSStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERSStackView.swift; sourceTree = "<group>"; };
 		B3AE84F729CA1D7600D735F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B3AE84F829CA4B3400D735F9 /* PlayerInteractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInteractionView.swift; sourceTree = "<group>"; };
 		B3DDE268298A4D9E00D5D776 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		B3DDE26A29932AB400D5D776 /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,6 +177,7 @@
 				B38E315229961037005254F9 /* NavigationButton.swift */,
 				B38E315429961581005254F9 /* DealButton.swift */,
 				B3AE84F529CA1C1A00D735F9 /* ERSStackView.swift */,
+				B3AE84F829CA4B3400D735F9 /* PlayerInteractionView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				B3AE84F429C94CDC00D735F9 /* ERSGame.swift in Sources */,
 				B38E314D2995FD57005254F9 /* SettingsView.swift in Sources */,
 				B38E315329961037005254F9 /* NavigationButton.swift in Sources */,
+				B3AE84F929CA4B3400D735F9 /* PlayerInteractionView.swift in Sources */,
 				B3AE84F229C94CBA00D735F9 /* ERSView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

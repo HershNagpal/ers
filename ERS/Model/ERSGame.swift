@@ -12,6 +12,7 @@ class ERSGame: ObservableObject {
     var deck2: Deck
     var countdown: Int
     var currentPlayer: PlayerNumber
+    var stackClaimSlap: PlayerNumber
     @Published var stack: [Card]
     @Published var burnPile: [Card]
     @Published var winner: PlayerNumber
@@ -22,27 +23,79 @@ class ERSGame: ObservableObject {
         stack = []
         burnPile = []
         winner = .none
-        countdown = 0
+        countdown = -1
         currentPlayer = .one
+        stackClaimSlap = .none
         deck1.shuffle()
         deck2.shuffle()
     }
     
     func drawCard(_ player: PlayerNumber) {
         guard !checkVictory() else { return }
-        player == .one
-            ? stack.insert(deck1.draw()!, at: 0)
-            : stack.insert(deck2.draw()!, at: 0)
+        guard player == currentPlayer && stackClaimSlap == .none else {
+            burnCards(player)
+            return
+        }
+        if countdown == -1 {
+            player == .one
+                ? stack.insert(deck1.draw()!, at: 0)
+                : stack.insert(deck2.draw()!, at: 0)
+            swapCurrentPlayer()
+            setCountdown()
+        } else if countdown == 0 {
+            player == .one
+                ? stack.insert(deck1.draw()!, at: 0)
+                : stack.insert(deck2.draw()!, at: 0)
+            if !setCountdown() {
+                stackClaimSlap = player == .one ? .two : .one
+            }
+        } else if countdown > 0 {
+            player == .one
+                ? stack.insert(deck1.draw()!, at: 0)
+                : stack.insert(deck2.draw()!, at: 0)
+            countdown -= 1
+            if setCountdown() {
+                swapCurrentPlayer()
+            }
+        }
+        
+    }
+    
+    func setCountdown() -> Bool {
+        switch stack[0].value {
+        case .ace:
+            countdown = 3
+            return true
+        case .king:
+            countdown = 2
+            return true
+        case .queen:
+            countdown = 1
+            return true
+        case .jack:
+            countdown = 0
+            return true
+        default:
+            return false
+        }
+    }
+    
+    func swapCurrentPlayer() {
+        currentPlayer = currentPlayer == .one ? .two : .one
     }
     
     func slap(_ player: PlayerNumber) {
-        if isDoubles() || isCouples() || isDivorce() || isSandwich() || isQueenOfDeath() {
+        if isDoubles() || isCouples() || isDivorce() || isSandwich() ||
+            isQueenOfDeath() || player == stackClaimSlap {
             stack.append(contentsOf: burnPile)
             player == .one
                 ? deck1.addCards(stack)
                 : deck2.addCards(stack)
             stack.removeAll()
             burnPile.removeAll()
+            stackClaimSlap = .none
+            currentPlayer = player
+            countdown = -1
             return
         }
         burnCards(player)
