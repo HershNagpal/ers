@@ -19,19 +19,19 @@ struct ERSView: View {
         ZStack {
             VStack {
                 PlayerInteractionView(game: game, player: .two)
-                .rotationEffect(Angle(degrees: 180))
-                
-                ERSStackView(game: game)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    .rotationEffect(Angle(degrees: 180))
+                    .ignoresSafeArea()
+                ZStack {
+                    ERSStackView(game: game)
+                        .frame(maxWidth: .infinity, minHeight: 450, alignment: .center)
+//                    DebugView(game: game)
+                }
                 
                 PlayerInteractionView(game: game, player: .one)
-                Text("current: \(game.currentPlayer.rawValue)")
-                Text("countdown: \(game.countdown)")
-                Text("claim: \(game.stackClaimSlap.rawValue)")
             }
             if (game.winner != .none) {
                 VStack {
-                    Text("Player \(game.winner.rawValue) wins!")
+                    TitleText(text: "Player \(game.winner.rawValue) wins!")
                     NavigationButton(text: "Back to menu", onPress: back)
                 }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)

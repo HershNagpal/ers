@@ -12,18 +12,30 @@ struct PlayerInteractionView: View {
     var player: PlayerNumber
     
     var body: some View {
-        HStack {
-            VStack() {
-                DealButton(text: "deal", onPress: {game.drawCard(player)} )
-                DealButton(
-                    text: game.stackClaimSlap == player ? "claim" : "slap",
-                    onPress: {game.slap(player)}
-                )
-            }
-            if player == .one {
-                Text("\(game.deck1.numCards())")
-            } else if (player == .two) {
-                Text("\(game.deck2.numCards())")
+        HStack(spacing: 0) {
+            HStack() {
+                Button(action: {game.drawCard(player)}) {
+                    VStack{
+                        TitleText(text: "Deal")
+                            
+                        Text("Cards in deck: \(player == .one ? game.deck1.numCards() : game.deck2.numCards())")
+                    }
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(
+                            game.currentPlayer == player && game.stackClaimSlap == .none
+                            ? Color.blue
+                            : Color.gray
+                        )
+                        .contentShape(Rectangle())
+                }
+                Button(action: {game.slap(player)}) {
+                    TitleText(text: game.stackClaimSlap == player ? "Claim" : "Slap")
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(game.stackClaimSlap == player ? Color.green : Color.red)
+                        .contentShape(Rectangle())
+                }
             }
         }
     }
