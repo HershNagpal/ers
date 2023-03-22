@@ -25,7 +25,6 @@ struct ERSView: View {
                     CardStackView(game: game)
                         .frame(maxWidth: .infinity, minHeight: 300, alignment: .center)
                         .background(.white)
-//                    DebugView(game: game)
                 }
                 StackInfoView(game: game, player: .one)
                     .padding(.bottom, 10)

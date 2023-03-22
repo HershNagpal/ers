@@ -53,7 +53,7 @@ struct PlayerInteractionView: View {
                 Image(systemName: "pause")
                     .font(.system(size: 30))
                     .frame(width: 75, height: 75)
-                    .background(Color.orange)
+                    .background(Color(.systemYellow))
                     .foregroundColor(.black)
                     .cornerRadius(75)
             }
