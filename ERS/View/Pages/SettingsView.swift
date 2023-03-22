@@ -8,19 +8,20 @@
 import SwiftUI
 
 struct SettingsView: View {
-    var back: () -> Void
+    @State var easyModeOn: Bool = UserDefaults.standard.bool(forKey: "easyModeOn")
     
-    var body: some View {
-        VStack() {
-            LargeText("Settings")
-            MediumText("Wow look at all these settings")
-            BackButton(onPress: back)
+        var body: some View {
+        List {
+            Toggle("Easy Mode", isOn: $easyModeOn)
+                .onChange(of: easyModeOn) { value in
+                    UserDefaults.standard.set(easyModeOn, forKey: "easyModeOn")
+                }
         }
     }
 }
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(back: {})
+        SettingsView()
     }
 }

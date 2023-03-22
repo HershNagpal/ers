@@ -8,17 +8,14 @@
 import SwiftUI
 
 struct ERSView: View {
+    @Binding var path: [String]
     @StateObject var game = ERSGame()
-    var back: () -> Void
-    
-    init(back: @escaping () -> Void) {
-        self.back = back
-    }
+    @State var isPaused: Bool = false
     
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                PlayerInteractionView(game: game, player: .two)
+                PlayerInteractionView(isPaused: $isPaused, game: game, player: .two)
                     .rotationEffect(Angle(degrees: 180))
                     .ignoresSafeArea()
                 StackInfoView(game: game, player: .two)
@@ -32,23 +29,26 @@ struct ERSView: View {
                 }
                 StackInfoView(game: game, player: .one)
                     .padding(.bottom, 10)
-                PlayerInteractionView(game: game, player: .one)
+                PlayerInteractionView(isPaused: $isPaused, game: game, player: .one)
                     .ignoresSafeArea()
             }
             if (game.winner != .none) {
                 VStack {
                     LargeText("Player \(game.winner.rawValue) wins!")
-                    NavigationButton(text: "Back to menu", onPress: back)
+                    NavigationButton(text: "Back to menu", onPress: {path.removeAll()})
+                }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    .background(.ultraThinMaterial)
+            }
+            if (isPaused) {
+                VStack {
+                    LargeText("Paused")
+                    NavigationButton(text: "Resume", onPress: {isPaused = false})
+                    NavigationButton(text: "Back to menu", onPress: {path.removeAll()})
                 }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     .background(.ultraThinMaterial)
             }
         }
-    }
-}
-
-struct ERSView_Previews: PreviewProvider {
-    static var previews: some View {
-        ERSView(back: {})
     }
 }
