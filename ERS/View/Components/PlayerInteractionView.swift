@@ -16,7 +16,6 @@ struct PlayerInteractionView: View {
             Button(action: {game.deal(player)}) {
                 VStack{
                     LargeText("Deal")
-                        
                     MediumText("Cards in deck: \(player == .one ? game.deck1.numCards() : game.deck2.numCards())")
                 }
                     .foregroundColor(.black)

@@ -16,8 +16,9 @@ struct DebugView: View {
             Text("Claim: \(game.stackClaimSlap.rawValue)")
             Text("Countdown: \(game.countdown)")
         }
-        .padding(10)
-        .foregroundColor(.white)
-        .background(.black)
+            .padding(10)
+            .foregroundColor(.white)
+            .background(.black)
+            .cornerRadius(10)
     }
 }
