@@ -25,9 +25,11 @@ struct PlayerInteractionView: View {
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(
-                        game.currentPlayer == player && game.stackClaimSlap == .none
-                        ? Color(.systemBlue)
-                        : Color(.systemGray)
+                        easyModeOn
+                            ? game.currentPlayer == player && game.stackClaimSlap == .none
+                                ? Color(.systemBlue)
+                                : Color(.systemGray)
+                        : Color(.systemBlue)
                     )
                 }
                 Button(action: {game.slap(player)}) {
@@ -39,9 +41,9 @@ struct PlayerInteractionView: View {
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(
-                        game.stackClaimSlap == player
-                        ? Color(.systemGreen)
-                        : Color(.systemRed)
+                        game.stackClaimSlap == player && easyModeOn
+                            ? Color(.systemGreen)
+                            : Color(.systemRed)
                     )
                 }
                 
