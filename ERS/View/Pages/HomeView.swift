@@ -12,7 +12,8 @@ struct HomeView: View {
     
     init() {
             UserDefaults.standard.register(defaults: [
-                "easyModeOn": true,
+                "easyDeal": false,
+                "easyClaim": true,
                 "doublesOn": true,
                 "sandwichOn": true,
                 "couplesOn": true,

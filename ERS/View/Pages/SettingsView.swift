@@ -9,7 +9,9 @@ import SwiftUI
 
 struct SettingsView: View {
     let burnValues = [1,2,3,4,5]
-    @State var easyModeOn: Bool = UserDefaults.standard.bool(forKey: "easyModeOn")
+    @State var easyDeal: Bool = UserDefaults.standard.bool(forKey: "easyDeal")
+    @State var easyClaim: Bool = UserDefaults.standard.bool(forKey: "easyClaim")
+    
     @State var doublesOn: Bool = UserDefaults.standard.bool(forKey: "doublesOn")
     @State var sandwichOn: Bool = UserDefaults.standard.bool(forKey: "sandwichOn")
     @State var couplesOn: Bool = UserDefaults.standard.bool(forKey: "couplesOn")
@@ -21,11 +23,16 @@ struct SettingsView: View {
     var body: some View {
         List {
             Section("Visuals") {
-                Toggle("Easy Mode", isOn: $easyModeOn)
-                    .onChange(of: easyModeOn) { value in
-                        UserDefaults.standard.set(easyModeOn, forKey: "easyModeOn")
+                Toggle("Easy Deal", isOn: $easyDeal)
+                    .onChange(of: easyDeal) { value in
+                        UserDefaults.standard.set(easyDeal, forKey: "easyDeal")
+                    }
+                Toggle("Easy Claim", isOn: $easyClaim)
+                    .onChange(of: easyClaim) { value in
+                        UserDefaults.standard.set(easyClaim, forKey: "easyClaim")
                     }
             }
+            
             Section("Slap Rules") {
                 Toggle("Doubles", isOn: $doublesOn)
                     .onChange(of: doublesOn) { value in

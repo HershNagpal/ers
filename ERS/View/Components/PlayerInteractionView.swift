@@ -11,7 +11,8 @@ struct PlayerInteractionView: View {
     @Binding var isPaused: Bool
     @StateObject var game: ERSGame
     var player: PlayerNumber
-    @State var easyModeOn: Bool = UserDefaults.standard.bool(forKey: "easyModeOn")
+    @State var easyDeal: Bool = UserDefaults.standard.bool(forKey: "easyDeal")
+    @State var easyClaim: Bool = UserDefaults.standard.bool(forKey: "easyClaim")
     
     var body: some View {
         ZStack {
@@ -25,7 +26,7 @@ struct PlayerInteractionView: View {
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(
-                        easyModeOn
+                        easyDeal
                             ? game.currentPlayer == player && game.stackClaimSlap == .none
                                 ? Color(.systemBlue)
                                 : Color(.systemGray)
@@ -41,7 +42,7 @@ struct PlayerInteractionView: View {
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(
-                        game.stackClaimSlap == player && easyModeOn
+                        game.stackClaimSlap == player && easyClaim
                             ? Color(.systemGreen)
                             : Color(.systemRed)
                     )
