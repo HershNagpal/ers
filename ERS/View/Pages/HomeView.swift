@@ -18,6 +18,7 @@ struct HomeView: View {
                 "couplesOn": true,
                 "divorceOn": false,
                 "queenOfDeathOn": false,
+                "burnAmount": 1,
             ])
         }
     

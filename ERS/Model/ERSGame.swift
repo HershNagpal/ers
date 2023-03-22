@@ -22,6 +22,7 @@ class ERSGame: ObservableObject {
     let couplesOn: Bool = UserDefaults.standard.bool(forKey: "couplesOn")
     let divorceOn: Bool = UserDefaults.standard.bool(forKey: "divorceOn")
     let queenOfDeathOn: Bool = UserDefaults.standard.bool(forKey: "queenOfDeathOn")
+    let burnAmount: Int = UserDefaults.standard.integer(forKey: "burnAmount")
     
     init() {
         self.deck1 = Deck(player: .one)
@@ -93,14 +94,31 @@ class ERSGame: ObservableObject {
             countdown = -1
             return
         }
-        burnCards(player)
+        burnCards(player, amount: burnAmount)
     }
     
     private func burnCards(_ player: PlayerNumber, amount: Int = 1) {
         guard !checkVictory() else { return }
-        player == .one
-            ? burnPile.append(deck1.draw() ?? Card(value: .none, suit: .none))
-            : burnPile.append(deck2.draw() ?? Card(value: .none, suit: .none))
+        if player == .one {
+            guard deck1.numCards() > amount else {
+                deck1.discard(deck1.numCards())
+                let _ = checkVictory()
+                return
+            }
+            for _ in 1...amount {
+                burnPile.append(deck1.draw()!)
+            }
+        } else if player == .two {
+            guard deck2.numCards() > amount else {
+                deck2.discard(deck1.numCards())
+                let _ = checkVictory()
+                return
+            }
+            for _ in 1...amount {
+                burnPile.append(deck2.draw()!)
+            }
+        }
+        
     }
     
     private func isDoubles() -> Bool {
