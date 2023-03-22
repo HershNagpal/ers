@@ -10,6 +10,17 @@ import SwiftUI
 struct HomeView: View {
     @State var path = [String]()
     
+    init() {
+            UserDefaults.standard.register(defaults: [
+                "easyModeOn": true,
+                "doublesOn": true,
+                "sandwichOn": true,
+                "couplesOn": true,
+                "divorceOn": false,
+                "queenOfDeathOn": false,
+            ])
+        }
+    
     var body: some View {
         if #available(iOS 16.0, *) {
             NavigationStack(path: $path) {
@@ -34,7 +45,7 @@ struct HomeView: View {
             }
             
         } else {
-            // Fallback on earlier versions
+            // @TODO Fallback on earlier versions 
         }
 
     }

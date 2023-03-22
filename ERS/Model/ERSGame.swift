@@ -17,6 +17,12 @@ class ERSGame: ObservableObject {
     @Published var burnPile: [Card]
     @Published var winner: PlayerNumber
     
+    let doublesOn: Bool = UserDefaults.standard.bool(forKey: "doublesOn")
+    let sandwichOn: Bool = UserDefaults.standard.bool(forKey: "sandwichOn")
+    let couplesOn: Bool = UserDefaults.standard.bool(forKey: "couplesOn")
+    let divorceOn: Bool = UserDefaults.standard.bool(forKey: "divorceOn")
+    let queenOfDeathOn: Bool = UserDefaults.standard.bool(forKey: "queenOfDeathOn")
+    
     init() {
         self.deck1 = Deck(player: .one)
         self.deck2 = Deck(player: .two)
@@ -98,11 +104,13 @@ class ERSGame: ObservableObject {
     }
     
     private func isDoubles() -> Bool {
+        guard doublesOn else { return false }
         guard stack.count > 1 else { return false }
         return stack[0].value == stack[1].value
     }
     
     private func isCouples() -> Bool {
+        guard couplesOn else { return false }
         guard stack.count > 1 else { return false }
         if stack[0].value == .queen && stack[1].value == .king {
             return true
@@ -113,11 +121,13 @@ class ERSGame: ObservableObject {
     }
     
     private func isSandwich() -> Bool {
+        guard sandwichOn else { return false }
         guard stack.count > 2 else { return false }
         return stack[0].value == stack[2].value
     }
     
     private func isDivorce() -> Bool {
+        guard divorceOn else { return false }
         guard stack.count > 2 else { return false }
         if stack[0].value == .queen && stack[2].value == .king {
             return true
@@ -128,6 +138,7 @@ class ERSGame: ObservableObject {
     }
     
     private func isQueenOfDeath() -> Bool {
+        guard queenOfDeathOn else { return false }
         guard stack.count > 0 else { return false }
         return stack[0].value == .queen && stack[0].suit == .hearts
     }
