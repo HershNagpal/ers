@@ -12,13 +12,6 @@ struct CardStackView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("Stack: \(game.stack.count)")
-                Text("Burned: \(game.burnPile.count)")
-            }
-                .rotationEffect(Angle(degrees: 180))
-                .offset(x: 0, y: -40)
-            
             ZStack() {
                 CardView(
                     game.stack.count > 2 ? game.stack[2] : Card(value: .none, suit: .none)
@@ -42,11 +35,6 @@ struct CardStackView: View {
                     .padding(.bottom)
                     .frame(width: 200)
             }
-            HStack {
-                Text("Stack: \(game.stack.count)")
-                Text("Burned: \(game.burnPile.count)")
-            }
-                .offset(x: 0, y: 40)
         }
     }
 }

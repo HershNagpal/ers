@@ -15,13 +15,9 @@ struct CardView: View {
     }
     
     var body: some View {
-        if (card.value == .none || card.suit == .none) {
-            Image("Back")
-        } else {
-            Image(card.abbreviation())
-                .resizable()
-                .scaledToFit()
-        }
+        Image(card.abbreviation())
+            .resizable()
+            .scaledToFit()
     }
 }
 

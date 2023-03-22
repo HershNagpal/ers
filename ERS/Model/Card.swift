@@ -20,6 +20,8 @@ class Card {
     
     func abbreviation() -> String {
         switch (self.value) {
+        case .none:
+            return "back"
         case .ace:
             return "A" + suit.rawValue
         case .ten:

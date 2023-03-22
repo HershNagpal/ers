@@ -30,29 +30,23 @@ class ERSGame: ObservableObject {
         deck2.shuffle()
     }
     
-    func drawCard(_ player: PlayerNumber) {
+    func deal(_ player: PlayerNumber) {
         guard !checkVictory() else { return }
         guard player == currentPlayer && stackClaimSlap == .none else {
             burnCards(player)
             return
         }
         if countdown == -1 {
-            player == .one
-                ? stack.insert(deck1.draw()!, at: 0)
-                : stack.insert(deck2.draw()!, at: 0)
+            drawCard(player)
             swapCurrentPlayer()
             setCountdown()
         } else if countdown == 0 {
-            player == .one
-                ? stack.insert(deck1.draw()!, at: 0)
-                : stack.insert(deck2.draw()!, at: 0)
+            drawCard(player)
             if !setCountdown() {
                 stackClaimSlap = player == .one ? .two : .one
             }
         } else if countdown > 0 {
-            player == .one
-                ? stack.insert(deck1.draw()!, at: 0)
-                : stack.insert(deck2.draw()!, at: 0)
+            drawCard(player)
             countdown -= 1
             if setCountdown() {
                 swapCurrentPlayer()
@@ -61,7 +55,13 @@ class ERSGame: ObservableObject {
         
     }
     
-    func setCountdown() -> Bool {
+    private func drawCard(_ player: PlayerNumber) {
+        player == .one
+            ? stack.insert(deck1.draw()!, at: 0)
+            : stack.insert(deck2.draw()!, at: 0)
+    }
+    
+    private func setCountdown() -> Bool {
         switch stack[0].value {
         case .ace:
             countdown = 3
@@ -80,7 +80,7 @@ class ERSGame: ObservableObject {
         }
     }
     
-    func swapCurrentPlayer() {
+    private func swapCurrentPlayer() {
         currentPlayer = currentPlayer == .one ? .two : .one
     }
     
@@ -101,19 +101,19 @@ class ERSGame: ObservableObject {
         burnCards(player)
     }
     
-    func burnCards(_ player: PlayerNumber, amount: Int = 1) {
+    private func burnCards(_ player: PlayerNumber, amount: Int = 1) {
         guard !checkVictory() else { return }
         player == .one
             ? burnPile.append(deck1.draw() ?? Card(value: .none, suit: .none))
             : burnPile.append(deck2.draw() ?? Card(value: .none, suit: .none))
     }
     
-    func isDoubles() -> Bool {
+    private func isDoubles() -> Bool {
         guard stack.count > 1 else { return false }
         return stack[0].value == stack[1].value
     }
     
-    func isCouples() -> Bool {
+    private func isCouples() -> Bool {
         guard stack.count > 1 else { return false }
         if stack[0].value == .queen && stack[1].value == .king {
             return true
@@ -123,12 +123,12 @@ class ERSGame: ObservableObject {
         return false
     }
     
-    func isSandwich() -> Bool {
+    private func isSandwich() -> Bool {
         guard stack.count > 2 else { return false }
         return stack[0].value == stack[2].value
     }
     
-    func isDivorce() -> Bool {
+    private func isDivorce() -> Bool {
         guard stack.count > 2 else { return false }
         if stack[0].value == .queen && stack[2].value == .king {
             return true
@@ -138,12 +138,12 @@ class ERSGame: ObservableObject {
         return false
     }
     
-    func isQueenOfDeath() -> Bool {
+    private func isQueenOfDeath() -> Bool {
         guard stack.count > 0 else { return false }
         return stack[0].value == .queen && stack[0].suit == .hearts
     }
     
-    func checkVictory() -> Bool {
+    private func checkVictory() -> Bool {
         if deck1.numCards() < 1 || deck2.numCards() > 51 {
             winner = .two
             return true
