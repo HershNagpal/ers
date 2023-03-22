@@ -13,30 +13,29 @@ struct PlayerInteractionView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            HStack() {
-                Button(action: {game.drawCard(player)}) {
-                    VStack{
-                        TitleText(text: "Deal")
-                            
-                        Text("Cards in deck: \(player == .one ? game.deck1.numCards() : game.deck2.numCards())")
-                    }
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(
-                            game.currentPlayer == player && game.stackClaimSlap == .none
-                            ? Color.blue
-                            : Color.gray
-                        )
-                        .contentShape(Rectangle())
+            Button(action: {game.drawCard(player)}) {
+                VStack{
+                    LargeText("Deal")
+                        
+                    MediumText("Cards in deck: \(player == .one ? game.deck1.numCards() : game.deck2.numCards())")
                 }
-                Button(action: {game.slap(player)}) {
-                    TitleText(text: game.stackClaimSlap == player ? "Claim" : "Slap")
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(game.stackClaimSlap == player ? Color.green : Color.red)
-                        .contentShape(Rectangle())
-                }
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(
+                        game.currentPlayer == player && game.stackClaimSlap == .none
+                        ? Color.blue
+                        : Color.gray
+                    )
+                    .contentShape(Rectangle())
             }
+            Button(action: {game.slap(player)}) {
+                LargeText(game.stackClaimSlap == player ? "Claim" : "Slap")
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(game.stackClaimSlap == player ? Color.green : Color.red)
+                    .contentShape(Rectangle())
+            }
+            
         }
     }
 }

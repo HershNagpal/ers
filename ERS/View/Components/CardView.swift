@@ -8,40 +8,20 @@
 import SwiftUI
 
 struct CardView: View {
+    let card: Card
     
-    let card: Card?
-    let cardImgApi: String = "https://deckofcardsapi.com/static/img/"
-    let cardImgExt: String = ".png"
-    
-    init(_ card: Card?) {
+    init(_ card: Card) {
         self.card = card
     }
     
     var body: some View {
-        self.card != nil
-        ? AsyncImage(url: getCardUrl(card!)) {
-            image in image
+        if (card.value == .none || card.suit == .none) {
+            Image("Back")
+        } else {
+            Image(card.abbreviation())
                 .resizable()
                 .scaledToFit()
-        } placeholder: {
-            ProgressView()
         }
-        : AsyncImage(url: getCardBackUrl()) {
-            image in image
-                .resizable()
-                .scaledToFit()
-        } placeholder: {
-            ProgressView()
-        }
-    }
-    
-    func getCardUrl(_ card: Card) -> URL? {
-        guard card.value != .none && card.suit != .none else { return getCardBackUrl() }
-        return URL(string: (cardImgApi + card.abbreviation() + cardImgExt))
-    }
-    
-    func getCardBackUrl() -> URL? {
-        return URL(string: (cardImgApi + "back" + cardImgExt))
     }
 }
 

@@ -22,7 +22,7 @@ struct ERSView: View {
                     .rotationEffect(Angle(degrees: 180))
                     .ignoresSafeArea()
                 ZStack {
-                    ERSStackView(game: game)
+                    CardStackView(game: game)
                         .frame(maxWidth: .infinity, minHeight: 450, alignment: .center)
 //                    DebugView(game: game)
                 }
@@ -31,7 +31,7 @@ struct ERSView: View {
             }
             if (game.winner != .none) {
                 VStack {
-                    TitleText(text: "Player \(game.winner.rawValue) wins!")
+                    LargeText("Player \(game.winner.rawValue) wins!")
                     NavigationButton(text: "Back to menu", onPress: back)
                 }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)

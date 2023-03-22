@@ -7,8 +7,12 @@
 
 import SwiftUI
 
-struct TitleText: View {
+struct LargeText: View {
     var text: String
+    
+    init(_ text: String) {
+        self.text = text
+    }
     
     var body: some View {
         Text(text)
@@ -18,8 +22,8 @@ struct TitleText: View {
     }
 }
 
-struct TitleText_Previews: PreviewProvider {
+struct LargeText_Previews: PreviewProvider {
     static var previews: some View {
-        TitleText(text: "WarGame")
+        LargeText("Egyptian Rat Screw")
     }
 }

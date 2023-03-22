@@ -14,7 +14,7 @@ struct MenuView: View {
     var body: some View {
         VStack() {
             Spacer()
-            TitleText(text: "Egyptian Rat Screw")
+            LargeText("Egyptian Rat Screw")
             Spacer()
             NavigationButton(text: "Start Game", onPress: self.openGame)
                 .padding(.bottom)

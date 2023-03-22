@@ -12,8 +12,8 @@ struct SettingsView: View {
     
     var body: some View {
         VStack() {
-            TitleText(text: "Settings")
-            Text("Wow look at all these settings")
+            LargeText("Settings")
+            MediumText("Wow look at all these settings")
             BackButton(onPress: back)
         }
     }
