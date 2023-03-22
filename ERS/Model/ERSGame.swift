@@ -36,48 +36,37 @@ class ERSGame: ObservableObject {
             burnCards(player)
             return
         }
+        guard let card = drawCard(player) else { return }
+        
         if countdown == -1 {
-            drawCard(player)
+            stack.insert(card, at: 0)
             swapCurrentPlayer()
-            setCountdown()
+            if let index = [.jack, .queen, .king, .ace].firstIndex(of: card.value) {
+                countdown = index
+            }
         } else if countdown == 0 {
-            drawCard(player)
-            if !setCountdown() {
+            stack.insert(card, at: 0)
+            if let index = [.jack, .queen, .king, .ace].firstIndex(of: card.value) {
+                countdown = index
+                swapCurrentPlayer()
+            } else {
                 stackClaimSlap = player == .one ? .two : .one
             }
         } else if countdown > 0 {
-            drawCard(player)
-            countdown -= 1
-            if setCountdown() {
+            if let index = [.jack, .queen, .king, .ace].firstIndex(of: card.value) {
+                countdown = index
                 swapCurrentPlayer()
+            } else {
+                countdown -= 1
             }
+            stack.insert(card, at: 0)
         }
-        
     }
     
-    private func drawCard(_ player: PlayerNumber) {
-        player == .one
-            ? stack.insert(deck1.draw()!, at: 0)
-            : stack.insert(deck2.draw()!, at: 0)
-    }
-    
-    private func setCountdown() -> Bool {
-        switch stack[0].value {
-        case .ace:
-            countdown = 3
-            return true
-        case .king:
-            countdown = 2
-            return true
-        case .queen:
-            countdown = 1
-            return true
-        case .jack:
-            countdown = 0
-            return true
-        default:
-            return false
-        }
+    private func drawCard(_ player: PlayerNumber) -> Card? {
+        guard !checkVictory() else { return nil }
+        guard let card = player == .one ? deck1.draw() : deck2.draw() else { return nil }
+        return card
     }
     
     private func swapCurrentPlayer() {

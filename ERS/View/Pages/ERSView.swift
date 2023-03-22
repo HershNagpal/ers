@@ -24,7 +24,7 @@ struct ERSView: View {
                 ZStack {
                     CardStackView(game: game)
                         .frame(maxWidth: .infinity, minHeight: 450, alignment: .center)
-//                    DebugView(game: game)
+                    DebugView(game: game)
                 }
                 
                 PlayerInteractionView(game: game, player: .one)
