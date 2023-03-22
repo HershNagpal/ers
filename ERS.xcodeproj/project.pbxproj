@@ -27,7 +27,6 @@
 		B3AE84FE29CA910600D735F9 /* MediumText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84FD29CA910600D735F9 /* MediumText.swift */; };
 		B3AE850029CAC46B00D735F9 /* StackInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84FF29CAC46B00D735F9 /* StackInfoView.swift */; };
 		B3AE850229CB49E300D735F9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE850129CB49E300D735F9 /* HomeView.swift */; };
-		B3DDE269298A4D9E00D5D776 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DDE268298A4D9E00D5D776 /* BackButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +63,6 @@
 		B3AE84FD29CA910600D735F9 /* MediumText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumText.swift; sourceTree = "<group>"; };
 		B3AE84FF29CAC46B00D735F9 /* StackInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackInfoView.swift; sourceTree = "<group>"; };
 		B3AE850129CB49E300D735F9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		B3DDE268298A4D9E00D5D776 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,11 +171,11 @@
 			children = (
 				B3AE84FC29CA90F900D735F9 /* Text */,
 				B378601F297CF81A00E5DB92 /* CardView.swift */,
-				B3DDE268298A4D9E00D5D776 /* BackButton.swift */,
-				B38E315229961037005254F9 /* NavigationButton.swift */,
 				B3AE84F529CA1C1A00D735F9 /* CardStackView.swift */,
-				B3AE84F829CA4B3400D735F9 /* PlayerInteractionView.swift */,
 				B3AE84FA29CA641100D735F9 /* DebugView.swift */,
+				B3AE84FF29CAC46B00D735F9 /* StackInfoView.swift */,
+				B38E315229961037005254F9 /* NavigationButton.swift */,
+				B3AE84F829CA4B3400D735F9 /* PlayerInteractionView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -198,7 +196,6 @@
 			children = (
 				B38E315029960E10005254F9 /* LargeText.swift */,
 				B3AE84FD29CA910600D735F9 /* MediumText.swift */,
-				B3AE84FF29CAC46B00D735F9 /* StackInfoView.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -313,7 +310,6 @@
 				B3AE84FB29CA641100D735F9 /* DebugView.swift in Sources */,
 				B3AE850229CB49E300D735F9 /* HomeView.swift in Sources */,
 				B31B8CEE297A2BAE00FDC910 /* ERSApp.swift in Sources */,
-				B3DDE269298A4D9E00D5D776 /* BackButton.swift in Sources */,
 				B3AE84F629CA1C1A00D735F9 /* CardStackView.swift in Sources */,
 				B3AE84F429C94CDC00D735F9 /* ERSGame.swift in Sources */,
 				B38E314D2995FD57005254F9 /* SettingsView.swift in Sources */,
