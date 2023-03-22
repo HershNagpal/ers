@@ -13,7 +13,7 @@ struct HomeView: View {
     
     init() {
             UserDefaults.standard.register(defaults: [
-                "easyDeal": false,
+                "easyDeal": true,
                 "easyClaim": true,
                 "doublesOn": true,
                 "sandwichOn": true,
