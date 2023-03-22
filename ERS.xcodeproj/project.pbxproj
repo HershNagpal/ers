@@ -26,6 +26,7 @@
 		B3AE84F929CA4B3400D735F9 /* PlayerInteractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84F829CA4B3400D735F9 /* PlayerInteractionView.swift */; };
 		B3AE84FB29CA641100D735F9 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84FA29CA641100D735F9 /* DebugView.swift */; };
 		B3AE84FE29CA910600D735F9 /* MediumText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84FD29CA910600D735F9 /* MediumText.swift */; };
+		B3AE850029CAC46B00D735F9 /* StackInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84FF29CAC46B00D735F9 /* StackInfoView.swift */; };
 		B3DDE269298A4D9E00D5D776 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DDE268298A4D9E00D5D776 /* BackButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +63,7 @@
 		B3AE84F829CA4B3400D735F9 /* PlayerInteractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInteractionView.swift; sourceTree = "<group>"; };
 		B3AE84FA29CA641100D735F9 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		B3AE84FD29CA910600D735F9 /* MediumText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumText.swift; sourceTree = "<group>"; };
+		B3AE84FF29CAC46B00D735F9 /* StackInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackInfoView.swift; sourceTree = "<group>"; };
 		B3DDE268298A4D9E00D5D776 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,6 +198,7 @@
 			children = (
 				B38E315029960E10005254F9 /* LargeText.swift */,
 				B3AE84FD29CA910600D735F9 /* MediumText.swift */,
+				B3AE84FF29CAC46B00D735F9 /* StackInfoView.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			files = (
 				B31B8D03297A2D4C00FDC910 /* Deck.swift in Sources */,
 				B3AE84FE29CA910600D735F9 /* MediumText.swift in Sources */,
+				B3AE850029CAC46B00D735F9 /* StackInfoView.swift in Sources */,
 				B38E315129960E10005254F9 /* LargeText.swift in Sources */,
 				B3786020297CF81A00E5DB92 /* CardView.swift in Sources */,
 				B31B8CF0297A2BAE00FDC910 /* ContentView.swift in Sources */,

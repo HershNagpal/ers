@@ -17,17 +17,23 @@ struct ERSView: View {
     
     var body: some View {
         ZStack {
-            VStack {
+            VStack(spacing: 0) {
                 PlayerInteractionView(game: game, player: .two)
                     .rotationEffect(Angle(degrees: 180))
                     .ignoresSafeArea()
+                StackInfoView(game: game, player: .two)
+                    .rotationEffect(Angle(degrees: 180))
+                    .padding(.top, 10)
                 ZStack {
                     CardStackView(game: game)
-                        .frame(maxWidth: .infinity, minHeight: 450, alignment: .center)
+                        .frame(maxWidth: .infinity, minHeight: 300, alignment: .center)
+                        .background(.white)
 //                    DebugView(game: game)
                 }
-                
+                StackInfoView(game: game, player: .one)
+                    .padding(.bottom, 10)
                 PlayerInteractionView(game: game, player: .one)
+                    .ignoresSafeArea()
             }
             if (game.winner != .none) {
                 VStack {

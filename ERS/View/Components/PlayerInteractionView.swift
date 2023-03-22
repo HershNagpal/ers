@@ -14,25 +14,32 @@ struct PlayerInteractionView: View {
     var body: some View {
         HStack(spacing: 0) {
             Button(action: {game.deal(player)}) {
-                VStack{
-                    LargeText("Deal")
-                    MediumText("Cards in deck: \(player == .one ? game.deck1.numCards() : game.deck2.numCards())")
+                VStack {
+                    Image("deck")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: 100, maxHeight: 100)
                 }
-                    .foregroundColor(.black)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(
-                        game.currentPlayer == player && game.stackClaimSlap == .none
-                        ? Color.blue
-                        : Color.gray
-                    )
-                    .contentShape(Rectangle())
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(
+                    game.currentPlayer == player && game.stackClaimSlap == .none
+                    ? Color(.systemBlue)
+                    : Color(.systemGray)
+                )
             }
             Button(action: {game.slap(player)}) {
-                LargeText(game.stackClaimSlap == player ? "Claim" : "Slap")
-                    .foregroundColor(.black)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(game.stackClaimSlap == player ? Color.green : Color.red)
-                    .contentShape(Rectangle())
+                VStack {
+                    Image("hand")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: 100, maxHeight: 100)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(
+                    game.stackClaimSlap == player
+                    ? Color(.systemGreen)
+                    : Color(.systemRed)
+                )
             }
             
         }
