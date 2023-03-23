@@ -81,6 +81,7 @@ class ERSGame: ObservableObject {
     }
     
     func slap(_ player: PlayerNumber) {
+        guard stack[0].value != .none && stack[1].value != .none else { return }
         if isDoubles() || isCouples() || isDivorce() || isSandwich() ||
             isQueenOfDeath() || player == stackClaimSlap {
             stack.append(contentsOf: burnPile)
@@ -118,7 +119,6 @@ class ERSGame: ObservableObject {
                 burnPile.append(deck2.draw()!)
             }
         }
-        
     }
     
     private func isDoubles() -> Bool {
