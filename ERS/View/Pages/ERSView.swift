@@ -24,13 +24,13 @@ struct ERSView: View {
                 ZStack {
                     CardStackView(stack: $game.stack)
                         .frame(maxWidth: .infinity, minHeight: 300, alignment: .center)
-                        .background(.white)
                 }
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck1)
                     .padding(.bottom, 10)
                 PlayerInteractionView(isPaused: $isPaused, game: game, player: .one)
                     .ignoresSafeArea()
             }
+                .background(Colors.yellow)
             if (game.winner != .none) {
                 GameEndView(path: $path, winner: $game.winner)
             }

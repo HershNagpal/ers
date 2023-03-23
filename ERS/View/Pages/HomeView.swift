@@ -34,6 +34,10 @@ struct HomeView: View {
                 NavigationButton(text: "Settings", onPress: {path.append("settings")})
                 Spacer()
             }
+            .frame(maxWidth: .infinity)
+            .background(
+                LinearGradient(gradient: Gradient(colors: [Colors.yellow, Colors.orange]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                )
             .navigationDestination(for: String.self) { string in
                 switch string {
                 case "settings":

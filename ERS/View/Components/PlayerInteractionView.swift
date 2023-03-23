@@ -24,14 +24,14 @@ struct PlayerInteractionView: View {
                             .scaledToFit()
                             .frame(maxWidth: 100, maxHeight: 100)
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(
-                        easyDeal
-                            ? game.currentPlayer == player && game.stackClaimSlap == .none
-                                ? Color(.systemBlue)
-                                : Color(.systemGray)
-                        : Color(.systemBlue)
-                    )
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(
+                            easyDeal
+                                ? game.currentPlayer == player && game.stackClaimSlap == .none
+                                ? Colors.green
+                                : Colors.grey
+                            : Colors.green
+                        )
                 }
                 Button(action: {game.slap(player)}) {
                     VStack {
@@ -40,12 +40,12 @@ struct PlayerInteractionView: View {
                             .scaledToFit()
                             .frame(maxWidth: 100, maxHeight: 100)
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(
-                        game.stackClaimSlap == player && easyClaim
-                            ? Color(.systemGreen)
-                            : Color(.systemRed)
-                    )
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(
+                            game.stackClaimSlap == player && easyClaim
+                                ? Colors.green
+                                : Colors.red
+                        )
                 }
                 
             }
@@ -53,7 +53,7 @@ struct PlayerInteractionView: View {
                 Image(systemName: "pause")
                     .font(.system(size: 30))
                     .frame(width: 75, height: 75)
-                    .background(Color(.systemYellow))
+                    .background(Colors.yellow)
                     .foregroundColor(.black)
                     .cornerRadius(75)
             }
