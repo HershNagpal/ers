@@ -27,6 +27,9 @@
 		B3AE84FE29CA910600D735F9 /* MediumText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84FD29CA910600D735F9 /* MediumText.swift */; };
 		B3AE850029CAC46B00D735F9 /* StackInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84FF29CAC46B00D735F9 /* StackInfoView.swift */; };
 		B3AE850229CB49E300D735F9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE850129CB49E300D735F9 /* HomeView.swift */; };
+		B3AE850829CC99C500D735F9 /* ButtonText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE850729CC99C500D735F9 /* ButtonText.swift */; };
+		B3AE850A29CC9C4800D735F9 /* PauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE850929CC9C4800D735F9 /* PauseView.swift */; };
+		B3AE850C29CCA7A300D735F9 /* GameEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE850B29CCA7A300D735F9 /* GameEndView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +66,9 @@
 		B3AE84FD29CA910600D735F9 /* MediumText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumText.swift; sourceTree = "<group>"; };
 		B3AE84FF29CAC46B00D735F9 /* StackInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackInfoView.swift; sourceTree = "<group>"; };
 		B3AE850129CB49E300D735F9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B3AE850729CC99C500D735F9 /* ButtonText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonText.swift; sourceTree = "<group>"; };
+		B3AE850929CC9C4800D735F9 /* PauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseView.swift; sourceTree = "<group>"; };
+		B3AE850B29CCA7A300D735F9 /* GameEndView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +182,8 @@
 				B3AE84FF29CAC46B00D735F9 /* StackInfoView.swift */,
 				B38E315229961037005254F9 /* NavigationButton.swift */,
 				B3AE84F829CA4B3400D735F9 /* PlayerInteractionView.swift */,
+				B3AE850929CC9C4800D735F9 /* PauseView.swift */,
+				B3AE850B29CCA7A300D735F9 /* GameEndView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -196,6 +204,7 @@
 			children = (
 				B38E315029960E10005254F9 /* LargeText.swift */,
 				B3AE84FD29CA910600D735F9 /* MediumText.swift */,
+				B3AE850729CC99C500D735F9 /* ButtonText.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -300,11 +309,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3AE850C29CCA7A300D735F9 /* GameEndView.swift in Sources */,
 				B31B8D03297A2D4C00FDC910 /* Deck.swift in Sources */,
 				B3AE84FE29CA910600D735F9 /* MediumText.swift in Sources */,
 				B3AE850029CAC46B00D735F9 /* StackInfoView.swift in Sources */,
+				B3AE850A29CC9C4800D735F9 /* PauseView.swift in Sources */,
 				B38E315129960E10005254F9 /* LargeText.swift in Sources */,
 				B3786020297CF81A00E5DB92 /* CardView.swift in Sources */,
+				B3AE850829CC99C500D735F9 /* ButtonText.swift in Sources */,
 				B31B8CFF297A2C7500FDC910 /* Card.swift in Sources */,
 				B38E314B2995FBE7005254F9 /* MenuView.swift in Sources */,
 				B3AE84FB29CA641100D735F9 /* DebugView.swift in Sources */,

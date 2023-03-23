@@ -18,35 +18,24 @@ struct ERSView: View {
                 PlayerInteractionView(isPaused: $isPaused, game: game, player: .two)
                     .rotationEffect(Angle(degrees: 180))
                     .ignoresSafeArea()
-                StackInfoView(game: game, player: .two)
+                StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck2)
                     .rotationEffect(Angle(degrees: 180))
                     .padding(.top, 10)
                 ZStack {
-                    CardStackView(game: game)
+                    CardStackView(stack: $game.stack)
                         .frame(maxWidth: .infinity, minHeight: 300, alignment: .center)
                         .background(.white)
                 }
-                StackInfoView(game: game, player: .one)
+                StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck1)
                     .padding(.bottom, 10)
                 PlayerInteractionView(isPaused: $isPaused, game: game, player: .one)
                     .ignoresSafeArea()
             }
             if (game.winner != .none) {
-                VStack {
-                    LargeText("Player \(game.winner.rawValue) wins!")
-                    NavigationButton(text: "Back to menu", onPress: {path.removeAll()})
-                }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                    .background(.ultraThinMaterial)
+                GameEndView(path: $path, winner: $game.winner)
             }
             if (isPaused) {
-                VStack {
-                    LargeText("Paused")
-                    NavigationButton(text: "Resume", onPress: {isPaused = false})
-                    NavigationButton(text: "Back to menu", onPress: {path.removeAll()})
-                }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                    .background(.ultraThinMaterial)
+                PauseView(isPaused: $isPaused, path: $path)
             }
         }
     }

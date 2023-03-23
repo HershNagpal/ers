@@ -15,11 +15,12 @@ struct NavigationButton: View {
         Button() {
             onPress()
         } label: {
-            Text(text)
+            ButtonText(text)
+                .frame(width: 300, height: 50)
+                .padding(10)
+                .background(.black)
         }
-        .frame(width: 150)
-        .padding(10)
-        .background(.black)
+        
         .cornerRadius(10)
         .foregroundColor(.white)
         .shadow(radius: 2, x: -2, y: 2)

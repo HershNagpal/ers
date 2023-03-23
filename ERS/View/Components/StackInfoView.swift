@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct StackInfoView: View {
-    @StateObject var game: ERSGame
-    var player: PlayerNumber
+    @Binding var stack: [Card]
+    @Binding var burnPile: [Card]
+    @Binding var deck: Deck
     
     var body: some View {
         HStack(spacing: 0) {
@@ -18,7 +19,7 @@ struct StackInfoView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 50, maxHeight: 50)
-                MediumText("\(game.stack.count)")
+                MediumText("\(stack.count)")
                     
             }
             VStack(spacing: 0) {
@@ -26,22 +27,17 @@ struct StackInfoView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 50, maxHeight: 50)
-                MediumText("\(game.burnPile.count)")
+                MediumText("\(burnPile.count)")
             }
             VStack(spacing: 0) {
                 Image("deck")
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 50, maxHeight: 50)
-                MediumText(player == .one ? "\(game.deck1.numCards())" : "\(game.deck2.numCards())")
+                MediumText("\(deck.numCards())")
             }
             Spacer()
         }
     }
 }
 
-struct StackInfoView_Previews: PreviewProvider {
-    static var previews: some View {
-        StackInfoView(game: ERSGame(), player: .one)
-    }
-}

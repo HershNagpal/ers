@@ -26,10 +26,13 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack(path: $path) {
-            VStack {
+            VStack(spacing: 20) {
+                Spacer()
                 LargeText("Egyptian Rat Screw")
+                Spacer()
                 NavigationButton(text: "Play", onPress: {path.append("game")})
                 NavigationButton(text: "Settings", onPress: {path.append("settings")})
+                Spacer()
             }
             .navigationDestination(for: String.self) { string in
                 switch string {
