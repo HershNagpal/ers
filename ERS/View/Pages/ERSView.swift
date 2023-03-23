@@ -30,7 +30,7 @@ struct ERSView: View {
                 PlayerInteractionView(isPaused: $isPaused, game: game, player: .one)
                     .ignoresSafeArea()
             }
-                .background(Colors.yellow)
+                .background(Colors.grey)
             if (game.winner != .none) {
                 GameEndView(path: $path, winner: $game.winner)
             }

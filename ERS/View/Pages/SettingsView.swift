@@ -64,8 +64,6 @@ struct SettingsView: View {
                     }
                 }
             }
-            
-            
         }
     }
 }

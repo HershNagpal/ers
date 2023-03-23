@@ -14,9 +14,12 @@ struct PauseView: View {
     
     var body: some View {
         VStack(spacing: 20) {
+            Spacer()
             LargeText("Paused")
+            Spacer()
             NavigationButton(text: "Resume", onPress: {isPaused = false})
             NavigationButton(text: "Back to menu", onPress: {path.removeAll()})
+            Spacer()
         }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .background(.ultraThinMaterial)

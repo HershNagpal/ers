@@ -35,9 +35,7 @@ struct HomeView: View {
                 Spacer()
             }
             .frame(maxWidth: .infinity)
-            .background(
-                LinearGradient(gradient: Gradient(colors: [Colors.yellow, Colors.orange]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                )
+            .background(Colors.yellow)
             .navigationDestination(for: String.self) { string in
                 switch string {
                 case "settings":
