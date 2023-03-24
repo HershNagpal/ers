@@ -192,6 +192,3 @@ class Game: ObservableObject {
     }
 }
 
-enum PlayerNumber: String {
-    case one, two, none
-}

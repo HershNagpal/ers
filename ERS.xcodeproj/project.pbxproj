@@ -33,6 +33,7 @@
 		B3AE851029CE2B5D00D735F9 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE850F29CE2B5D00D735F9 /* TutorialView.swift */; };
 		B3AE851329CE3EFA00D735F9 /* TutorialCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE851229CE3EFA00D735F9 /* TutorialCard.swift */; };
 		B3AE852029CE472900D735F9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B3AE851F29CE472900D735F9 /* Localizable.strings */; };
+		B3AE852229CE4A1C00D735F9 /* PlayerNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE852129CE4A1C00D735F9 /* PlayerNumber.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		B3AE850F29CE2B5D00D735F9 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		B3AE851229CE3EFA00D735F9 /* TutorialCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCard.swift; sourceTree = "<group>"; };
 		B3AE851F29CE472900D735F9 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		B3AE852129CE4A1C00D735F9 /* PlayerNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerNumber.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				B31B8CFE297A2C7500FDC910 /* Card.swift */,
 				B31B8D02297A2D4C00FDC910 /* Deck.swift */,
 				B3AE84F329C94CDC00D735F9 /* Game.swift */,
+				B3AE852129CE4A1C00D735F9 /* PlayerNumber.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				B3AE84F429C94CDC00D735F9 /* Game.swift in Sources */,
 				B38E314D2995FD57005254F9 /* SettingsView.swift in Sources */,
 				B38E315329961037005254F9 /* NavigationButton.swift in Sources */,
+				B3AE852229CE4A1C00D735F9 /* PlayerNumber.swift in Sources */,
 				B3AE84F929CA4B3400D735F9 /* PlayerInteractionView.swift in Sources */,
 				B3AE84F229C94CBA00D735F9 /* GameView.swift in Sources */,
 			);

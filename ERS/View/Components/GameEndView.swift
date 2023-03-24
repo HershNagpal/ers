@@ -13,7 +13,7 @@ struct GameEndView: View {
     
     var body: some View {
         VStack {
-            LargeText("player \(winner.rawValue) wins")
+            LargeText(LocalizedStringKey("player " + winner.rawValue + " wins"))
             NavigationButton(text: "back to menu", onPress: {path.removeAll()})
         }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
