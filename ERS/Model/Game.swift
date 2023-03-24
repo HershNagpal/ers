@@ -120,7 +120,7 @@ class Game: ObservableObject {
     private func burnCards(_ player: PlayerNumber, amount: Int = 1) {
         guard !checkVictory() else { return }
         if player == .one {
-            guard deck1.numCards() > amount else {
+            guard deck1.numCards() >= amount else {
                 deck1.discard(deck1.numCards())
                 let _ = checkVictory()
                 return
@@ -129,7 +129,7 @@ class Game: ObservableObject {
                 burnPile.append(deck1.draw()!)
             }
         } else if player == .two {
-            guard deck2.numCards() > amount else {
+            guard deck2.numCards() >= amount else {
                 deck2.discard(deck1.numCards())
                 let _ = checkVictory()
                 return
