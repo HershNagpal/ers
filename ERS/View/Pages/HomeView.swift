@@ -31,7 +31,7 @@ struct HomeView: View {
                 LargeText("Egyptian Rat Screw")
                 Spacer()
                 NavigationButton(text: "Play", onPress: {path.append("game")})
-                navigationTitle(text: "Tutorial", onPress: {path.append("tutorial")})
+                NavigationButton(text: "Tutorial", onPress: {path.append("tutorial")})
                 NavigationButton(text: "Settings", onPress: {path.append("settings")})
                 Spacer()
             }
