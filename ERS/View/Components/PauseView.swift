@@ -20,7 +20,7 @@ struct PauseView: View {
             Spacer()
             NavigationButton(text: "Resume", onPress: {isPaused = false})
             NavigationButton(text: "Restart", onPress: {resetGame()})
-            NavigationButton(text: "Back to menu", onPress: {path.removeAll()})
+            NavigationButton(text: "Back to Menu", onPress: {path.removeAll()})
             Spacer()
         }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)

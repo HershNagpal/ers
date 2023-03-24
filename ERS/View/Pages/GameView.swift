@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ERSView: View {
+struct GameView: View {
     @Binding var path: [String]
     @StateObject var game = Game()
     @State var isPaused: Bool = false
@@ -21,20 +21,18 @@ struct ERSView: View {
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck2)
                     .rotationEffect(Angle(degrees: 180))
                     .padding(.top, 10)
-                ZStack {
-                    CardStackView(stack: $game.stack)
-                        .frame(maxWidth: .infinity, minHeight: 300, alignment: .center)
-                }
+                CardStackView(stack: $game.stack)
+                    .frame(maxWidth: .infinity, minHeight: 300, alignment: .center)
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck1)
                     .padding(.bottom, 10)
                 PlayerInteractionView(isPaused: $isPaused, game: game, player: .one)
                     .ignoresSafeArea()
             }
                 .background(Colors.grey)
-            if (game.winner != .none) {
+            if game.winner != .none {
                 GameEndView(path: $path, winner: $game.winner)
             }
-            if (isPaused) {
+            if isPaused {
                 PauseView(isPaused: $isPaused, path: $path, resetGame: {
                     game.restart()
                     isPaused = false

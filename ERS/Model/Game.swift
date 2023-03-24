@@ -16,6 +16,7 @@ class Game: ObservableObject {
     @Published var stack: [Card]
     @Published var burnPile: [Card]
     @Published var winner: PlayerNumber
+    @Published var numTurns: Int
     
     let doublesOn: Bool = UserDefaults.standard.bool(forKey: "doublesOn")
     let sandwichOn: Bool = UserDefaults.standard.bool(forKey: "sandwichOn")
@@ -33,6 +34,7 @@ class Game: ObservableObject {
         countdown = -1
         currentPlayer = .one
         stackClaimSlap = .none
+        numTurns = 0
         deck1.shuffle()
         deck2.shuffle()
     }
@@ -47,12 +49,14 @@ class Game: ObservableObject {
         
         if countdown == -1 {
             stack.insert(card, at: 0)
+            numTurns += 1
             swapCurrentPlayer()
             if let index = [.jack, .queen, .king, .ace].firstIndex(of: card.value) {
                 countdown = index
             }
         } else if countdown == 0 {
             stack.insert(card, at: 0)
+            numTurns += 1
             if let index = [.jack, .queen, .king, .ace].firstIndex(of: card.value) {
                 countdown = index
                 swapCurrentPlayer()
@@ -67,6 +71,7 @@ class Game: ObservableObject {
                 countdown -= 1
             }
             stack.insert(card, at: 0)
+            numTurns += 1
         }
     }
     
@@ -107,6 +112,7 @@ class Game: ObservableObject {
         countdown = -1
         currentPlayer = .one
         stackClaimSlap = .none
+        numTurns = 0
         deck1.shuffle()
         deck2.shuffle()
     }

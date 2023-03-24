@@ -31,6 +31,7 @@ struct HomeView: View {
                 LargeText("Egyptian Rat Screw")
                 Spacer()
                 NavigationButton(text: "Play", onPress: {path.append("game")})
+                navigationTitle(text: "Tutorial", onPress: {path.append("tutorial")})
                 NavigationButton(text: "Settings", onPress: {path.append("settings")})
                 Spacer()
             }
@@ -42,7 +43,11 @@ struct HomeView: View {
                     SettingsView()
                         .navigationTitle("Settings")
                 case "game":
-                    ERSView(path: $path)
+                    GameView(path: $path)
+                        .navigationBarBackButtonHidden()
+                        .statusBar(hidden: true)
+                case "tutorial":
+                    TutorialView(path: $path)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)
                 default:
