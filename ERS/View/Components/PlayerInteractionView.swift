@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlayerInteractionView: View {
     @Binding var isPaused: Bool
-    @StateObject var game: ERSGame
+    @StateObject var game: Game
     var player: PlayerNumber
     @State var easyDeal: Bool = UserDefaults.standard.bool(forKey: "easyDeal")
     @State var easyClaim: Bool = UserDefaults.standard.bool(forKey: "easyClaim")

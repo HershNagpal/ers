@@ -11,6 +11,7 @@ struct PauseView: View {
     
     @Binding var isPaused: Bool
     @Binding var path: [String]
+    let resetGame: () -> Void
     
     var body: some View {
         VStack(spacing: 20) {
@@ -18,6 +19,7 @@ struct PauseView: View {
             LargeText("Paused")
             Spacer()
             NavigationButton(text: "Resume", onPress: {isPaused = false})
+            NavigationButton(text: "Restart", onPress: {resetGame()})
             NavigationButton(text: "Back to menu", onPress: {path.removeAll()})
             Spacer()
         }

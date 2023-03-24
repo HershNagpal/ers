@@ -20,7 +20,7 @@
 		B38E315129960E10005254F9 /* LargeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E315029960E10005254F9 /* LargeText.swift */; };
 		B38E315329961037005254F9 /* NavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E315229961037005254F9 /* NavigationButton.swift */; };
 		B3AE84F229C94CBA00D735F9 /* ERSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84F129C94CBA00D735F9 /* ERSView.swift */; };
-		B3AE84F429C94CDC00D735F9 /* ERSGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84F329C94CDC00D735F9 /* ERSGame.swift */; };
+		B3AE84F429C94CDC00D735F9 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84F329C94CDC00D735F9 /* Game.swift */; };
 		B3AE84F629CA1C1A00D735F9 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84F529CA1C1A00D735F9 /* CardStackView.swift */; };
 		B3AE84F929CA4B3400D735F9 /* PlayerInteractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84F829CA4B3400D735F9 /* PlayerInteractionView.swift */; };
 		B3AE84FB29CA641100D735F9 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE84FA29CA641100D735F9 /* DebugView.swift */; };
@@ -59,7 +59,7 @@
 		B38E315029960E10005254F9 /* LargeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeText.swift; sourceTree = "<group>"; };
 		B38E315229961037005254F9 /* NavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButton.swift; sourceTree = "<group>"; };
 		B3AE84F129C94CBA00D735F9 /* ERSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERSView.swift; sourceTree = "<group>"; };
-		B3AE84F329C94CDC00D735F9 /* ERSGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERSGame.swift; sourceTree = "<group>"; };
+		B3AE84F329C94CDC00D735F9 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		B3AE84F529CA1C1A00D735F9 /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		B3AE84F729CA1D7600D735F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B3AE84F829CA4B3400D735F9 /* PlayerInteractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInteractionView.swift; sourceTree = "<group>"; };
@@ -136,7 +136,7 @@
 			children = (
 				B31B8CFE297A2C7500FDC910 /* Card.swift */,
 				B31B8D02297A2D4C00FDC910 /* Deck.swift */,
-				B3AE84F329C94CDC00D735F9 /* ERSGame.swift */,
+				B3AE84F329C94CDC00D735F9 /* Game.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -327,7 +327,7 @@
 				B3AE850229CB49E300D735F9 /* HomeView.swift in Sources */,
 				B31B8CEE297A2BAE00FDC910 /* ERSApp.swift in Sources */,
 				B3AE84F629CA1C1A00D735F9 /* CardStackView.swift in Sources */,
-				B3AE84F429C94CDC00D735F9 /* ERSGame.swift in Sources */,
+				B3AE84F429C94CDC00D735F9 /* Game.swift in Sources */,
 				B38E314D2995FD57005254F9 /* SettingsView.swift in Sources */,
 				B38E315329961037005254F9 /* NavigationButton.swift in Sources */,
 				B3AE84F929CA4B3400D735F9 /* PlayerInteractionView.swift in Sources */,

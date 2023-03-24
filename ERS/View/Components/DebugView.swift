@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DebugView: View {
-    @StateObject var game: ERSGame
+    @StateObject var game: Game
     
     var body: some View {
         VStack {

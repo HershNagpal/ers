@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ERSView: View {
     @Binding var path: [String]
-    @StateObject var game = ERSGame()
+    @StateObject var game = Game()
     @State var isPaused: Bool = false
     
     var body: some View {
@@ -35,7 +35,10 @@ struct ERSView: View {
                 GameEndView(path: $path, winner: $game.winner)
             }
             if (isPaused) {
-                PauseView(isPaused: $isPaused, path: $path)
+                PauseView(isPaused: $isPaused, path: $path, resetGame: {
+                    game.restart()
+                    isPaused = false
+                })
             }
         }
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ERSGame: ObservableObject {
+class Game: ObservableObject {
     var deck1: Deck
     var deck2: Deck
     var countdown: Int
@@ -96,6 +96,19 @@ class ERSGame: ObservableObject {
             return
         }
         burnCards(player, amount: burnAmount)
+    }
+    
+    func restart() {
+        self.deck1 = Deck(player: .one)
+        self.deck2 = Deck(player: .two)
+        stack = []
+        burnPile = []
+        winner = .none
+        countdown = -1
+        currentPlayer = .one
+        stackClaimSlap = .none
+        deck1.shuffle()
+        deck2.shuffle()
     }
     
     private func burnCards(_ player: PlayerNumber, amount: Int = 1) {
