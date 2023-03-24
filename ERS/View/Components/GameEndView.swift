@@ -13,8 +13,8 @@ struct GameEndView: View {
     
     var body: some View {
         VStack {
-            LargeText("Player \(winner.rawValue) wins!")
-            NavigationButton(text: "Back to menu", onPress: {path.removeAll()})
+            LargeText("player \(winner.rawValue) wins")
+            NavigationButton(text: "back to menu", onPress: {path.removeAll()})
         }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .background(.ultraThinMaterial)

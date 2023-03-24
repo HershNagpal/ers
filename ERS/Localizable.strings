@@ -5,3 +5,28 @@
   Created by Hersh Nagpal on 3/24/23.
   
 */
+ 
+"ers" = "Egyptian Rat Screw";
+
+"play" = "Play";
+"tutorial" = "Tutorial";
+"settings" = "Settings";
+
+"paused" = "Paused";
+"resume" = "Resume";
+"restart" = "Restart";
+"back to menu" = "Back to Menu";
+"player one wins" = "Player One wins!";
+"player two wins" = "Player Two wins!";
+
+"visuals" = "Visuals";
+"slap rules" = "Slap Rules";
+"easy deal" = "Easy Deal";
+"easy claim" = "Easy Claim";
+"doubles" = "Doubles";
+"sandwich" = "Sandwich";
+"couples" = "Couples";
+"divorce" = "Divorce";
+"queen of death" = "Queen of Death";
+"burn amount" = "Burn Amount on Misslap";
+

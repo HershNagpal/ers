@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct TutorialCard: View {
-    var text: String
+    var text: LocalizedStringKey
     static let tutorialStrings: [String] = [
         "Welcome to the tutorial for Egyptian Rat Screw! This is a card game where players try to collect the whole deck through quick reflexes and some good luck."
     ]
     
-    init(_ text: String) {
+    init(_ text: LocalizedStringKey) {
         self.text = text
     }
     

@@ -16,11 +16,11 @@ struct PauseView: View {
     var body: some View {
         VStack(spacing: 20) {
             Spacer()
-            LargeText("Paused")
+            LargeText("paused")
             Spacer()
-            NavigationButton(text: "Resume", onPress: {isPaused = false})
-            NavigationButton(text: "Restart", onPress: {resetGame()})
-            NavigationButton(text: "Back to Menu", onPress: {path.removeAll()})
+            NavigationButton(text: "resume", onPress: {isPaused = false})
+            NavigationButton(text: "restart", onPress: {resetGame()})
+            NavigationButton(text: "back to menu", onPress: {path.removeAll()})
             Spacer()
         }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)

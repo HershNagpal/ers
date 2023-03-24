@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NavigationButton: View {
-    let text: String
+    let text: LocalizedStringKey
     let onPress: () -> Void
     
     var body: some View {

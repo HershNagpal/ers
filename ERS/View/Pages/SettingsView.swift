@@ -22,39 +22,39 @@ struct SettingsView: View {
     
     var body: some View {
         List {
-            Section("Visuals") {
-                Toggle("Easy Deal", isOn: $easyDeal)
+            Section("visuals") {
+                Toggle("easy deal", isOn: $easyDeal)
                     .onChange(of: easyDeal) { value in
                         UserDefaults.standard.set(easyDeal, forKey: "easyDeal")
                     }
-                Toggle("Easy Claim", isOn: $easyClaim)
+                Toggle("easy claim", isOn: $easyClaim)
                     .onChange(of: easyClaim) { value in
                         UserDefaults.standard.set(easyClaim, forKey: "easyClaim")
                     }
             }
             
-            Section("Slap Rules") {
-                Toggle("Doubles", isOn: $doublesOn)
+            Section("slap rules") {
+                Toggle("doubles", isOn: $doublesOn)
                     .onChange(of: doublesOn) { value in
                         UserDefaults.standard.set(doublesOn, forKey: "doublesOn")
                     }
-                Toggle("Sandwich", isOn: $sandwichOn)
+                Toggle("sandwich", isOn: $sandwichOn)
                     .onChange(of: sandwichOn) { value in
                         UserDefaults.standard.set(sandwichOn, forKey: "sandwichOn")
                     }
-                Toggle("Couples", isOn: $couplesOn)
+                Toggle("couples", isOn: $couplesOn)
                     .onChange(of: couplesOn) { value in
                         UserDefaults.standard.set(couplesOn, forKey: "couplesOn")
                     }
-                Toggle("Divorce", isOn: $divorceOn)
+                Toggle("divorce", isOn: $divorceOn)
                     .onChange(of: divorceOn) { value in
                         UserDefaults.standard.set(divorceOn, forKey: "divorceOn")
                     }
-                Toggle("Queen of Death", isOn: $queenOfDeathOn)
+                Toggle("queen of death", isOn: $queenOfDeathOn)
                     .onChange(of: queenOfDeathOn) { value in
                         UserDefaults.standard.set(queenOfDeathOn, forKey: "queenOfDeathOn")
                     }
-                Picker("Burn Amount on Misslap", selection: $burnAmount) {
+                Picker("burn amount", selection: $burnAmount) {
                     ForEach([1,2,3,5,10], id: \.self) { num in
                         Text("\(num)")
                     }

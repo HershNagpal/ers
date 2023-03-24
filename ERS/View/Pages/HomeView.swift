@@ -28,11 +28,11 @@ struct HomeView: View {
         NavigationStack(path: $path) {
             VStack(spacing: 20) {
                 Spacer()
-                LargeText("Egyptian Rat Screw")
+                LargeText("ers")
                 Spacer()
-                NavigationButton(text: "Play", onPress: {path.append("game")})
-                NavigationButton(text: "Tutorial", onPress: {path.append("tutorial")})
-                NavigationButton(text: "Settings", onPress: {path.append("settings")})
+                NavigationButton(text: "play", onPress: {path.append("game")})
+                NavigationButton(text: "tutorial", onPress: {path.append("tutorial")})
+                NavigationButton(text: "settings", onPress: {path.append("settings")})
                 Spacer()
             }
             .frame(maxWidth: .infinity)
@@ -41,7 +41,7 @@ struct HomeView: View {
                 switch string {
                 case "settings":
                     SettingsView()
-                        .navigationTitle("Settings")
+                        .navigationTitle("settings")
                 case "game":
                     GameView(path: $path)
                         .navigationBarBackButtonHidden()
