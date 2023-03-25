@@ -121,7 +121,6 @@
 			isa = PBXGroup;
 			children = (
 				B3AE84F729CA1D7600D735F9 /* Info.plist */,
-				B31B8CFD297A2C1900FDC910 /* ViewModel */,
 				B31B8CFC297A2C1100FDC910 /* View */,
 				B31B8CFB297A2C0900FDC910 /* Model */,
 				B31B8CED297A2BAE00FDC910 /* ERSApp.swift */,
@@ -159,13 +158,6 @@
 				B3AE850D29CCB8DD00D735F9 /* Colors.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		B31B8CFD297A2C1900FDC910 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B31B8D0F297A60D400FDC910 /* ERSTests */ = {
