@@ -23,6 +23,7 @@ class Game: ObservableObject {
     let couplesOn: Bool = UserDefaults.standard.bool(forKey: "couplesOn")
     let divorceOn: Bool = UserDefaults.standard.bool(forKey: "divorceOn")
     let queenOfDeathOn: Bool = UserDefaults.standard.bool(forKey: "queenOfDeathOn")
+    let topAndBottomOn: Bool = UserDefaults.standard.bool(forKey: "topAndBottomOn")
     let burnAmount: Int = UserDefaults.standard.integer(forKey: "burnAmount")
     
     init() {
@@ -88,7 +89,7 @@ class Game: ObservableObject {
     func slap(_ player: PlayerNumber) {
         guard stack.count > 0 else { return }
         if isDoubles() || isCouples() || isDivorce() || isSandwich() ||
-            isQueenOfDeath() || player == stackClaimSlap {
+            isQueenOfDeath() || isTopAndBottom() || player == stackClaimSlap {
             stack.append(contentsOf: burnPile)
             player == .one
                 ? deck1.addCards(stack)
@@ -178,6 +179,15 @@ class Game: ObservableObject {
         guard queenOfDeathOn else { return false }
         guard stack.count > 0 else { return false }
         return stack[0].value == .queen && stack[0].suit == .hearts
+    }
+    
+    private func isTopAndBottom() -> Bool {
+        guard topAndBottomOn else { return false }
+        guard stack.count > 1 else { return false }
+        if stack.first!.value == stack.last!.value {
+            return true
+        }
+        return false
     }
     
     private func checkVictory() -> Bool {

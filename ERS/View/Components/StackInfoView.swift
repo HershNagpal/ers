@@ -12,6 +12,8 @@ struct StackInfoView: View {
     @Binding var burnPile: [Card]
     @Binding var deck: Deck
     @State var burnScaleAmount: Double = 0
+    @State var deckScaleAmount: Double = 0
+    @State var lastDeckCount: Int
     
     var body: some View {
         HStack(spacing: 0) {
@@ -30,12 +32,14 @@ struct StackInfoView: View {
                     .frame(maxWidth: 50, maxHeight: 50)
                     .scaleEffect(1 + burnScaleAmount)
                     .onChange(of: burnPile.count) { count in
-                        withAnimation(.easeInOut(duration: 0.2)) {
-                            burnScaleAmount = 0.5
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        if count != 0 && burnPile.count != 0 {
                             withAnimation(.easeInOut(duration: 0.2)) {
-                                burnScaleAmount = 0.0
+                                burnScaleAmount = 0.5
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    burnScaleAmount = 0.0
+                                }
                             }
                         }
                     }
@@ -46,6 +50,20 @@ struct StackInfoView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 50, maxHeight: 50)
+                    .scaleEffect(1 + deckScaleAmount)
+                    .onChange(of: deck.numCards()) { count in
+                        if count > lastDeckCount {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                deckScaleAmount = 0.5
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    deckScaleAmount = 0.0
+                                }
+                            }
+                        }
+                        lastDeckCount = count
+                    }
                 MediumText("\(deck.numCards())")
             }
             Spacer()
