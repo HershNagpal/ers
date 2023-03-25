@@ -11,7 +11,7 @@
 "multiplayer" = "Multiplayer";
 "singleplayer" = "Singleplayer";
 "tutorial" = "Tutorial";
-"settings" = "Settings";
+"options" = "Options";
 
 // In Game
 "paused" = "Paused";

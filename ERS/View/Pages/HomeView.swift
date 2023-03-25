@@ -37,16 +37,16 @@ struct HomeView: View {
                 NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
                 NavigationButton(text: "singleplayer", onPress: {path.append("singleplayer")})
                 NavigationButton(text: "tutorial", onPress: {path.append("tutorial")})
-                NavigationButton(text: "settings", onPress: {path.append("settings")})
+                NavigationButton(text: "options", onPress: {path.append("options")})
                 Spacer()
             }
             .frame(maxWidth: .infinity)
             .background(Colors.yellow)
             .navigationDestination(for: String.self) { string in
                 switch string {
-                case "settings":
+                case "options":
                     SettingsView()
-                        .navigationTitle("settings")
+                        .navigationTitle("options")
                 case "multiplayer":
                     GameView(path: $path)
                         .navigationBarBackButtonHidden()
