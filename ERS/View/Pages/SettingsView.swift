@@ -20,6 +20,7 @@ struct SettingsView: View {
     @State var queenOfDeathOn: Bool = UserDefaults.standard.bool(forKey: "queenOfDeathOn")
     @State var topAndBottomOn: Bool = UserDefaults.standard.bool(forKey: "topAndBottomOn")
     @State var addToTenOn: Bool = UserDefaults.standard.bool(forKey: "addToTenOn")
+    @State var sequenceOn: Bool = UserDefaults.standard.bool(forKey: "sequenceOn")
     
     @State var difficulty: Int = UserDefaults.standard.integer(forKey: "difficulty")
     
@@ -79,6 +80,11 @@ struct SettingsView: View {
                     .onChange(of: addToTenOn) { value in
                         UserDefaults.standard.set(addToTenOn, forKey: "addToTenOn")
                     }
+                Toggle("sequence", isOn: $sequenceOn)
+                    .onChange(of: sequenceOn) { value in
+                        UserDefaults.standard.set(sequenceOn, forKey: "sequenceOn")
+                    }
+                
                 Picker("burn amount", selection: $burnAmount) {
                     ForEach(burnValues, id: \.self) { num in
                         Text("\(num)")

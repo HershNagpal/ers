@@ -25,6 +25,7 @@ class Game: ObservableObject {
     let queenOfDeathOn: Bool = UserDefaults.standard.bool(forKey: "queenOfDeathOn")
     let topAndBottomOn: Bool = UserDefaults.standard.bool(forKey: "topAndBottomOn")
     let addToTenOn: Bool = UserDefaults.standard.bool(forKey: "addToTenOn")
+    let sequenceOn: Bool = UserDefaults.standard.bool(forKey: "sequenceOn")
     
     let burnAmount: Int = UserDefaults.standard.integer(forKey: "burnAmount")
     
@@ -107,7 +108,7 @@ class Game: ObservableObject {
     
     func isValidSlap(_ player: PlayerNumber) -> Bool {
         return isDoubles() || isCouples() || isDivorce() || isSandwich() ||
-            isQueenOfDeath() || isTopAndBottom() || isAddToTen()
+            isQueenOfDeath() || isTopAndBottom() || isAddToTen() || isSequence()
             || player == stackClaimSlap
     }
     
@@ -208,6 +209,18 @@ class Game: ObservableObject {
             if stack[0].value.rawValue + stack[1].value.rawValue + stack[2].value.rawValue == 10 {
                 return true
             }
+        }
+        
+        return false
+    }
+    
+    private func isSequence() -> Bool {
+        guard sequenceOn else { return false }
+        guard stack.count >= 3 else { return false }
+        if stack[0].value.rawValue+1 == stack[1].value.rawValue && stack[1].value.rawValue+1 == stack[2].value.rawValue {
+            return true
+        } else if stack[2].value.rawValue+1 == stack[1].value.rawValue && stack[1].value.rawValue+1 == stack[0].value.rawValue {
+            return true
         }
         
         return false

@@ -22,6 +22,7 @@ struct HomeView: View {
             "queenOfDeathOn": false,
             "topAndBottomOn": false,
             "addToTenOn": false,
+            "sequenceOn": false,
             "difficulty": 1,
             "burnAmount": 1,
         ])
