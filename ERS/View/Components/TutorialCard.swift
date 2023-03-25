@@ -8,27 +8,18 @@
 import SwiftUI
 
 struct TutorialCard: View {
-    var text: LocalizedStringKey
-    static let tutorialStrings: [String] = [
-        "Welcome to the tutorial for Egyptian Rat Screw! This is a card game where players try to collect the whole deck through quick reflexes and some good luck."
-    ]
-    
-    init(_ text: LocalizedStringKey) {
-        self.text = text
-    }
-    
+    @Binding var tutorialNumber: Int
+
     var body: some View {
         VStack {
-            MediumText(text)
+            TutorialText(LocalizedStringKey("t"+String(tutorialNumber)))
         }
         .foregroundColor(.black)
-        .frame(width: 200)
-        .background(Colors.orange)
+        .padding(15)
+        .frame(maxWidth: .infinity)
+        .background(Colors.yellow)
+        .cornerRadius(15)
+        .shadow(radius: 2, x: -2, y: 2)
     }
 }
 
-struct TutorialCard_Previews: PreviewProvider {
-    static var previews: some View {
-        TutorialCard("This is a tutorial")
-    }
-}

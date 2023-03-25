@@ -48,8 +48,7 @@ struct HomeView: View {
                         .statusBar(hidden: true)
                 case "tutorial":
                     TutorialView(path: $path)
-                        .navigationBarBackButtonHidden()
-                        .statusBar(hidden: true)
+                        .navigationTitle("tutorial")
                 default:
                     Spacer()
                 }

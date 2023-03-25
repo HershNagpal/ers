@@ -1,5 +1,5 @@
 //
-//  ERSGame.swift
+//  Game.swift
 //  ERS
 //
 //  Created by Hersh Nagpal on 3/20/23.
