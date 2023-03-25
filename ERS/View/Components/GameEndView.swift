@@ -20,3 +20,4 @@ struct GameEndView: View {
             .background(.ultraThinMaterial)
     }
 }
+

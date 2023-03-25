@@ -36,6 +36,9 @@
 		B3AE852229CE4A1C00D735F9 /* PlayerNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE852129CE4A1C00D735F9 /* PlayerNumber.swift */; };
 		B3AE852429CE4F8000D735F9 /* TutorialText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE852329CE4F8000D735F9 /* TutorialText.swift */; };
 		B3AE852E29CEA6E700D735F9 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE852D29CEA6E700D735F9 /* PracticeView.swift */; };
+		B3AE853029CEC1D400D735F9 /* RuleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE852F29CEC1D400D735F9 /* RuleCardView.swift */; };
+		B3AE853229CEC5AD00D735F9 /* RuleDescriptionText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE853129CEC5AD00D735F9 /* RuleDescriptionText.swift */; };
+		B3AE853429CEC5B500D735F9 /* RuleTitleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE853329CEC5B500D735F9 /* RuleTitleText.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +84,9 @@
 		B3AE852129CE4A1C00D735F9 /* PlayerNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerNumber.swift; sourceTree = "<group>"; };
 		B3AE852329CE4F8000D735F9 /* TutorialText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialText.swift; sourceTree = "<group>"; };
 		B3AE852D29CEA6E700D735F9 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
+		B3AE852F29CEC1D400D735F9 /* RuleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleCardView.swift; sourceTree = "<group>"; };
+		B3AE853129CEC5AD00D735F9 /* RuleDescriptionText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleDescriptionText.swift; sourceTree = "<group>"; };
+		B3AE853329CEC5B500D735F9 /* RuleTitleText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleTitleText.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +198,7 @@
 				B3AE850929CC9C4800D735F9 /* PauseView.swift */,
 				B3AE851229CE3EFA00D735F9 /* TutorialCard.swift */,
 				B3AE850B29CCA7A300D735F9 /* GameEndView.swift */,
+				B3AE852F29CEC1D400D735F9 /* RuleCardView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -215,6 +222,8 @@
 				B3AE84FD29CA910600D735F9 /* MediumText.swift */,
 				B3AE850729CC99C500D735F9 /* ButtonText.swift */,
 				B3AE852329CE4F8000D735F9 /* TutorialText.swift */,
+				B3AE853129CEC5AD00D735F9 /* RuleDescriptionText.swift */,
+				B3AE853329CEC5B500D735F9 /* RuleTitleText.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -320,6 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3AE853029CEC1D400D735F9 /* RuleCardView.swift in Sources */,
 				B3AE850C29CCA7A300D735F9 /* GameEndView.swift in Sources */,
 				B3AE850E29CCB8DD00D735F9 /* Colors.swift in Sources */,
 				B31B8D03297A2D4C00FDC910 /* Deck.swift in Sources */,
@@ -340,10 +350,12 @@
 				B3AE84F429C94CDC00D735F9 /* Game.swift in Sources */,
 				B38E314D2995FD57005254F9 /* SettingsView.swift in Sources */,
 				B3AE852E29CEA6E700D735F9 /* PracticeView.swift in Sources */,
+				B3AE853429CEC5B500D735F9 /* RuleTitleText.swift in Sources */,
 				B38E315329961037005254F9 /* NavigationButton.swift in Sources */,
 				B3AE852229CE4A1C00D735F9 /* PlayerNumber.swift in Sources */,
 				B3AE84F929CA4B3400D735F9 /* PlayerInteractionView.swift in Sources */,
 				B3AE84F229C94CBA00D735F9 /* GameView.swift in Sources */,
+				B3AE853229CEC5AD00D735F9 /* RuleDescriptionText.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,7 +515,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.egyptianratscrew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -535,7 +547,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.egyptianratscrew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

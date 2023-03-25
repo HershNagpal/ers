@@ -29,11 +29,11 @@ struct SettingsView: View {
     var body: some View {
         List {
             Section("visuals") {
-                Toggle("easy deal", isOn: $easyDeal)
+                RuleCardView(ruleName: "easy deal", ruleDescription: "easy deal description", isOn: $easyDeal)
                     .onChange(of: easyDeal) { value in
                         UserDefaults.standard.set(easyDeal, forKey: "easyDeal")
                     }
-                Toggle("easy claim", isOn: $easyClaim)
+                RuleCardView(ruleName: "easy claim", ruleDescription: "easy claim description", isOn: $easyClaim)
                     .onChange(of: easyClaim) { value in
                         UserDefaults.standard.set(easyClaim, forKey: "easyClaim")
                     }
@@ -46,53 +46,52 @@ struct SettingsView: View {
                     }
                     .pickerStyle(.menu)
                     .onChange(of: difficulty) { value in
-                        UserDefaults.standard.set(difficulty+1, forKey: "difficulty")
+                        UserDefaults.standard.set(difficulty, forKey: "difficulty")
                     }
                 }
             }
             
             Section("slap rules") {
-                Toggle("doubles", isOn: $doublesOn)
+                RuleCardView(ruleName: "doubles", ruleDescription: "doubles description", isOn: $doublesOn)
                     .onChange(of: doublesOn) { value in
                         UserDefaults.standard.set(doublesOn, forKey: "doublesOn")
                     }
-                Toggle("sandwich", isOn: $sandwichOn)
+                RuleCardView(ruleName: "sandwich", ruleDescription: "sandwich description", isOn: $sandwichOn)
                     .onChange(of: sandwichOn) { value in
                         UserDefaults.standard.set(sandwichOn, forKey: "sandwichOn")
                     }
-                Toggle("couples", isOn: $couplesOn)
+                RuleCardView(ruleName: "couples", ruleDescription: "couples description", isOn: $couplesOn)
                     .onChange(of: couplesOn) { value in
                         UserDefaults.standard.set(couplesOn, forKey: "couplesOn")
                     }
-                Toggle("divorce", isOn: $divorceOn)
+                RuleCardView(ruleName: "divorce", ruleDescription: "divorce description", isOn: $divorceOn)
                     .onChange(of: divorceOn) { value in
                         UserDefaults.standard.set(divorceOn, forKey: "divorceOn")
                     }
-                Toggle("queen of death", isOn: $queenOfDeathOn)
+                RuleCardView(ruleName: "queen of death", ruleDescription: "queen of death description", isOn: $queenOfDeathOn)
                     .onChange(of: queenOfDeathOn) { value in
                         UserDefaults.standard.set(queenOfDeathOn, forKey: "queenOfDeathOn")
                     }
-                Toggle("top and bottom", isOn: $topAndBottomOn)
+                RuleCardView(ruleName: "top and bottom", ruleDescription: "top and bottom description", isOn: $topAndBottomOn)
                     .onChange(of: topAndBottomOn) { value in
                         UserDefaults.standard.set(topAndBottomOn, forKey: "topAndBottomOn")
                     }
-                Toggle("add to ten", isOn: $addToTenOn)
+                RuleCardView(ruleName: "add to ten", ruleDescription: "add to ten description", isOn: $addToTenOn)
                     .onChange(of: addToTenOn) { value in
                         UserDefaults.standard.set(addToTenOn, forKey: "addToTenOn")
                     }
-                Toggle("sequence", isOn: $sequenceOn)
+                RuleCardView(ruleName: "sequence", ruleDescription: "sequence description", isOn: $sequenceOn)
                     .onChange(of: sequenceOn) { value in
                         UserDefaults.standard.set(sequenceOn, forKey: "sequenceOn")
                     }
-                
-                Picker("burn amount", selection: $burnAmount) {
-                    ForEach(burnValues, id: \.self) { num in
-                        Text("\(num)")
-                    }
-                    .pickerStyle(.menu)
-                    .onChange(of: burnAmount) { value in
-                        UserDefaults.standard.set(burnAmount, forKey: "burnAmount")
-                    }
+            }
+            Picker("burn amount", selection: $burnAmount) {
+                ForEach(burnValues, id: \.self) { num in
+                    Text("\(num)")
+                }
+                .pickerStyle(.menu)
+                .onChange(of: burnAmount) { value in
+                    UserDefaults.standard.set(burnAmount, forKey: "burnAmount")
                 }
             }
         }

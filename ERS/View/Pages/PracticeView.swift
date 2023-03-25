@@ -47,7 +47,7 @@ struct PracticeView: View {
     
     private func playerTwoTurn()  {
         let slapSkipDict = [20, 20, 10, 10]
-        let randomTime = Double(4/difficulty)
+        let randomTime = Double(4/(difficulty+1))
         let chanceToSkipSlap = slapSkipDict[difficulty]
         
         DispatchQueue.main.asyncAfter(deadline: .now() + randomTime-randomTime/4) {

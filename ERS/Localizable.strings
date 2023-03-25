@@ -21,26 +21,41 @@
 "player one wins" = "Player One wins!";
 "player two wins" = "Player Two wins!";
 
-// Settings
+// Options
 "visuals" = "Visuals";
-"slap rules" = "Slap Rules";
-"practice mode" = "Practice Mode";
+"easy deal" = "Easy Deal";
+"easy deal description" = "Changes the color of the deal button when it isn't your turn.";
+"easy claim" = "Easy Claim";
+"easy claim description" = "Changes the color of the slap button when your opponent has used their chances after you played a face card or ace.";
+
+"practice mode" = "Singleplayer";
 "difficulty" = "Difficulty";
 "easy" = "Easy";
 "medium" = "Medium";
 "hard" = "Hard";
 "ouch" = "Ouch";
-"easy deal" = "Easy Deal";
-"easy claim" = "Easy Claim";
+
+
+"slap rules" = "Slap Rules";
 "doubles" = "Doubles";
+"doubles description" = "Two cards with the same value on top of the stack.";
 "sandwich" = "Sandwich";
+"sandwich description" = "Two cards with the same value, but with any card in between.";
 "couples" = "Couples";
+"couples description" = "A King and a Queen, in any order, on top of the stack.";
 "divorce" = "Divorce";
+"divorce description" = "A King and a Queen, in any order, but with a card in between.";
+"sequence" = "Sequence";
+"sequence description" = "Three cards in an increasing or decreasing sequence.";
 "queen of death" = "Queen of Death";
+"queen of death description" = "The Queen of Hearts on top of the stack. That's it.";
 "top and bottom" = "Top and Bottom";
+"top and bottom description" = "Two cards with the same value at the top and bottom of the stack. You'll need good memory.";
 "add to ten" = "Add to Ten";
-"sequence" = "sequence";
+"add to ten description" = "Two or three cards at the top of the stack that add up to ten.";
+
 "burn amount" = "Burn Amount on Misslap";
+"burn amount on description" = "";
 
 // Tutorial
 "next" = "Next";
