@@ -30,6 +30,7 @@
 
 "practice mode" = "Singleplayer";
 "difficulty" = "Difficulty";
+"difficulty description" = "The difficulty of the opponent in singleplayer affects how quickly it deals and slaps, and its chance to miss an opportunity to slap.";
 "easy" = "Easy";
 "medium" = "Medium";
 "hard" = "Hard";
@@ -54,8 +55,8 @@
 "add to ten" = "Add to Ten";
 "add to ten description" = "Two or three cards at the top of the stack that add up to ten.";
 
-"burn amount" = "Burn Amount on Misslap";
-"burn amount on description" = "";
+"burn amount" = "Burn Amount";
+"burn amount description" = "The amount of cards burnt when slapping incorrectly";
 
 // Tutorial
 "next" = "Next";

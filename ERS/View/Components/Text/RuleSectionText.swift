@@ -1,5 +1,5 @@
 //
-//  RuleTitleText.swift
+//  RuleSectionText.swift
 //  ERS
 //
 //  Created by Hersh Nagpal on 3/25/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RuleTitleText: View {
+struct RuleSectionText: View {
     var text: LocalizedStringKey
     
     init(_ text: LocalizedStringKey) {
@@ -16,14 +16,9 @@ struct RuleTitleText: View {
     
     var body: some View {
         Text(text)
-            .font(.title3)
-            .fontWeight(.light)
+            .font(.title2)
+            .fontWeight(.thin)
             .foregroundColor(.black)
     }
 }
 
-struct RuleTitleText_Previews: PreviewProvider {
-    static var previews: some View {
-        RuleTitleText("Rule Title")
-    }
-}

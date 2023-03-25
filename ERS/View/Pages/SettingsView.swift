@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     let burnValues = [1,2,3,4,5,10]
     let difficulties = ["easy", "medium", "hard", "ouch"]
+    
     @State var easyDeal: Bool = UserDefaults.standard.bool(forKey: "easyDeal")
     @State var easyClaim: Bool = UserDefaults.standard.bool(forKey: "easyClaim")
     
@@ -27,74 +28,87 @@ struct SettingsView: View {
     @State var burnAmount: Int = UserDefaults.standard.integer(forKey: "burnAmount")
     
     var body: some View {
-        List {
-            Section("visuals") {
-                RuleCardView(ruleName: "easy deal", ruleDescription: "easy deal description", isOn: $easyDeal)
+        List() {
+            Section(header: RuleSectionText("visuals")) {
+                RuleToggleView(ruleName: "easy deal", ruleDescription: "easy deal description", isOn: $easyDeal)
                     .onChange(of: easyDeal) { value in
                         UserDefaults.standard.set(easyDeal, forKey: "easyDeal")
                     }
-                RuleCardView(ruleName: "easy claim", ruleDescription: "easy claim description", isOn: $easyClaim)
+                RuleToggleView(ruleName: "easy claim", ruleDescription: "easy claim description", isOn: $easyClaim)
                     .onChange(of: easyClaim) { value in
                         UserDefaults.standard.set(easyClaim, forKey: "easyClaim")
                     }
             }
             
-            Section("practice mode") {
-                Picker("difficulty", selection: $difficulty) {
-                    ForEach(0...3, id: \.self) { index in
-                        Text(LocalizedStringKey(String(difficulties[index])))
+            Section(header: RuleSectionText("singleplayer")) {
+                VStack(alignment: .leading) {
+                    Picker("difficulty", selection: $difficulty) {
+                        ForEach(0...3, id: \.self) { index in
+                            Text(LocalizedStringKey(String(difficulties[index])))
+                        }
+                        .pickerStyle(.menu)
                     }
-                    .pickerStyle(.menu)
-                    .onChange(of: difficulty) { value in
-                        UserDefaults.standard.set(difficulty, forKey: "difficulty")
-                    }
+                    RuleDescriptionText("difficulty description")
                 }
+                .onChange(of: difficulty) { value in
+                    UserDefaults.standard.set(difficulty, forKey: "difficulty")
+                }
+                .frame(maxWidth: .infinity)
+                .foregroundColor(.black)
             }
             
-            Section("slap rules") {
-                RuleCardView(ruleName: "doubles", ruleDescription: "doubles description", isOn: $doublesOn)
+            Section(header: RuleSectionText("slap rules")) {
+                VStack(alignment: .leading) {
+                    Picker("burn amount", selection: $burnAmount) {
+                        ForEach(burnValues, id: \.self) { option in
+                            RuleDescriptionText("\(option)")
+                        }
+                        .pickerStyle(.menu)
+                    }
+                    RuleDescriptionText("burn amount description")
+                }
+                .onChange(of: burnAmount) { value in
+                    UserDefaults.standard.set(burnAmount, forKey: "burnAmount")
+                }
+                .frame(maxWidth: .infinity)
+                .foregroundColor(.black)
+                
+                RuleToggleView(ruleName: "doubles", ruleDescription: "doubles description", isOn: $doublesOn)
                     .onChange(of: doublesOn) { value in
                         UserDefaults.standard.set(doublesOn, forKey: "doublesOn")
                     }
-                RuleCardView(ruleName: "sandwich", ruleDescription: "sandwich description", isOn: $sandwichOn)
+                RuleToggleView(ruleName: "sandwich", ruleDescription: "sandwich description", isOn: $sandwichOn)
                     .onChange(of: sandwichOn) { value in
                         UserDefaults.standard.set(sandwichOn, forKey: "sandwichOn")
                     }
-                RuleCardView(ruleName: "couples", ruleDescription: "couples description", isOn: $couplesOn)
+                RuleToggleView(ruleName: "couples", ruleDescription: "couples description", isOn: $couplesOn)
                     .onChange(of: couplesOn) { value in
                         UserDefaults.standard.set(couplesOn, forKey: "couplesOn")
                     }
-                RuleCardView(ruleName: "divorce", ruleDescription: "divorce description", isOn: $divorceOn)
+                RuleToggleView(ruleName: "divorce", ruleDescription: "divorce description", isOn: $divorceOn)
                     .onChange(of: divorceOn) { value in
                         UserDefaults.standard.set(divorceOn, forKey: "divorceOn")
                     }
-                RuleCardView(ruleName: "queen of death", ruleDescription: "queen of death description", isOn: $queenOfDeathOn)
+                RuleToggleView(ruleName: "queen of death", ruleDescription: "queen of death description", isOn: $queenOfDeathOn)
                     .onChange(of: queenOfDeathOn) { value in
                         UserDefaults.standard.set(queenOfDeathOn, forKey: "queenOfDeathOn")
                     }
-                RuleCardView(ruleName: "top and bottom", ruleDescription: "top and bottom description", isOn: $topAndBottomOn)
+                RuleToggleView(ruleName: "top and bottom", ruleDescription: "top and bottom description", isOn: $topAndBottomOn)
                     .onChange(of: topAndBottomOn) { value in
                         UserDefaults.standard.set(topAndBottomOn, forKey: "topAndBottomOn")
                     }
-                RuleCardView(ruleName: "add to ten", ruleDescription: "add to ten description", isOn: $addToTenOn)
+                RuleToggleView(ruleName: "add to ten", ruleDescription: "add to ten description", isOn: $addToTenOn)
                     .onChange(of: addToTenOn) { value in
                         UserDefaults.standard.set(addToTenOn, forKey: "addToTenOn")
                     }
-                RuleCardView(ruleName: "sequence", ruleDescription: "sequence description", isOn: $sequenceOn)
+                RuleToggleView(ruleName: "sequence", ruleDescription: "sequence description", isOn: $sequenceOn)
                     .onChange(of: sequenceOn) { value in
                         UserDefaults.standard.set(sequenceOn, forKey: "sequenceOn")
                     }
             }
-            Picker("burn amount", selection: $burnAmount) {
-                ForEach(burnValues, id: \.self) { num in
-                    Text("\(num)")
-                }
-                .pickerStyle(.menu)
-                .onChange(of: burnAmount) { value in
-                    UserDefaults.standard.set(burnAmount, forKey: "burnAmount")
-                }
-            }
         }
+        .scrollContentBackground(.hidden)
+        .background(Colors.yellow)
     }
 }
 

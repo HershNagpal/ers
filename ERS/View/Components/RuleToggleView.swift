@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RuleCardView: View {
+struct RuleToggleView: View {
     let ruleName: LocalizedStringKey
     let ruleDescription: LocalizedStringKey
     @Binding var isOn: Bool
@@ -21,11 +21,7 @@ struct RuleCardView: View {
             RuleDescriptionText(ruleDescription)
         }
         .frame(maxWidth: .infinity)
-        .padding(15)
         .foregroundColor(.black)
-        .background(Colors.grey)
-        .cornerRadius(15)
-        .shadow(radius: 2, x: -2, y: 2)
     }
 }
 
