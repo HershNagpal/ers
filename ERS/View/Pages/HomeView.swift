@@ -21,6 +21,7 @@ struct HomeView: View {
                 "divorceOn": false,
                 "queenOfDeathOn": false,
                 "topAndBottomOn": false,
+                "difficulty": 1,
                 "burnAmount": 1,
             ])
         }
@@ -32,6 +33,7 @@ struct HomeView: View {
                 LargeText("ers")
                 Spacer()
                 NavigationButton(text: "play", onPress: {path.append("game")})
+                NavigationButton(text: "practice", onPress: {path.append("practice")})
                 NavigationButton(text: "tutorial", onPress: {path.append("tutorial")})
                 NavigationButton(text: "settings", onPress: {path.append("settings")})
                 Spacer()
@@ -45,6 +47,10 @@ struct HomeView: View {
                         .navigationTitle("settings")
                 case "game":
                     GameView(path: $path)
+                        .navigationBarBackButtonHidden()
+                        .statusBar(hidden: true)
+                case "practice":
+                    PracticeView(path: $path)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)
                 case "tutorial":

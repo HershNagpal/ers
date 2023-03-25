@@ -9,8 +9,10 @@
 // Menu Screen
 "ers" = "Egyptian Rat Screw";
 "play" = "Play";
+"practice" = "Practice";
 "tutorial" = "Tutorial";
 "settings" = "Settings";
+
 
 // In Game
 "paused" = "Paused";
@@ -23,6 +25,12 @@
 // Settings
 "visuals" = "Visuals";
 "slap rules" = "Slap Rules";
+"practice mode" = "Practice Mode";
+"difficulty" = "Difficulty";
+"easy" = "Easy";
+"medium" = "Medium";
+"hard" = "Hard";
+"ouch" = "Ouch";
 "easy deal" = "Easy Deal";
 "easy claim" = "Easy Claim";
 "doubles" = "Doubles";

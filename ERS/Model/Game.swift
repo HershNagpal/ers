@@ -88,8 +88,7 @@ class Game: ObservableObject {
     
     func slap(_ player: PlayerNumber) {
         guard stack.count > 0 else { return }
-        if isDoubles() || isCouples() || isDivorce() || isSandwich() ||
-            isQueenOfDeath() || isTopAndBottom() || player == stackClaimSlap {
+        if isValidSlap(player) {
             stack.append(contentsOf: burnPile)
             player == .one
                 ? deck1.addCards(stack)
@@ -102,6 +101,11 @@ class Game: ObservableObject {
             return
         }
         burnCards(player, amount: burnAmount)
+    }
+    
+    func isValidSlap(_ player: PlayerNumber) -> Bool {
+        return isDoubles() || isCouples() || isDivorce() || isSandwich() ||
+            isQueenOfDeath() || isTopAndBottom() || player == stackClaimSlap
     }
     
     func restart() {

@@ -10,6 +10,7 @@ import SwiftUI
 struct PlayerInteractionView: View {
     @Binding var isPaused: Bool
     @StateObject var game: Game
+    let isDisabled: Bool
     var player: PlayerNumber
     @State var easyDeal: Bool = UserDefaults.standard.bool(forKey: "easyDeal")
     @State var easyClaim: Bool = UserDefaults.standard.bool(forKey: "easyClaim")
@@ -17,7 +18,7 @@ struct PlayerInteractionView: View {
     var body: some View {
         ZStack {
             HStack(spacing: 0) {
-                Button(action: {game.deal(player)}) {
+                Button(action: { if !isDisabled {game.deal(player)}}) {
                     VStack {
                         Image("deck")
                             .resizable()
@@ -33,7 +34,7 @@ struct PlayerInteractionView: View {
                             : Colors.green
                         )
                 }
-                Button(action: {game.slap(player)}) {
+                Button(action: { if !isDisabled {game.slap(player)}}) {
                     VStack {
                         Image("hand")
                             .resizable()

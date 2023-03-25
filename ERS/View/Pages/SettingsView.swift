@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SettingsView: View {
-    let burnValues = [1,2,3,4,5]
+    let burnValues = [1,2,3,4,5,10]
+    let difficulties = ["easy", "medium", "hard", "ouch"]
     @State var easyDeal: Bool = UserDefaults.standard.bool(forKey: "easyDeal")
     @State var easyClaim: Bool = UserDefaults.standard.bool(forKey: "easyClaim")
     
@@ -18,6 +19,7 @@ struct SettingsView: View {
     @State var divorceOn: Bool = UserDefaults.standard.bool(forKey: "divorceOn")
     @State var queenOfDeathOn: Bool = UserDefaults.standard.bool(forKey: "queenOfDeathOn")
     @State var topAndBottomOn: Bool = UserDefaults.standard.bool(forKey: "topAndBottomOn")
+    @State var difficulty: Int = UserDefaults.standard.integer(forKey: "difficulty")
     
     @State var burnAmount: Int = UserDefaults.standard.integer(forKey: "burnAmount")
     
@@ -32,6 +34,18 @@ struct SettingsView: View {
                     .onChange(of: easyClaim) { value in
                         UserDefaults.standard.set(easyClaim, forKey: "easyClaim")
                     }
+            }
+            
+            Section("practice mode") {
+                Picker("difficulty", selection: $difficulty) {
+                    ForEach(0...3, id: \.self) { index in
+                        Text(LocalizedStringKey(String(difficulties[index])))
+                    }
+                    .pickerStyle(.menu)
+                    .onChange(of: difficulty) { value in
+                        UserDefaults.standard.set(difficulty+1, forKey: "difficulty")
+                    }
+                }
             }
             
             Section("slap rules") {
@@ -60,7 +74,7 @@ struct SettingsView: View {
                         UserDefaults.standard.set(topAndBottomOn, forKey: "topAndBottomOn")
                     }
                 Picker("burn amount", selection: $burnAmount) {
-                    ForEach([1,2,3,5,10], id: \.self) { num in
+                    ForEach(burnValues, id: \.self) { num in
                         Text("\(num)")
                     }
                     .pickerStyle(.menu)
