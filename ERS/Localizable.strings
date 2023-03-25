@@ -13,7 +13,6 @@
 "tutorial" = "Tutorial";
 "settings" = "Settings";
 
-
 // In Game
 "paused" = "Paused";
 "resume" = "Resume";
@@ -39,6 +38,7 @@
 "divorce" = "Divorce";
 "queen of death" = "Queen of Death";
 "top and bottom" = "Top and Bottom";
+"add to ten" = "Add to Ten";
 "burn amount" = "Burn Amount on Misslap";
 
 // Tutorial

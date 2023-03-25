@@ -17,7 +17,7 @@ struct LargeText: View {
     var body: some View {
         Text(text)
             .font(.largeTitle)
-            .fontWeight(.thin)
+            .fontWeight(.light)
             .shadow(radius: 2, x: 2, y: 2)
             .foregroundColor(.black)
     }
