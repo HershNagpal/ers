@@ -12,19 +12,19 @@ struct HomeView: View {
     @State var path = [String]()
     
     init() {
-            UserDefaults.standard.register(defaults: [
-                "easyDeal": true,
-                "easyClaim": true,
-                "doublesOn": true,
-                "sandwichOn": true,
-                "couplesOn": true,
-                "divorceOn": false,
-                "queenOfDeathOn": false,
-                "topAndBottomOn": false,
-                "difficulty": 1,
-                "burnAmount": 1,
-            ])
-        }
+        UserDefaults.standard.register(defaults: [
+            "easyDeal": true,
+            "easyClaim": true,
+            "doublesOn": true,
+            "sandwichOn": true,
+            "couplesOn": true,
+            "divorceOn": false,
+            "queenOfDeathOn": false,
+            "topAndBottomOn": false,
+            "difficulty": 1,
+            "burnAmount": 1,
+        ])
+    }
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -32,8 +32,8 @@ struct HomeView: View {
                 Spacer()
                 LargeText("ers")
                 Spacer()
-                NavigationButton(text: "play", onPress: {path.append("game")})
-                NavigationButton(text: "practice", onPress: {path.append("practice")})
+                NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
+                NavigationButton(text: "singleplayer", onPress: {path.append("singleplayer")})
                 NavigationButton(text: "tutorial", onPress: {path.append("tutorial")})
                 NavigationButton(text: "settings", onPress: {path.append("settings")})
                 Spacer()
@@ -45,11 +45,11 @@ struct HomeView: View {
                 case "settings":
                     SettingsView()
                         .navigationTitle("settings")
-                case "game":
+                case "multiplayer":
                     GameView(path: $path)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)
-                case "practice":
+                case "singleplayer":
                     PracticeView(path: $path)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)

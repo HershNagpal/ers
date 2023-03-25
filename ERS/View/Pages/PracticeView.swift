@@ -67,8 +67,6 @@ struct PracticeView: View {
                     }
                 }
             }
-            
-            
             playerTwoTurn()
         }
     }

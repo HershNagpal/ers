@@ -10,21 +10,37 @@ import SwiftUI
 struct NavigationButton: View {
     let text: LocalizedStringKey
     let onPress: () -> Void
+    let isDisabled: Bool
+    
+    init(text: LocalizedStringKey, onPress: @escaping () -> Void, isDisabled: Bool = false) {
+        self.text = text
+        self.onPress = onPress
+        self.isDisabled = isDisabled
+    }
     
     var body: some View {
-        Button() {
-            onPress()
-        } label: {
-            ButtonText(text)
-                .frame(width: 300, height: 50)
-                .padding(10)
-                .background(.black)
+        if !isDisabled {
+            Button() {
+                onPress()
+            } label: {
+                ButtonText(text)
+                    .frame(width: 300, height: 50)
+                    .padding(10)
+                    .background(.black)
+            }
+            .cornerRadius(10)
+            .shadow(radius: 2, x: -2, y: 2)
+        } else {
+            Button() {
+                return
+            } label: {
+                ButtonText(text)
+                    .frame(width: 300, height: 50)
+                    .padding(10)
+                    .background(Colors.darkGrey)
+            }
+            .cornerRadius(10)
         }
-        
-        .cornerRadius(10)
-        .foregroundColor(.white)
-        .shadow(radius: 2, x: -2, y: 2)
-        
     }
 }
 

@@ -8,8 +8,8 @@
  
 // Menu Screen
 "ers" = "Egyptian Rat Screw";
-"play" = "Play";
-"practice" = "Practice";
+"multiplayer" = "Multiplayer";
+"singleplayer" = "Singleplayer";
 "tutorial" = "Tutorial";
 "settings" = "Settings";
 
