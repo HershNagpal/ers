@@ -18,7 +18,6 @@ struct ButtonText: View {
         Text(text)
             .font(.title)
             .fontWeight(.thin)
-            .foregroundColor(.white)
     }
 }
 

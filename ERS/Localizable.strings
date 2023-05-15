@@ -57,6 +57,12 @@
 
 "burn amount" = "Burn Amount";
 "burn amount description" = "The amount of cards burnt when slapping incorrectly";
+"restore purchases" = "Restore Purchases";
+"ersUnlockRules" = "Unlock All Rules";
+"purchases" = "purchases";
+"purchases restored" = "Purchases restored";
+"error restoring purchases" = "Error restoring purchases, please try again later";
+"rules unlocked" = "All rules unlocked. Enjoy!";
 
 // Tutorial
 "next" = "Next";

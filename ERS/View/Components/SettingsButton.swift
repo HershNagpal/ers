@@ -1,13 +1,13 @@
 //
-//  NavigationButton.swift
+//  SettingsButton.swift
 //  ERS
 //
-//  Created by Hersh Nagpal on 2/10/23.
+//  Created by Hersh Nagpal on 5/15/23.
 //
 
 import SwiftUI
 
-struct NavigationButton: View {
+struct SettingsButton: View {
     let text: LocalizedStringKey
     let onPress: () -> Void
     let isDisabled: Bool
@@ -23,31 +23,24 @@ struct NavigationButton: View {
             Button() {
                 onPress()
             } label: {
-                ButtonText(text)
-                    .frame(width: 300, height: 50)
+                RuleTitleText(text)
                     .padding(10)
-                    .foregroundColor(.white)
-                    .background(.black)
+                    .foregroundColor(.black)
             }
-            .cornerRadius(10)
-            .shadow(radius: 2, x: -2, y: 2)
         } else {
             Button() {
                 return
             } label: {
-                ButtonText(text)
-                    .frame(width: 300, height: 50)
-                    .padding(10)
+                RuleTitleText(text)
                     .foregroundColor(.white)
                     .background(Colors.darkGrey)
             }
-            .cornerRadius(10)
         }
     }
 }
 
-struct NavigationButton_Previews: PreviewProvider {
+struct SettingsButton_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationButton(text: "Start Game", onPress: {})
+        NavigationButton(text: "Restore Purchases", onPress: {})
     }
 }

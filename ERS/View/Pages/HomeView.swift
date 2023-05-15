@@ -25,6 +25,7 @@ struct HomeView: View {
             "sequenceOn": false,
             "difficulty": 1,
             "burnAmount": 1,
+            "allRulesUnlocked": false,
         ])
     }
     

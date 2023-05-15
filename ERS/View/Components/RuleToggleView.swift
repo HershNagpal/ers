@@ -10,6 +10,7 @@ import SwiftUI
 struct RuleToggleView: View {
     let ruleName: LocalizedStringKey
     let ruleDescription: LocalizedStringKey
+    var isDisabled: Bool?
     @Binding var isOn: Bool
     
     var body: some View {
@@ -18,6 +19,7 @@ struct RuleToggleView: View {
                 RuleTitleText(ruleName)
             })
             .toggleStyle(SwitchToggleStyle(tint: Colors.orange))
+            .disabled(isDisabled ?? false)
             RuleDescriptionText(ruleDescription)
         }
         .frame(maxWidth: .infinity)

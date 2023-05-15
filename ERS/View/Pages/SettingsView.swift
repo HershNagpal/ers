@@ -6,10 +6,18 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct SettingsView: View {
     let burnValues = [1,2,3,4,5,10]
     let difficulties = ["easy", "medium", "hard", "ouch"]
+    let productIds = ["ersUnlockRules"]
+    @State var products: [Product] = []
+    
+    @State var showRestoreAlert = false
+    @State var showRestoreErrorAlert = false
+
+    @State var allRulesUnlocked: Bool = UserDefaults.standard.bool(forKey: "allRulesUnlocked")
     
     @State var easyDeal: Bool = UserDefaults.standard.bool(forKey: "easyDeal")
     @State var easyClaim: Bool = UserDefaults.standard.bool(forKey: "easyClaim")
@@ -27,6 +35,49 @@ struct SettingsView: View {
     
     @State var burnAmount: Int = UserDefaults.standard.integer(forKey: "burnAmount")
     
+    func restorePurchases() {
+        Task {
+            do {
+                try await AppStore.sync()
+                showRestoreAlert = true
+            } catch {
+                showRestoreErrorAlert = true
+                print(error)
+            }
+        }
+    }
+    
+    private func purchase(_ product: Product) async throws {
+        let result = try await product.purchase()
+        switch result {
+            case let .success(.verified(transaction)):
+                // Successful purhcase
+                allRulesUnlocked = true
+                await transaction.finish()
+            case let .success(.unverified(_, error)):
+                // Successful purchase but transaction/receipt can't be verified
+                // Could be a jailbroken phone
+                allRulesUnlocked = true
+                print(error)
+                break
+            case .pending:
+                // Transaction waiting on SCA (Strong Customer Authentication) or
+                // approval from Ask to Buy
+                break
+            case .userCancelled:
+                // ^^^
+                allRulesUnlocked = false
+                break
+            @unknown default:
+                UserDefaults.standard.set(allRulesUnlocked, forKey: "allRulesUnlocked")
+                break
+            }
+    }
+    
+    private func loadProducts() async throws {
+        self.products = try await Product.products(for: productIds)
+    }
+    
     var body: some View {
         List() {
             Section(header: RuleSectionText("visuals")) {
@@ -42,7 +93,7 @@ struct SettingsView: View {
             
             Section(header: RuleSectionText("singleplayer")) {
                 VStack(alignment: .leading) {
-                    Picker("difficulty", selection: $difficulty) {
+                    Picker(selection: $difficulty, label: RuleTitleText("difficulty")) {
                         ForEach(0...3, id: \.self) { index in
                             Text(LocalizedStringKey(String(difficulties[index])))
                         }
@@ -59,7 +110,7 @@ struct SettingsView: View {
             
             Section(header: RuleSectionText("slap rules")) {
                 VStack(alignment: .leading) {
-                    Picker("burn amount", selection: $burnAmount) {
+                    Picker(selection: $burnAmount, label: RuleTitleText("burn amount")) {
                         ForEach(burnValues, id: \.self) { option in
                             RuleDescriptionText("\(option)")
                         }
@@ -106,14 +157,34 @@ struct SettingsView: View {
                         UserDefaults.standard.set(sequenceOn, forKey: "sequenceOn")
                     }
             }
+            
+            Section(header: RuleSectionText("purchases")) {
+                ForEach(self.products) { (product) in
+                    SettingsButton(text: LocalizedStringKey(product.id), onPress: {Task {
+                        do {
+                            try await self.purchase(product)
+                        } catch {
+                            print(error)
+                        }
+                    }})
+                }
+                SettingsButton(text: "restore purchases", onPress: {restorePurchases()})
+                    .alert("purchases restored", isPresented: $showRestoreAlert) {
+                        Button("OK", role: .cancel) { }
+                    }
+                    .alert("error restoring purchases", isPresented: $showRestoreErrorAlert) {
+                        Button("OK", role: .cancel) { }
+                    }
+            }
+        }
+        .task {
+            do {
+                try await self.loadProducts()
+            } catch {
+                print(error)
+            }
         }
         .scrollContentBackground(.hidden)
         .background(Colors.yellow)
-    }
-}
-
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
     }
 }

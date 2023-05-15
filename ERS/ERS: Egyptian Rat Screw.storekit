@@ -1,0 +1,35 @@
+{
+  "identifier" : "6B7F0BBA",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : true,
+      "internalID" : "6448975847",
+      "localizations" : [
+        {
+          "description" : "Unlock extra rules to customize your games!",
+          "displayName" : "Unlock All Slap Rules",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "ersUnlockRules",
+      "referenceName" : "ersUnlockRules",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6446661318",
+    "_developerTeamID" : "S327B8WXV8",
+    "_lastSynchronizedDate" : 705395653.16667795
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}
