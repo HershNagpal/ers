@@ -16,8 +16,9 @@ struct SettingsView: View {
     
     @State var showRestoreAlert = false
     @State var showRestoreErrorAlert = false
+    @State var freeSettingsDisabled = false
 
-    @State var allRulesUnlocked: Bool = UserDefaults.standard.bool(forKey: "allRulesUnlocked")
+    @State var premiumRulesDisabled: Bool = !UserDefaults.standard.bool(forKey: "allRulesUnlocked")
     
     @State var easyDeal: Bool = UserDefaults.standard.bool(forKey: "easyDeal")
     @State var easyClaim: Bool = UserDefaults.standard.bool(forKey: "easyClaim")
@@ -52,12 +53,12 @@ struct SettingsView: View {
         switch result {
             case let .success(.verified(transaction)):
                 // Successful purhcase
-                allRulesUnlocked = true
+                premiumRulesDisabled = true
                 await transaction.finish()
             case let .success(.unverified(_, error)):
                 // Successful purchase but transaction/receipt can't be verified
                 // Could be a jailbroken phone
-                allRulesUnlocked = true
+                premiumRulesDisabled = true
                 print(error)
                 break
             case .pending:
@@ -66,10 +67,10 @@ struct SettingsView: View {
                 break
             case .userCancelled:
                 // ^^^
-                allRulesUnlocked = false
+                premiumRulesDisabled = false
                 break
             @unknown default:
-                UserDefaults.standard.set(allRulesUnlocked, forKey: "allRulesUnlocked")
+                UserDefaults.standard.set(premiumRulesDisabled, forKey: "allRulesUnlocked")
                 break
             }
     }
@@ -81,11 +82,11 @@ struct SettingsView: View {
     var body: some View {
         List() {
             Section(header: RuleSectionText("visuals")) {
-                RuleToggleView(ruleName: "easy deal", ruleDescription: "easy deal description", isOn: $easyDeal)
+                RuleToggleView(ruleName: "easy deal", ruleDescription: "easy deal description", isDisabled: $freeSettingsDisabled, isOn: $easyDeal)
                     .onChange(of: easyDeal) { value in
                         UserDefaults.standard.set(easyDeal, forKey: "easyDeal")
                     }
-                RuleToggleView(ruleName: "easy claim", ruleDescription: "easy claim description", isOn: $easyClaim)
+                RuleToggleView(ruleName: "easy claim", ruleDescription: "easy claim description", isDisabled: $freeSettingsDisabled, isOn: $easyClaim)
                     .onChange(of: easyClaim) { value in
                         UserDefaults.standard.set(easyClaim, forKey: "easyClaim")
                     }
@@ -108,73 +109,78 @@ struct SettingsView: View {
                 .foregroundColor(.black)
             }
             
-            Section(header: RuleSectionText("slap rules")) {
+            Section(header: RuleSectionText("basic rules")) {
+                RuleToggleView(ruleName: "doubles", ruleDescription: "doubles description", isDisabled: $freeSettingsDisabled, isOn: $doublesOn)
+                    .onChange(of: doublesOn) { value in
+                        UserDefaults.standard.set(doublesOn, forKey: "doublesOn")
+                    }
+                RuleToggleView(ruleName: "sandwich", ruleDescription: "sandwich description", isDisabled: $freeSettingsDisabled, isOn: $sandwichOn)
+                    .onChange(of: sandwichOn) { value in
+                        UserDefaults.standard.set(sandwichOn, forKey: "sandwichOn")
+                    }
+                RuleToggleView(ruleName: "couples", ruleDescription: "couples description", isDisabled: $freeSettingsDisabled, isOn: $couplesOn)
+                    .onChange(of: couplesOn) { value in
+                        UserDefaults.standard.set(couplesOn, forKey: "couplesOn")
+                    }
+            }
+            
+            Section(header: RuleSectionText("extra rules")) {
+                RuleToggleView(ruleName: "divorce", ruleDescription: "divorce description", isDisabled: $premiumRulesDisabled, isOn: $divorceOn)
+                    .onChange(of: divorceOn) { value in
+                        UserDefaults.standard.set(divorceOn, forKey: "divorceOn")
+                    }
+                RuleToggleView(ruleName: "queen of death", ruleDescription: "queen of death description", isDisabled: $premiumRulesDisabled, isOn: $queenOfDeathOn)
+                    .onChange(of: queenOfDeathOn) { value in
+                        UserDefaults.standard.set(queenOfDeathOn, forKey: "queenOfDeathOn")
+                    }
+                RuleToggleView(ruleName: "top and bottom", ruleDescription: "top and bottom description", isDisabled: $premiumRulesDisabled, isOn: $topAndBottomOn)
+                    .onChange(of: topAndBottomOn) { value in
+                        UserDefaults.standard.set(topAndBottomOn, forKey: "topAndBottomOn")
+                    }
+                RuleToggleView(ruleName: "add to ten", ruleDescription: "add to ten description", isDisabled: $premiumRulesDisabled, isOn: $addToTenOn)
+                    .onChange(of: addToTenOn) { value in
+                        UserDefaults.standard.set(addToTenOn, forKey: "addToTenOn")
+                    }
+                RuleToggleView(ruleName: "sequence", ruleDescription: "sequence description", isDisabled: $premiumRulesDisabled, isOn: $sequenceOn)
+                    .onChange(of: sequenceOn) { value in
+                        UserDefaults.standard.set(sequenceOn, forKey: "sequenceOn")
+                    }
                 VStack(alignment: .leading) {
                     Picker(selection: $burnAmount, label: RuleTitleText("burn amount")) {
                         ForEach(burnValues, id: \.self) { option in
                             RuleDescriptionText("\(option)")
                         }
                         .pickerStyle(.menu)
+                        .disabled(premiumRulesDisabled)
                     }
                     RuleDescriptionText("burn amount description")
                 }
                 .onChange(of: burnAmount) { value in
                     UserDefaults.standard.set(burnAmount, forKey: "burnAmount")
                 }
+                .disabled(premiumRulesDisabled)
                 .frame(maxWidth: .infinity)
                 .foregroundColor(.black)
-                
-                RuleToggleView(ruleName: "doubles", ruleDescription: "doubles description", isOn: $doublesOn)
-                    .onChange(of: doublesOn) { value in
-                        UserDefaults.standard.set(doublesOn, forKey: "doublesOn")
-                    }
-                RuleToggleView(ruleName: "sandwich", ruleDescription: "sandwich description", isOn: $sandwichOn)
-                    .onChange(of: sandwichOn) { value in
-                        UserDefaults.standard.set(sandwichOn, forKey: "sandwichOn")
-                    }
-                RuleToggleView(ruleName: "couples", ruleDescription: "couples description", isOn: $couplesOn)
-                    .onChange(of: couplesOn) { value in
-                        UserDefaults.standard.set(couplesOn, forKey: "couplesOn")
-                    }
-                RuleToggleView(ruleName: "divorce", ruleDescription: "divorce description", isOn: $divorceOn)
-                    .onChange(of: divorceOn) { value in
-                        UserDefaults.standard.set(divorceOn, forKey: "divorceOn")
-                    }
-                RuleToggleView(ruleName: "queen of death", ruleDescription: "queen of death description", isOn: $queenOfDeathOn)
-                    .onChange(of: queenOfDeathOn) { value in
-                        UserDefaults.standard.set(queenOfDeathOn, forKey: "queenOfDeathOn")
-                    }
-                RuleToggleView(ruleName: "top and bottom", ruleDescription: "top and bottom description", isOn: $topAndBottomOn)
-                    .onChange(of: topAndBottomOn) { value in
-                        UserDefaults.standard.set(topAndBottomOn, forKey: "topAndBottomOn")
-                    }
-                RuleToggleView(ruleName: "add to ten", ruleDescription: "add to ten description", isOn: $addToTenOn)
-                    .onChange(of: addToTenOn) { value in
-                        UserDefaults.standard.set(addToTenOn, forKey: "addToTenOn")
-                    }
-                RuleToggleView(ruleName: "sequence", ruleDescription: "sequence description", isOn: $sequenceOn)
-                    .onChange(of: sequenceOn) { value in
-                        UserDefaults.standard.set(sequenceOn, forKey: "sequenceOn")
-                    }
             }
-            
-            Section(header: RuleSectionText("purchases")) {
-                ForEach(self.products) { (product) in
-                    SettingsButton(text: LocalizedStringKey(product.id), onPress: {Task {
-                        do {
-                            try await self.purchase(product)
-                        } catch {
-                            print(error)
+            if (premiumRulesDisabled) {
+                Section(header: RuleSectionText("purchases")) {
+                    ForEach(self.products) { (product) in
+                        SettingsButton(text: LocalizedStringKey(product.id), onPress: {Task {
+                            do {
+                                try await self.purchase(product)
+                            } catch {
+                                print(error)
+                            }
+                        }})
+                    }
+                    SettingsButton(text: "restore purchases", onPress: {restorePurchases()})
+                        .alert("purchases restored", isPresented: $showRestoreAlert) {
+                            Button("OK", role: .cancel) { }
                         }
-                    }})
+                        .alert("error restoring purchases", isPresented: $showRestoreErrorAlert) {
+                            Button("OK", role: .cancel) { }
+                        }
                 }
-                SettingsButton(text: "restore purchases", onPress: {restorePurchases()})
-                    .alert("purchases restored", isPresented: $showRestoreAlert) {
-                        Button("OK", role: .cancel) { }
-                    }
-                    .alert("error restoring purchases", isPresented: $showRestoreErrorAlert) {
-                        Button("OK", role: .cancel) { }
-                    }
             }
         }
         .task {

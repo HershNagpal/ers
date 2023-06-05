@@ -14,6 +14,7 @@
 		B31B8D03297A2D4C00FDC910 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8D02297A2D4C00FDC910 /* Deck.swift */; };
 		B31B8D19297A611B00FDC910 /* CardTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8D18297A611B00FDC910 /* CardTest.swift */; };
 		B31B8D1B297A662300FDC910 /* DeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8D1A297A662300FDC910 /* DeckTest.swift */; };
+		B33ED3892A2E982D001C5126 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33ED3882A2E982D001C5126 /* PurchaseManager.swift */; };
 		B3564A612A11FF4F00F2915E /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3564A602A11FF4F00F2915E /* SettingsButton.swift */; };
 		B3786020297CF81A00E5DB92 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B378601F297CF81A00E5DB92 /* CardView.swift */; };
 		B38E314D2995FD57005254F9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E314C2995FD57005254F9 /* SettingsView.swift */; };
@@ -63,6 +64,7 @@
 		B31B8D0E297A60D400FDC910 /* ERSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ERSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B31B8D18297A611B00FDC910 /* CardTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTest.swift; sourceTree = "<group>"; };
 		B31B8D1A297A662300FDC910 /* DeckTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckTest.swift; sourceTree = "<group>"; };
+		B33ED3882A2E982D001C5126 /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
 		B3564A5F2A0B7BC300F2915E /* ERS: Egyptian Rat Screw.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ERS: Egyptian Rat Screw.storekit"; sourceTree = "<group>"; };
 		B3564A602A11FF4F00F2915E /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		B378601F297CF81A00E5DB92 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				B31B8CF3297A2BB000FDC910 /* Preview Content */,
 				B3AE851F29CE472900D735F9 /* Localizable.strings */,
 				B3564A5F2A0B7BC300F2915E /* ERS: Egyptian Rat Screw.storekit */,
+				B33ED3882A2E982D001C5126 /* PurchaseManager.swift */,
 			);
 			path = ERS;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				B3AE850C29CCA7A300D735F9 /* GameEndView.swift in Sources */,
 				B3AE850E29CCB8DD00D735F9 /* Colors.swift in Sources */,
 				B31B8D03297A2D4C00FDC910 /* Deck.swift in Sources */,
+				B33ED3892A2E982D001C5126 /* PurchaseManager.swift in Sources */,
 				B3AE84FE29CA910600D735F9 /* MediumText.swift in Sources */,
 				B3AE850029CAC46B00D735F9 /* StackInfoView.swift in Sources */,
 				B3AE851329CE3EFA00D735F9 /* TutorialCard.swift in Sources */,

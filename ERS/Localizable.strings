@@ -37,7 +37,8 @@
 "ouch" = "Ouch";
 
 
-"slap rules" = "Slap Rules";
+"basic rules" = "Basic Rules";
+"extra rules" = "Extra Rules";
 "doubles" = "Doubles";
 "doubles description" = "Two cards with the same value on top of the stack.";
 "sandwich" = "Sandwich";
@@ -58,11 +59,11 @@
 "burn amount" = "Burn Amount";
 "burn amount description" = "The amount of cards burnt when slapping incorrectly";
 "restore purchases" = "Restore Purchases";
-"ersUnlockRules" = "Unlock All Rules";
+"ersUnlockRules" = "Unlock Extra Rules";
 "purchases" = "purchases";
 "purchases restored" = "Purchases restored";
 "error restoring purchases" = "Error restoring purchases, please try again later";
-"rules unlocked" = "All rules unlocked. Enjoy!";
+"rules unlocked" = "Extra rules unlocked. Enjoy!";
 
 // Tutorial
 "next" = "Next";
