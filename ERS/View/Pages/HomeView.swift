@@ -11,24 +11,6 @@ import SwiftUI
 struct HomeView: View {
     @State var path = [String]()
     
-    init() {
-        UserDefaults.standard.register(defaults: [
-            "easyDeal": true,
-            "easyClaim": true,
-            "doublesOn": true,
-            "sandwichOn": true,
-            "couplesOn": true,
-            "divorceOn": false,
-            "queenOfDeathOn": false,
-            "topAndBottomOn": false,
-            "addToTenOn": false,
-            "sequenceOn": false,
-            "difficulty": 1,
-            "burnAmount": 1,
-            "allRulesUnlocked": false,
-        ])
-    }
-    
     var body: some View {
         NavigationStack(path: $path) {
             VStack(spacing: 20) {

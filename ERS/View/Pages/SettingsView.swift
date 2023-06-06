@@ -9,16 +9,17 @@ import SwiftUI
 import StoreKit
 
 struct SettingsView: View {
+    @EnvironmentObject private var purchaseManager: PurchaseManager
+    
     let burnValues = [1,2,3,4,5,10]
     let difficulties = ["easy", "medium", "hard", "ouch"]
-    let productIds = ["ersUnlockRules"]
-    @State var products: [Product] = []
     
     @State var showRestoreAlert = false
     @State var showRestoreErrorAlert = false
     @State var freeSettingsDisabled = false
 
-    @State var premiumRulesDisabled: Bool = !UserDefaults.standard.bool(forKey: "allRulesUnlocked")
+//    @State var rulesLocked: Bool = !UserDefaults.standard.bool(forKey: "hasUnlockedRules")
+    @AppStorage("rulesLocked") var rulesLocked = true
     
     @State var easyDeal: Bool = UserDefaults.standard.bool(forKey: "easyDeal")
     @State var easyClaim: Bool = UserDefaults.standard.bool(forKey: "easyClaim")
@@ -46,37 +47,6 @@ struct SettingsView: View {
                 print(error)
             }
         }
-    }
-    
-    private func purchase(_ product: Product) async throws {
-        let result = try await product.purchase()
-        switch result {
-            case let .success(.verified(transaction)):
-                // Successful purhcase
-                premiumRulesDisabled = true
-                await transaction.finish()
-            case let .success(.unverified(_, error)):
-                // Successful purchase but transaction/receipt can't be verified
-                // Could be a jailbroken phone
-                premiumRulesDisabled = true
-                print(error)
-                break
-            case .pending:
-                // Transaction waiting on SCA (Strong Customer Authentication) or
-                // approval from Ask to Buy
-                break
-            case .userCancelled:
-                // ^^^
-                premiumRulesDisabled = false
-                break
-            @unknown default:
-                UserDefaults.standard.set(premiumRulesDisabled, forKey: "allRulesUnlocked")
-                break
-            }
-    }
-    
-    private func loadProducts() async throws {
-        self.products = try await Product.products(for: productIds)
     }
     
     var body: some View {
@@ -125,23 +95,23 @@ struct SettingsView: View {
             }
             
             Section(header: RuleSectionText("extra rules")) {
-                RuleToggleView(ruleName: "divorce", ruleDescription: "divorce description", isDisabled: $premiumRulesDisabled, isOn: $divorceOn)
+                RuleToggleView(ruleName: "divorce", ruleDescription: "divorce description", isDisabled: $rulesLocked, isOn: $divorceOn)
                     .onChange(of: divorceOn) { value in
                         UserDefaults.standard.set(divorceOn, forKey: "divorceOn")
                     }
-                RuleToggleView(ruleName: "queen of death", ruleDescription: "queen of death description", isDisabled: $premiumRulesDisabled, isOn: $queenOfDeathOn)
+                RuleToggleView(ruleName: "queen of death", ruleDescription: "queen of death description", isDisabled: $rulesLocked, isOn: $queenOfDeathOn)
                     .onChange(of: queenOfDeathOn) { value in
                         UserDefaults.standard.set(queenOfDeathOn, forKey: "queenOfDeathOn")
                     }
-                RuleToggleView(ruleName: "top and bottom", ruleDescription: "top and bottom description", isDisabled: $premiumRulesDisabled, isOn: $topAndBottomOn)
+                RuleToggleView(ruleName: "top and bottom", ruleDescription: "top and bottom description", isDisabled: $rulesLocked, isOn: $topAndBottomOn)
                     .onChange(of: topAndBottomOn) { value in
                         UserDefaults.standard.set(topAndBottomOn, forKey: "topAndBottomOn")
                     }
-                RuleToggleView(ruleName: "add to ten", ruleDescription: "add to ten description", isDisabled: $premiumRulesDisabled, isOn: $addToTenOn)
+                RuleToggleView(ruleName: "add to ten", ruleDescription: "add to ten description", isDisabled: $rulesLocked, isOn: $addToTenOn)
                     .onChange(of: addToTenOn) { value in
                         UserDefaults.standard.set(addToTenOn, forKey: "addToTenOn")
                     }
-                RuleToggleView(ruleName: "sequence", ruleDescription: "sequence description", isDisabled: $premiumRulesDisabled, isOn: $sequenceOn)
+                RuleToggleView(ruleName: "sequence", ruleDescription: "sequence description", isDisabled: $rulesLocked, isOn: $sequenceOn)
                     .onChange(of: sequenceOn) { value in
                         UserDefaults.standard.set(sequenceOn, forKey: "sequenceOn")
                     }
@@ -151,23 +121,23 @@ struct SettingsView: View {
                             RuleDescriptionText("\(option)")
                         }
                         .pickerStyle(.menu)
-                        .disabled(premiumRulesDisabled)
+                        .disabled(rulesLocked)
                     }
                     RuleDescriptionText("burn amount description")
                 }
                 .onChange(of: burnAmount) { value in
                     UserDefaults.standard.set(burnAmount, forKey: "burnAmount")
                 }
-                .disabled(premiumRulesDisabled)
+                .disabled(rulesLocked)
                 .frame(maxWidth: .infinity)
                 .foregroundColor(.black)
             }
-            if (premiumRulesDisabled) {
+            if (rulesLocked) {
                 Section(header: RuleSectionText("purchases")) {
-                    ForEach(self.products) { (product) in
+                    ForEach(purchaseManager.products) { (product) in
                         SettingsButton(text: LocalizedStringKey(product.id), onPress: {Task {
                             do {
-                                try await self.purchase(product)
+                                try await purchaseManager.purchase(product)
                             } catch {
                                 print(error)
                             }
@@ -185,7 +155,8 @@ struct SettingsView: View {
         }
         .task {
             do {
-                try await self.loadProducts()
+                try await purchaseManager.loadProducts()
+                await purchaseManager.updatePurchasedProducts()
             } catch {
                 print(error)
             }
