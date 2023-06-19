@@ -52,7 +52,7 @@ struct PlayerInteractionView: View {
             }
             Button(action: {isPaused = true}) {
                 Image(systemName: "pause")
-                    .font(.system(size: 30))
+                    .font(.system(size: 40))
                     .frame(width: 75, height: 75)
                     .background(Colors.yellow)
                     .foregroundColor(.black)

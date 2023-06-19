@@ -21,11 +21,11 @@ struct PracticeView: View {
                     .ignoresSafeArea()
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck2, lastDeckCount: game.deck1.numCards())
                     .rotationEffect(Angle(degrees: 180))
-                    .padding(.top, 10)
+                    .padding([.bottom, .trailing], 10)
                 CardStackView(stack: $game.stack)
                     .frame(maxWidth: .infinity, minHeight: 300, alignment: .center)
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck1, lastDeckCount: game.deck1.numCards())
-                    .padding(.bottom, 10)
+                    .padding([.bottom, .leading], 10)
                 PlayerInteractionView(isPaused: $isPaused, game: game, isDisabled: false, player: .one)
                     .ignoresSafeArea()
             }

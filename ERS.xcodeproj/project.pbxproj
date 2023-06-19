@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B300E3E42A4119B20010E351 /* TitleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B300E3E32A4119B20010E351 /* TitleText.swift */; };
 		B31B8CEE297A2BAE00FDC910 /* ERSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8CED297A2BAE00FDC910 /* ERSApp.swift */; };
 		B31B8CF2297A2BB000FDC910 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B31B8CF1297A2BB000FDC910 /* Assets.xcassets */; };
 		B31B8CF5297A2BB000FDC910 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B31B8CF4297A2BB000FDC910 /* Preview Assets.xcassets */; };
@@ -55,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B300E3E32A4119B20010E351 /* TitleText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleText.swift; sourceTree = "<group>"; };
 		B31B8CEA297A2BAE00FDC910 /* ERS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ERS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B31B8CED297A2BAE00FDC910 /* ERSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERSApp.swift; sourceTree = "<group>"; };
 		B31B8CF1297A2BB000FDC910 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				B3AE853129CEC5AD00D735F9 /* RuleDescriptionText.swift */,
 				B3AE853329CEC5B500D735F9 /* RuleTitleText.swift */,
 				B3AE853729CED6AE00D735F9 /* RuleSectionText.swift */,
+				B300E3E32A4119B20010E351 /* TitleText.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				B31B8D03297A2D4C00FDC910 /* Deck.swift in Sources */,
 				B33ED3892A2E982D001C5126 /* PurchaseManager.swift in Sources */,
 				B3AE84FE29CA910600D735F9 /* MediumText.swift in Sources */,
+				B300E3E42A4119B20010E351 /* TitleText.swift in Sources */,
 				B3AE850029CAC46B00D735F9 /* StackInfoView.swift in Sources */,
 				B3AE851329CE3EFA00D735F9 /* TutorialCard.swift in Sources */,
 				B3AE850A29CC9C4800D735F9 /* PauseView.swift in Sources */,

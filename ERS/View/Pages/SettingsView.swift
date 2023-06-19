@@ -18,8 +18,7 @@ struct SettingsView: View {
     @State var showRestoreErrorAlert = false
     @State var freeSettingsDisabled = false
 
-//    @State var rulesLocked: Bool = !UserDefaults.standard.bool(forKey: "hasUnlockedRules")
-    @AppStorage("rulesLocked") var rulesLocked = true
+    @State var rulesLocked: Bool = UserDefaults.standard.bool(forKey: "rulesLocked")
     
     @State var easyDeal: Bool = UserDefaults.standard.bool(forKey: "easyDeal")
     @State var easyClaim: Bool = UserDefaults.standard.bool(forKey: "easyClaim")

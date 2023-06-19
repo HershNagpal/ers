@@ -21,19 +21,19 @@
       "size" : "29x29"
     },
     {
-      "filename" : "Mediamodifier-Design-Template(1) 1.png",
+      "filename" : "appicon-80.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "Mediamodifier-Design-Template 2.png",
+      "filename" : "appicon-120 1.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
     },
     {
-      "filename" : "Mediamodifier-Design-Template 3.png",
+      "filename" : "appicon-120.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "60x60"
@@ -74,25 +74,25 @@
       "size" : "40x40"
     },
     {
-      "filename" : "Mediamodifier-Design-Template 1.png",
+      "filename" : "appicon-76.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"
     },
     {
-      "filename" : "Mediamodifier-Design-Template(1).png",
+      "filename" : "appicon-152.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
-      "filename" : "Mediamodifier-Design-Template 4.png",
+      "filename" : "appicon-167.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "Mediamodifier-Design-Template.png",
+      "filename" : "appicon.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"

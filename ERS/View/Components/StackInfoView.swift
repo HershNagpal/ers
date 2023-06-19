@@ -16,12 +16,12 @@ struct StackInfoView: View {
     @State var lastDeckCount: Int
     
     var body: some View {
-        HStack(spacing: 0) {
+        HStack(spacing: 5) {
             VStack(spacing: 0) {
                 Image("stack")
                     .resizable()
                     .scaledToFit()
-                    .frame(maxWidth: 50, maxHeight: 50)
+                    .frame(maxWidth: 40, maxHeight: 40)
                 MediumText("\(stack.count)")
                     
             }
@@ -29,7 +29,7 @@ struct StackInfoView: View {
                 Image("burn")
                     .resizable()
                     .scaledToFit()
-                    .frame(maxWidth: 50, maxHeight: 50)
+                    .frame(maxWidth: 40, maxHeight: 40)
                     .scaleEffect(1 + burnScaleAmount)
                     .onChange(of: burnPile.count) { count in
                         if count != 0 && burnPile.count != 0 {
@@ -49,7 +49,7 @@ struct StackInfoView: View {
                 Image("deck")
                     .resizable()
                     .scaledToFit()
-                    .frame(maxWidth: 50, maxHeight: 50)
+                    .frame(maxWidth: 40, maxHeight: 40)
                     .scaleEffect(1 + deckScaleAmount)
                     .onChange(of: deck.numCards()) { count in
                         if count > lastDeckCount {

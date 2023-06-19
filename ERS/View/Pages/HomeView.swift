@@ -15,7 +15,14 @@ struct HomeView: View {
         NavigationStack(path: $path) {
             VStack(spacing: 20) {
                 Spacer()
-                LargeText("ers")
+                ZStack {
+                    Image("hand")
+                        .resizable()
+                        .frame(width: 150, height: 150)
+                    TitleText("ers")
+                        .foregroundColor(.white)
+                        .shadow(color: .black, radius: 1)
+                }
                 Spacer()
                 NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
                 NavigationButton(text: "singleplayer", onPress: {path.append("singleplayer")})
