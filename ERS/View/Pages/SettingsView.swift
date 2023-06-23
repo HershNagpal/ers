@@ -11,6 +11,12 @@ import StoreKit
 struct SettingsView: View {
     @EnvironmentObject private var purchaseManager: PurchaseManager
     
+    private var disableRuleToggles: Binding<Bool> { Binding (
+        get: { !purchasedRules },
+        set: { _ in }
+        )
+    }
+    
     let burnValues = [1,2,3,4,5,10]
     let difficulties = ["easy", "medium", "hard", "ouch"]
     
@@ -18,23 +24,23 @@ struct SettingsView: View {
     @State var showRestoreErrorAlert = false
     @State var freeSettingsDisabled = false
 
-    @State var rulesLocked: Bool = UserDefaults.standard.bool(forKey: "rulesLocked")
+    @AppStorage("purchasedRules") var purchasedRules: Bool = false
+    @AppStorage("rulesWithAds") var rulesWithAds: Bool = false
     
-    @State var easyDeal: Bool = UserDefaults.standard.bool(forKey: "easyDeal")
-    @State var easyClaim: Bool = UserDefaults.standard.bool(forKey: "easyClaim")
+    @AppStorage("easyDeal") var easyDeal: Bool = true
+    @AppStorage("easyClaim") var easyClaim: Bool = true
     
-    @State var doublesOn: Bool = UserDefaults.standard.bool(forKey: "doublesOn")
-    @State var sandwichOn: Bool = UserDefaults.standard.bool(forKey: "sandwichOn")
-    @State var couplesOn: Bool = UserDefaults.standard.bool(forKey: "couplesOn")
-    @State var divorceOn: Bool = UserDefaults.standard.bool(forKey: "divorceOn")
-    @State var queenOfDeathOn: Bool = UserDefaults.standard.bool(forKey: "queenOfDeathOn")
-    @State var topAndBottomOn: Bool = UserDefaults.standard.bool(forKey: "topAndBottomOn")
-    @State var addToTenOn: Bool = UserDefaults.standard.bool(forKey: "addToTenOn")
-    @State var sequenceOn: Bool = UserDefaults.standard.bool(forKey: "sequenceOn")
+    @AppStorage("doublesOn") var doublesOn: Bool = true
+    @AppStorage("sandwichOn") var sandwichOn: Bool = true
+    @AppStorage("couplesOn") var couplesOn: Bool = true
+    @AppStorage("divorceOn") var divorceOn: Bool = false
+    @AppStorage("queenOfDeathOn") var queenOfDeathOn: Bool = false
+    @AppStorage("topAndBottomOn") var topAndBottomOn: Bool = false
+    @AppStorage("addToTenOn") var addToTenOn: Bool = false
+    @AppStorage("sequenceOn") var sequenceOn: Bool = false
     
-    @State var difficulty: Int = UserDefaults.standard.integer(forKey: "difficulty")
-    
-    @State var burnAmount: Int = UserDefaults.standard.integer(forKey: "burnAmount")
+    @AppStorage("difficulty") var difficulty: Int = 1
+    @AppStorage("burnAmount") var burnAmount: Int = 1
     
     func restorePurchases() {
         Task {
@@ -53,11 +59,11 @@ struct SettingsView: View {
             Section(header: RuleSectionText("visuals")) {
                 RuleToggleView(ruleName: "easy deal", ruleDescription: "easy deal description", isDisabled: $freeSettingsDisabled, isOn: $easyDeal)
                     .onChange(of: easyDeal) { value in
-                        UserDefaults.standard.set(easyDeal, forKey: "easyDeal")
+                        easyDeal = value
                     }
                 RuleToggleView(ruleName: "easy claim", ruleDescription: "easy claim description", isDisabled: $freeSettingsDisabled, isOn: $easyClaim)
                     .onChange(of: easyClaim) { value in
-                        UserDefaults.standard.set(easyClaim, forKey: "easyClaim")
+                        easyClaim = value
                     }
             }
             
@@ -72,7 +78,7 @@ struct SettingsView: View {
                     RuleDescriptionText("difficulty description")
                 }
                 .onChange(of: difficulty) { value in
-                    UserDefaults.standard.set(difficulty, forKey: "difficulty")
+                    difficulty = value
                 }
                 .frame(maxWidth: .infinity)
                 .foregroundColor(.black)
@@ -81,38 +87,44 @@ struct SettingsView: View {
             Section(header: RuleSectionText("basic rules")) {
                 RuleToggleView(ruleName: "doubles", ruleDescription: "doubles description", isDisabled: $freeSettingsDisabled, isOn: $doublesOn)
                     .onChange(of: doublesOn) { value in
-                        UserDefaults.standard.set(doublesOn, forKey: "doublesOn")
+                        doublesOn = value
                     }
                 RuleToggleView(ruleName: "sandwich", ruleDescription: "sandwich description", isDisabled: $freeSettingsDisabled, isOn: $sandwichOn)
                     .onChange(of: sandwichOn) { value in
-                        UserDefaults.standard.set(sandwichOn, forKey: "sandwichOn")
+                        sandwichOn = value
                     }
                 RuleToggleView(ruleName: "couples", ruleDescription: "couples description", isDisabled: $freeSettingsDisabled, isOn: $couplesOn)
                     .onChange(of: couplesOn) { value in
-                        UserDefaults.standard.set(couplesOn, forKey: "couplesOn")
+                        couplesOn = value
                     }
             }
             
             Section(header: RuleSectionText("extra rules")) {
-                RuleToggleView(ruleName: "divorce", ruleDescription: "divorce description", isDisabled: $rulesLocked, isOn: $divorceOn)
+//                if (purchasedRules) {
+//                    RuleToggleView(ruleName: "rules with ads switch", ruleDescription: "add to ten description", isDisabled: $freeSettingsDisabled, isOn: $rulesUnlockedWithAds)
+//                        .onChange(of: addToTenOn) { value in
+//                            UserDefaults.standard.set(addToTenOn, forKey: "addToTenOn")
+//                        }
+//                }
+                RuleToggleView(ruleName: "divorce", ruleDescription: "divorce description", isDisabled: disableRuleToggles, isOn: $divorceOn)
                     .onChange(of: divorceOn) { value in
-                        UserDefaults.standard.set(divorceOn, forKey: "divorceOn")
+                        divorceOn = value
                     }
-                RuleToggleView(ruleName: "queen of death", ruleDescription: "queen of death description", isDisabled: $rulesLocked, isOn: $queenOfDeathOn)
+                RuleToggleView(ruleName: "queen of death", ruleDescription: "queen of death description", isDisabled: disableRuleToggles, isOn: $queenOfDeathOn)
                     .onChange(of: queenOfDeathOn) { value in
-                        UserDefaults.standard.set(queenOfDeathOn, forKey: "queenOfDeathOn")
+                        queenOfDeathOn = value
                     }
-                RuleToggleView(ruleName: "top and bottom", ruleDescription: "top and bottom description", isDisabled: $rulesLocked, isOn: $topAndBottomOn)
+                RuleToggleView(ruleName: "top and bottom", ruleDescription: "top and bottom description", isDisabled: disableRuleToggles, isOn: $topAndBottomOn)
                     .onChange(of: topAndBottomOn) { value in
-                        UserDefaults.standard.set(topAndBottomOn, forKey: "topAndBottomOn")
+                        topAndBottomOn = value
                     }
-                RuleToggleView(ruleName: "add to ten", ruleDescription: "add to ten description", isDisabled: $rulesLocked, isOn: $addToTenOn)
+                RuleToggleView(ruleName: "add to ten", ruleDescription: "add to ten description", isDisabled: disableRuleToggles, isOn: $addToTenOn)
                     .onChange(of: addToTenOn) { value in
-                        UserDefaults.standard.set(addToTenOn, forKey: "addToTenOn")
+                        addToTenOn = value
                     }
-                RuleToggleView(ruleName: "sequence", ruleDescription: "sequence description", isDisabled: $rulesLocked, isOn: $sequenceOn)
+                RuleToggleView(ruleName: "sequence", ruleDescription: "sequence description", isDisabled: disableRuleToggles, isOn: $sequenceOn)
                     .onChange(of: sequenceOn) { value in
-                        UserDefaults.standard.set(sequenceOn, forKey: "sequenceOn")
+                        sequenceOn = value
                     }
                 VStack(alignment: .leading) {
                     Picker(selection: $burnAmount, label: RuleTitleText("burn amount")) {
@@ -120,27 +132,29 @@ struct SettingsView: View {
                             RuleDescriptionText("\(option)")
                         }
                         .pickerStyle(.menu)
-                        .disabled(rulesLocked)
+                        .disabled(!purchasedRules)
                     }
                     RuleDescriptionText("burn amount description")
                 }
                 .onChange(of: burnAmount) { value in
-                    UserDefaults.standard.set(burnAmount, forKey: "burnAmount")
+                    burnAmount = value
                 }
-                .disabled(rulesLocked)
+                .disabled(!purchasedRules)
                 .frame(maxWidth: .infinity)
                 .foregroundColor(.black)
             }
-            if (rulesLocked) {
+            if (!purchasedRules) {
                 Section(header: RuleSectionText("purchases")) {
                     ForEach(purchaseManager.products) { (product) in
-                        SettingsButton(text: LocalizedStringKey(product.id), onPress: {Task {
-                            do {
-                                try await purchaseManager.purchase(product)
-                            } catch {
-                                print(error)
+                        SettingsButton(text: LocalizedStringKey(product.id), onPress: {
+                            Task {
+                                do {
+                                    try await purchaseManager.purchase(product)
+                                } catch {
+                                    print(error)
+                                }
                             }
-                        }})
+                        })
                     }
                     SettingsButton(text: "restore purchases", onPress: {restorePurchases()})
                         .alert("purchases restored", isPresented: $showRestoreAlert) {

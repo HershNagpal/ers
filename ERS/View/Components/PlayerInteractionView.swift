@@ -12,8 +12,8 @@ struct PlayerInteractionView: View {
     @StateObject var game: Game
     let isDisabled: Bool
     var player: PlayerNumber
-    @State var easyDeal: Bool = UserDefaults.standard.bool(forKey: "easyDeal")
-    @State var easyClaim: Bool = UserDefaults.standard.bool(forKey: "easyClaim")
+    @AppStorage("easyClaim") var easyClaim: Bool = false
+    @AppStorage("easyDeal") var easyDeal: Bool = false
     
     var body: some View {
         ZStack {

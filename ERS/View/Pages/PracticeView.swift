@@ -11,7 +11,7 @@ struct PracticeView: View {
     @Binding var path: [String]
     @StateObject var game = Game()
     @State var isPaused: Bool = false
-    let difficulty: Int = UserDefaults.standard.integer(forKey: "difficulty")
+    @AppStorage("difficulty") var difficulty: Int = 1
     
     var body: some View {
         ZStack {

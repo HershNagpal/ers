@@ -59,11 +59,13 @@
 "burn amount" = "Burn Amount";
 "burn amount description" = "The amount of cards burnt when slapping incorrectly";
 "restore purchases" = "Restore Purchases";
-"ersUnlockRules" = "Unlock Extra Rules";
+"ersUnlockRules" = "Unlock Extra Rules Permanently";
 "purchases" = "purchases";
 "purchases restored" = "Purchases restored";
 "error restoring purchases" = "Error restoring purchases, please try again later";
-"rules unlocked" = "Extra rules unlocked. Enjoy!";
+"rules unlocked" = "Extra rules unlocked permanently. Enjoy!";
+"rules with ads switch" = "Unlock Rules with Ads";
+"rules with ads switch description" = "Play with extra rules unlocked for free with ads";
 
 // Tutorial
 "next" = "Next";

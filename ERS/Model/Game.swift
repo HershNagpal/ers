@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class Game: ObservableObject {
     var deck1: Deck
@@ -18,16 +19,16 @@ class Game: ObservableObject {
     @Published var winner: PlayerNumber
     @Published var numTurns: Int
     
-    let doublesOn: Bool = UserDefaults.standard.bool(forKey: "doublesOn")
-    let sandwichOn: Bool = UserDefaults.standard.bool(forKey: "sandwichOn")
-    let couplesOn: Bool = UserDefaults.standard.bool(forKey: "couplesOn")
-    let divorceOn: Bool = UserDefaults.standard.bool(forKey: "divorceOn")
-    let queenOfDeathOn: Bool = UserDefaults.standard.bool(forKey: "queenOfDeathOn")
-    let topAndBottomOn: Bool = UserDefaults.standard.bool(forKey: "topAndBottomOn")
-    let addToTenOn: Bool = UserDefaults.standard.bool(forKey: "addToTenOn")
-    let sequenceOn: Bool = UserDefaults.standard.bool(forKey: "sequenceOn")
+    @AppStorage("doublesOn") var doublesOn: Bool = true
+    @AppStorage("sandwichOn") var sandwichOn: Bool = true
+    @AppStorage("couplesOn") var couplesOn: Bool = true
+    @AppStorage("divorceOn") var divorceOn: Bool = false
+    @AppStorage("queenOfDeathOn") var queenOfDeathOn: Bool = false
+    @AppStorage("topAndBottomOn") var topAndBottomOn: Bool = false
+    @AppStorage("addToTenOn") var addToTenOn: Bool = false
+    @AppStorage("sequenceOn") var sequenceOn: Bool = false
     
-    let burnAmount: Int = UserDefaults.standard.integer(forKey: "burnAmount")
+    @AppStorage("burnAmount") var burnAmount: Int = 1
     
     init() {
         self.deck1 = Deck(player: .one)

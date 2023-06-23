@@ -7,6 +7,7 @@
 
 import Foundation
 import StoreKit
+import SwiftUI
 
 @MainActor
 class PurchaseManager: ObservableObject {
@@ -17,6 +18,8 @@ class PurchaseManager: ObservableObject {
     
     private var productsLoaded = false
     private var updates: Task<Void, Never>? = nil
+    
+    @AppStorage("purchasedRules") var purchasedRules: Bool = false
 
     func loadProducts() async throws {
         guard !self.productsLoaded else { return }
@@ -36,26 +39,11 @@ class PurchaseManager: ObservableObject {
                 self.purchasedProductIDs.remove(transaction.productID)
             }
         }
-        UserDefaults.standard.set( self.purchasedProductIDs.isEmpty, forKey: "rulesLocked")
+        purchasedRules = !self.purchasedProductIDs.isEmpty
     }
     
     init() {
         updates = observeTransactionUpdates()
-        UserDefaults.standard.register(defaults: [
-            "easyDeal": true,
-            "easyClaim": true,
-            "doublesOn": true,
-            "sandwichOn": true,
-            "couplesOn": true,
-            "divorceOn": false,
-            "queenOfDeathOn": false,
-            "topAndBottomOn": false,
-            "addToTenOn": false,
-            "sequenceOn": false,
-            "difficulty": 1,
-            "burnAmount": 1,
-            "rulesLocked": true,
-        ])
     }
 
     deinit {
