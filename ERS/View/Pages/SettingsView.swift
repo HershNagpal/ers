@@ -12,7 +12,7 @@ struct SettingsView: View {
     @EnvironmentObject private var purchaseManager: PurchaseManager
     
     private var disableRuleToggles: Binding<Bool> { Binding (
-        get: { !purchasedRules },
+        get: { !purchasedRules && !rulesWithAds},
         set: { _ in }
         )
     }
@@ -100,12 +100,20 @@ struct SettingsView: View {
             }
             
             Section(header: RuleSectionText("extra rules")) {
-//                if (purchasedRules) {
-//                    RuleToggleView(ruleName: "rules with ads switch", ruleDescription: "add to ten description", isDisabled: $freeSettingsDisabled, isOn: $rulesUnlockedWithAds)
-//                        .onChange(of: addToTenOn) { value in
-//                            UserDefaults.standard.set(addToTenOn, forKey: "addToTenOn")
-//                        }
-//                }
+                if (!purchasedRules) {
+                    RuleToggleView(ruleName: "rules with ads switch", ruleDescription: "rules with ads description", isDisabled: $freeSettingsDisabled, isOn: $rulesWithAds)
+                        .onChange(of: rulesWithAds) { value in
+                            rulesWithAds = value
+                            if rulesWithAds == false {
+                                divorceOn = false
+                                queenOfDeathOn = false
+                                topAndBottomOn = false
+                                addToTenOn = false
+                                sequenceOn = false
+                                burnAmount = 1
+                            }
+                        }
+                }
                 RuleToggleView(ruleName: "divorce", ruleDescription: "divorce description", isDisabled: disableRuleToggles, isOn: $divorceOn)
                     .onChange(of: divorceOn) { value in
                         divorceOn = value

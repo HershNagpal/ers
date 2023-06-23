@@ -12,6 +12,10 @@ struct GameView: View {
     @StateObject var game = Game()
     @State var isPaused: Bool = false
     
+    @AppStorage("rulesWithAds") var rulesWithAds: Bool = false
+    
+    
+    
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -27,6 +31,11 @@ struct GameView: View {
                     .padding([.bottom, .leading], 10)
                 PlayerInteractionView(isPaused: $isPaused, game: game, isDisabled: false, player: .one)
                     .ignoresSafeArea()
+                if (rulesWithAds) {
+                    BannerView()
+                        .ignoresSafeArea()
+                        .background(Color.indigo)
+                }
             }
                 .background(Colors.grey)
             if game.winner != .none {

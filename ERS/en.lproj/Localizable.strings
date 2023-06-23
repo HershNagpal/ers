@@ -65,7 +65,7 @@
 "error restoring purchases" = "Error restoring purchases, please try again later";
 "rules unlocked" = "Extra rules unlocked permanently. Enjoy!";
 "rules with ads switch" = "Unlock Rules with Ads";
-"rules with ads switch description" = "Play with extra rules unlocked for free with ads";
+"rules with ads description" = "Play with extra rules unlocked for free with ads";
 
 // Tutorial
 "next" = "Next";

@@ -20,6 +20,7 @@ class PurchaseManager: ObservableObject {
     private var updates: Task<Void, Never>? = nil
     
     @AppStorage("purchasedRules") var purchasedRules: Bool = false
+    @AppStorage("rulesWithAds") var rulesWithAds: Bool = false
 
     func loadProducts() async throws {
         guard !self.productsLoaded else { return }
@@ -67,6 +68,7 @@ class PurchaseManager: ObservableObject {
                 // Successful purhcase
                 await transaction.finish()
                 await self.updatePurchasedProducts()
+                rulesWithAds = false
             case let .success(.unverified(_, error)):
                 // Successful purchase but transaction/receipt can't be verified
                 // Could be a jailbroken phone

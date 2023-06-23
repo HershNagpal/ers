@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GoogleMobileAds
 
 @main
 struct ERSApp: App {
@@ -14,6 +15,7 @@ struct ERSApp: App {
     init() {
         let purchaseManager = PurchaseManager()
         self._purchaseManager = StateObject(wrappedValue: purchaseManager)
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
     }
     
     var body: some Scene {

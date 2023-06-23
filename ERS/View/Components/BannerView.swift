@@ -57,7 +57,7 @@ struct BannerView: UIViewControllerRepresentable {
         guard viewWidth != .zero else { return }
         
         // Request a banner ad with the updated viewWidth.
-        bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
+        bannerView.adSize = GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
         bannerView.load(GADRequest())
     }
 }
