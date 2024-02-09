@@ -28,7 +28,7 @@ struct TutorialView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
-                    .background(Colors.green)
+                    .background(Colors.ersGreen)
                     .cornerRadius(15)
                 Spacer()
             }
@@ -52,7 +52,7 @@ struct TutorialView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
-                    .background(Colors.red)
+                    .background(Colors.ersRed)
                     .cornerRadius(15)
                 Spacer()
             }
@@ -107,7 +107,7 @@ struct TutorialView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
-                    .background(Colors.grey)
+                    .background(Colors.ersGrey)
                     .cornerRadius(15)
                 Spacer()
             }
@@ -117,7 +117,7 @@ struct TutorialView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
-                    .background(Colors.grey)
+                    .background(Colors.ersGrey)
                     .cornerRadius(15)
                 Spacer()
             }
@@ -130,7 +130,7 @@ struct TutorialView: View {
         }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(10)
-            .background(Colors.orange)
+            .background(Colors.ersOrange)
     }
 
 }

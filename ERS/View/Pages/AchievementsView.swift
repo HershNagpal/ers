@@ -6,13 +6,27 @@
 //
 
 import SwiftUI
+import GameKit
 
 struct AchievementsView: View {
+    @Binding var path: [String]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            ForEach(Achievement.achievementsList, id: \.self) {
+                AchievementView(achievement: $0)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(10)
+        .background(Colors.ersOrange)
     }
+    
 }
 
-#Preview {
-    AchievementsView()
+struct AchievementsView_Previews: PreviewProvider {
+    static var previews: some View {
+        @State var path = ["a"]
+        AchievementsView(path: $path)
+    }
 }

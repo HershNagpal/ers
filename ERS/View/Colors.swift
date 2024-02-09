@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct Colors {
-    static let yellow = Color("yellow")
-    static let orange = Color("orange")
-    static let grey = Color("grey")
-    static let darkGrey = Color("darkGrey")
-    static let red = Color("red")
-    static let green = Color("green")
+    static let ersYellow = Color("ersYellow")
+    static let ersOrange = Color("ersOrange")
+    static let ersGrey = Color("ersGrey")
+    static let ersDarkGrey = Color("ersDarkGrey")
+    static let ersRed = Color("ersRed")
+    static let ersGreen = Color("ersGreen")
 }

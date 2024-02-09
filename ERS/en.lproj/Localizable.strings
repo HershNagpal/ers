@@ -12,6 +12,7 @@
 "online" = "Online";
 "singleplayer" = "Singleplayer";
 "tutorial" = "Tutorial";
+"achievements" = "Achievements";
 "options" = "Options";
 "not signed in" = "Not signed in to Game Center";
 "sign in to play" = "Sign in with Game Center to play with friends!";

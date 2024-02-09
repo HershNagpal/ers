@@ -49,13 +49,14 @@ struct HomeView: View {
                 Spacer()
                 NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
                 NavigationButton(text: "singleplayer", onPress: {path.append("singleplayer")})
-                NavigationButton(text: "online", onPress: handlePressOnline)
+//                NavigationButton(text: "online", onPress: handlePressOnline)
+                NavigationButton(text: "achievements", onPress: {path.append("achievements")})
                 NavigationButton(text: "tutorial", onPress: {path.append("tutorial")})
                 NavigationButton(text: "options", onPress: {path.append("options")})
                 Spacer()
             }
             .frame(maxWidth: .infinity)
-            .background(Colors.yellow)
+            .background(Colors.ersYellow)
             .navigationDestination(for: String.self) { string in
                 switch string {
                 case "options":
@@ -76,6 +77,9 @@ struct HomeView: View {
                 case "tutorial":
                     TutorialView(path: $path)
                         .navigationTitle("tutorial")
+                case "achievements":
+                    AchievementsView(path: $path)
+                        .navigationTitle("achievements")
                 default:
                     Spacer()
                 }

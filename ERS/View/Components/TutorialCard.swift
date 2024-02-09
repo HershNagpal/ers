@@ -17,7 +17,7 @@ struct TutorialCard: View {
         .foregroundColor(.black)
         .padding(15)
         .frame(maxWidth: .infinity)
-        .background(Colors.yellow)
+        .background(Colors.ersYellow)
         .cornerRadius(15)
         .shadow(radius: 2, x: -2, y: 2)
     }

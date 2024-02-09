@@ -15,7 +15,7 @@ struct GameView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                PlayerInteractionView(isPaused: $isPaused, game: game, isDisabled: false, player: .two)
+                PlayerInteractionView(isPaused: $isPaused, game: game, isDisabled: true, player: .two)
                     .rotationEffect(Angle(degrees: 180))
                     .ignoresSafeArea()
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck2, lastDeckCount: game.deck1.numCards())
@@ -28,7 +28,7 @@ struct GameView: View {
                 PlayerInteractionView(isPaused: $isPaused, game: game, isDisabled: false, player: .one)
                     .ignoresSafeArea()
             }
-                .background(Colors.grey)
+                .background(Colors.ersGrey)
             if game.winner != .none {
                 GameEndView(path: $path, winner: $game.winner)
             }

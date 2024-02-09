@@ -175,6 +175,6 @@ struct SettingsView: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .background(Colors.yellow)
+        .background(Colors.ersYellow)
     }
 }

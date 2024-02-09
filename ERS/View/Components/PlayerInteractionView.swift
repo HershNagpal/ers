@@ -29,9 +29,9 @@ struct PlayerInteractionView: View {
                         .background(
                             easyDeal
                                 ? game.currentPlayer == player && game.stackClaimSlap == .none
-                                ? Colors.green
-                                : Colors.grey
-                            : Colors.green
+                                ? Colors.ersGreen
+                                : Colors.ersGrey
+                            : Colors.ersGreen
                         )
                 }
                 Button(action: { if !isDisabled {game.slap(player)}}) {
@@ -44,8 +44,8 @@ struct PlayerInteractionView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(
                             game.stackClaimSlap == player && easyClaim
-                                ? Colors.green
-                                : Colors.red
+                                ? Colors.ersGreen
+                                : Colors.ersRed
                         )
                 }
                 
@@ -54,7 +54,7 @@ struct PlayerInteractionView: View {
                 Image(systemName: "pause")
                     .font(.system(size: 40))
                     .frame(width: 75, height: 75)
-                    .background(Colors.yellow)
+                    .background(Colors.ersYellow)
                     .foregroundColor(.black)
                     .cornerRadius(75)
             }

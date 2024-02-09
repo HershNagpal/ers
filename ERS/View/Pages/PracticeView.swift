@@ -9,9 +9,29 @@ import SwiftUI
 
 struct PracticeView: View {
     @Binding var path: [String]
-    @StateObject var game = Game()
+    @StateObject var game = Game(isSingleplayer: true, difficulty: 1)
     @State var isPaused: Bool = false
     @AppStorage("difficulty") var difficulty: Int = 1
+    
+    func checkAchievements() {
+        guard game.winner == .one else { return }
+        switch(difficulty) {
+        case 0:
+            Achievement.completeAchievement("beatEasyBot")
+            break
+        case 1:
+            Achievement.completeAchievement("beatMediumBot")
+            break
+        case 2:
+            Achievement.completeAchievement("beatHardBot")
+            break
+        case 3:
+            Achievement.completeAchievement("beatOuchBot")
+            break
+        default:
+            break
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -29,9 +49,12 @@ struct PracticeView: View {
                 PlayerInteractionView(isPaused: $isPaused, game: game, isDisabled: false, player: .one)
                     .ignoresSafeArea()
             }
-                .background(Colors.grey)
+                .background(Colors.ersGrey)
             if game.winner != .none {
                 GameEndView(path: $path, winner: $game.winner)
+                    .onAppear {
+                        checkAchievements()
+                    }
             }
             if isPaused {
                 PauseView(isPaused: $isPaused, path: $path, resetGame: {

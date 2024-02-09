@@ -28,7 +28,7 @@ struct OnlineGameView: View {
                 PlayerInteractionView(isPaused: $isPaused, game: game, isDisabled: false, player: .one)
                     .ignoresSafeArea()
             }
-                .background(Colors.grey)
+                .background(Colors.ersGrey)
             if game.winner != .none {
                 GameEndView(path: $path, winner: $game.winner)
             }
