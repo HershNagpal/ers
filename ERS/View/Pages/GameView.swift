@@ -12,6 +12,15 @@ struct GameView: View {
     @StateObject var game = Game()
     @State var isPaused: Bool = false
     
+    private func checkAchievements() {
+        Achievement.incrementAchievementProgress(.gamesPlayed)
+        if Achievement.getAchievementProgress(.gamesPlayed) > 100 {
+            Achievement.completeAchievement(.hundredGames)
+        } else if Achievement.getAchievementProgress(.gamesPlayed) > 1000 {
+            Achievement.completeAchievement(.thousandGames)
+        }
+    }
+    
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -31,6 +40,9 @@ struct GameView: View {
                 .background(Colors.ersGrey)
             if game.winner != .none {
                 GameEndView(path: $path, winner: $game.winner)
+                    .onAppear {
+                        checkAchievements()
+                    }
             }
             if isPaused {
                 PauseView(isPaused: $isPaused, path: $path, resetGame: {

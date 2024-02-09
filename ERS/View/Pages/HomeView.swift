@@ -49,7 +49,6 @@ struct HomeView: View {
                 Spacer()
                 NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
                 NavigationButton(text: "singleplayer", onPress: {path.append("singleplayer")})
-//                NavigationButton(text: "online", onPress: handlePressOnline)
                 NavigationButton(text: "achievements", onPress: {path.append("achievements")})
                 NavigationButton(text: "tutorial", onPress: {path.append("tutorial")})
                 NavigationButton(text: "options", onPress: {path.append("options")})
@@ -63,10 +62,6 @@ struct HomeView: View {
                     SettingsView()
                         .navigationTitle("options")
                 case "multiplayer":
-                    GameView(path: $path)
-                        .navigationBarBackButtonHidden()
-                        .statusBar(hidden: true)
-                case "online":
                     GameView(path: $path)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)

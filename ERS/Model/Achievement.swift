@@ -10,7 +10,7 @@ import GameKit
 import SwiftUI
 
 struct Achievement: Codable, Identifiable, Hashable {
-    var id: String
+    var id: AchievementId
     let title: String
     let image: String
     let isCompleted: Bool?
@@ -18,67 +18,66 @@ struct Achievement: Codable, Identifiable, Hashable {
     let unachievedDescription: String
     
     static let achievementsList = [
-        Achievement(id: "beatEasyBot",
+        Achievement(id: .beatEasyBot,
                     title: "Beat Easy Bot",
-                    image: "robot",
+                    image: "brain.filled.head.profile",
                     isCompleted: false,
                     achievedDescription: "Won a singleplayer game on easy difficulty.",
                     unachievedDescription: "Win a singleplayer game on easy difficulty."),
-        Achievement(id: "beatMediumBot",
+        Achievement(id: .beatMediumBot,
                     title: "Beat Medium Bot",
-                    image: "robot",
+                    image: "brain.filled.head.profile",
                     isCompleted: false,
                     achievedDescription: "Won a singleplayer game on medium difficulty.",
-                    unachievedDescription: "Win a singleplayer game on medium difficulty"),
-        Achievement(id: "beatHardBot",
+                    unachievedDescription: "Win a singleplayer game on medium difficulty."),
+        Achievement(id: .beatHardBot,
                     title: "Beat Hard Bot",
-                    image: "robot",
+                    image: "brain.filled.head.profile",
                     isCompleted: false,
                     achievedDescription: "Won a singleplayer game on hard difficulty.",
                     unachievedDescription: "Win a singleplayer game on hard difficulty."),
-        Achievement(id: "beatOuchBot",
+        Achievement(id: .beatOuchBot,
                     title: "Felt the Pain",
-                    image: "robot",
+                    image: "brain.head.profile.fill",
                     isCompleted: false,
                     achievedDescription: "Won a singleplayer game on ouch difficulty.",
                     unachievedDescription: "Win a singleplayer game on ouch difficulty."),
-        Achievement(id: "hundredGames",
+        Achievement(id: .hundredGames,
                     title: "Seasoned Player",
-                    image: "robot",
+                    image: "flag.fill",
                     isCompleted: false,
                     achievedDescription: "Completed 100 games.",
                     unachievedDescription: "Complete 100 games on singleplayer or multiplayer."),
-        Achievement(id: "hundredBotWins",
+        Achievement(id: .hundredBotWins,
                     title: "Bot Destroyer",
-                    image: "robot",
+                    image: "poweroutlet.type.f.fill",
                     isCompleted: false,
                     achievedDescription: "Won 100 games on singleplayer.",
                     unachievedDescription: "Win 100 games of singleplayer."),
-        Achievement(id: "thousandGames",
+        Achievement(id: .thousandGames,
                     title: "Rat King",
-                    image: "robot",
+                    image: "crown.fill",
                     isCompleted: false,
                     achievedDescription: "Completed 1000 games.",
                     unachievedDescription: "Complete 1000 games on singleplayer or multiplayer."),
-        Achievement(id: "quickSlap",
-                    title: "Ratlike Reflexes",
-                    image: "robot",
-                    isCompleted: false,
-                    achievedDescription: "Slapped a pile within 1/100 of a second.",
-                    unachievedDescription: "Slap a valid pile within 1/100 of a second."),
-        Achievement(id: "maxBurnWin",
+        Achievement(id: .maxBurnWin,
                     title: "Third Degree",
-                    image: "robot",
+                    image: "flame",
                     isCompleted: false,
-                    achievedDescription: "Won a game with the burn amount set to 10.",
-                    unachievedDescription: "Win a game with the burn amount set to 10."),
-        Achievement(id: "allRulesWin",
+                    achievedDescription: "Won a singleplayer game with the burn amount set to 10.",
+                    unachievedDescription: "Win a singleplayer game with the burn amount set to 10."),
+        Achievement(id: .allRulesWin,
                     title: "Rules and Consequences",
-                    image: "robot",
+                    image: "newspaper.fill",
                     isCompleted: false,
-                    achievedDescription: "Won a game with every rule activated.",
-                    unachievedDescription: "Win a game with every rule and extra rule activated."),
-        
+                    achievedDescription: "Won a singleplayer game with every rule activated.",
+                    unachievedDescription: "Win a singleplayer game with every rule and extra rule activated."),
+        Achievement(id: .lucky,
+                    title: "Heart of the Cards",
+                    image: "heart.square",
+                    isCompleted: false,
+                    achievedDescription: "Won a singleplayer game with no rules activated.",
+                    unachievedDescription: "Win a singleplayer game with no rules activated."),
     ]
 
     enum AchievementId: String, Codable {
@@ -89,17 +88,30 @@ struct Achievement: Codable, Identifiable, Hashable {
         hundredGames,
         hundredBotWins,
         thousandGames,
-        quickSlap,
         maxBurnWin,
-        allRulesWin
+        allRulesWin,
+        lucky
     }
     
-    static func completeAchievement(_ achievementId: String) {
-        UserDefaults.standard.set(true, forKey: achievementId)
+    enum AchievementProgress: String, Codable {
+        case botGamesWon, gamesPlayed
     }
     
-    static func uncompleteAchievement(_ achievementId: String) {
-        UserDefaults.standard.set(false, forKey: achievementId)
+    static func completeAchievement(_ achievementId: AchievementId) {
+        UserDefaults.standard.set(true, forKey: achievementId.rawValue)
+    }
+    
+    static func uncompleteAchievement(_ achievementId: AchievementId) {
+        UserDefaults.standard.set(false, forKey: achievementId.rawValue)
+    }
+    
+    static func incrementAchievementProgress(_ achievementId: AchievementProgress) {
+        let previous = getAchievementProgress(achievementId)
+        UserDefaults.standard.set(previous+1, forKey: achievementId.rawValue)
+    }
+    
+    static func getAchievementProgress(_ achievementId: AchievementProgress) -> Int {
+        return UserDefaults.standard.integer(forKey: achievementId.rawValue)
     }
     
     static func hasCompletedAchievement(_ achievementId: String) -> Bool {

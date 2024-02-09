@@ -13,20 +13,43 @@ struct PracticeView: View {
     @State var isPaused: Bool = false
     @AppStorage("difficulty") var difficulty: Int = 1
     
-    func checkAchievements() {
+    private func checkAchievements() {
+        Achievement.incrementAchievementProgress(.gamesPlayed)
+        if Achievement.getAchievementProgress(.gamesPlayed) > 100 {
+            Achievement.completeAchievement(.hundredGames)
+        } else if Achievement.getAchievementProgress(.gamesPlayed) > 1000 {
+            Achievement.completeAchievement(.thousandGames)
+        }
         guard game.winner == .one else { return }
+        if game.addToTenOn && game.couplesOn && game.divorceOn && game.doublesOn 
+            && game.queenOfDeathOn  && game.sandwichOn && game.sequenceOn && game.topAndBottomOn {
+            Achievement.completeAchievement(.allRulesWin)
+        }
+        if !game.addToTenOn && !game.couplesOn && !game.divorceOn && !game.doublesOn
+            && !game.queenOfDeathOn  && !game.sandwichOn && !game.sequenceOn && !game.topAndBottomOn {
+            Achievement.completeAchievement(.lucky)
+        }
+        if game.burnAmount == 10 {
+            Achievement.completeAchievement(.maxBurnWin)
+        }
+        
+        Achievement.incrementAchievementProgress(.botGamesWon)
+        if Achievement.getAchievementProgress(.botGamesWon) > 100 {
+            Achievement.completeAchievement(.hundredBotWins)
+        }
+        
         switch(difficulty) {
         case 0:
-            Achievement.completeAchievement("beatEasyBot")
+            Achievement.completeAchievement(.beatEasyBot)
             break
         case 1:
-            Achievement.completeAchievement("beatMediumBot")
+            Achievement.completeAchievement(.beatMediumBot)
             break
         case 2:
-            Achievement.completeAchievement("beatHardBot")
+            Achievement.completeAchievement(.beatHardBot)
             break
         case 3:
-            Achievement.completeAchievement("beatOuchBot")
+            Achievement.completeAchievement(.beatOuchBot)
             break
         default:
             break

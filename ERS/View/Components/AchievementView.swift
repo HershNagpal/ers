@@ -14,21 +14,23 @@ struct AchievementView: View {
     
     var body: some View {
         HStack {
-            Image(achievement.image)
+            Image(systemName: achievement.image)
+                .foregroundColor(isCompleted ? .ersGreen : .ersDarkGrey)
+                .font(.title)
             VStack(alignment: .leading) {
                 AchievementTitleText(achievement.title)
-                AchievementDescriptionText(achievement.unachievedDescription)
+                AchievementDescriptionText(isCompleted ? achievement.achievedDescription : achievement.unachievedDescription)
             }
             Spacer()
         }
         .onAppear {
-            self.isCompleted = Achievement.hasCompletedAchievement(achievement.id)
+            self.isCompleted = Achievement.hasCompletedAchievement(achievement.id.rawValue)
         }
         .padding()
         .frame(maxWidth: .infinity)
         .foregroundColor(.black)
         .background(.white)
-        .border(isCompleted ? .ersGreen : .ersGrey, width: 5)
+        .border(isCompleted ? .ersGreen : .ersDarkGrey, width: 5)
         .cornerRadius(8)
     }
 }
@@ -37,9 +39,9 @@ struct AchievementView: View {
 #Preview {
     VStack {
         AchievementView(achievement: 
-            Achievement( id: "allRulesWin",
+                            Achievement( id: .allRulesWin,
                          title: "Rules and Consequences",
-                         image: "robot", isCompleted: nil,
+                         image: "flag.fill", isCompleted: nil,
                          achievedDescription: "Won a game with every rule activated.",
                          unachievedDescription: "Win a game with every rule and extra rule activated."))
     }

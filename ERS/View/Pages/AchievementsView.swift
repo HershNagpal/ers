@@ -12,11 +12,14 @@ struct AchievementsView: View {
     @Binding var path: [String]
     
     var body: some View {
-        ScrollView {
-            ForEach(Achievement.achievementsList, id: \.self) {
-                AchievementView(achievement: $0)
+        VStack {
+            ScrollView {
+                ForEach(Achievement.achievementsList, id: \.self) {
+                    AchievementView(achievement: $0)
+                }
             }
         }
+        
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(10)
         .background(Colors.ersOrange)
