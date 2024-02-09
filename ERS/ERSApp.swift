@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GameKit
 
 @main
 struct ERSApp: App {

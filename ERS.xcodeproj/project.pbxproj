@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B300E3E42A4119B20010E351 /* TitleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B300E3E32A4119B20010E351 /* TitleText.swift */; };
 		B30BA1472A429F13007E7014 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B30BA1492A429F13007E7014 /* Localizable.strings */; };
+		B31074772B75AEE400A259BE /* OnlineGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31074762B75AEE400A259BE /* OnlineGameView.swift */; };
 		B31B8CEE297A2BAE00FDC910 /* ERSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8CED297A2BAE00FDC910 /* ERSApp.swift */; };
 		B31B8CF2297A2BB000FDC910 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B31B8CF1297A2BB000FDC910 /* Assets.xcassets */; };
 		B31B8CF5297A2BB000FDC910 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B31B8CF4297A2BB000FDC910 /* Preview Assets.xcassets */; };
@@ -58,6 +59,7 @@
 /* Begin PBXFileReference section */
 		B300E3E32A4119B20010E351 /* TitleText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleText.swift; sourceTree = "<group>"; };
 		B30BA1482A429F13007E7014 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B31074762B75AEE400A259BE /* OnlineGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineGameView.swift; sourceTree = "<group>"; };
 		B31B8CEA297A2BAE00FDC910 /* ERS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ERS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B31B8CED297A2BAE00FDC910 /* ERSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERSApp.swift; sourceTree = "<group>"; };
 		B31B8CF1297A2BB000FDC910 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				B3AE852D29CEA6E700D735F9 /* PracticeView.swift */,
 				B3AE850129CB49E300D735F9 /* HomeView.swift */,
 				B3AE850F29CE2B5D00D735F9 /* TutorialView.swift */,
+				B31074762B75AEE400A259BE /* OnlineGameView.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				B300E3E42A4119B20010E351 /* TitleText.swift in Sources */,
 				B3AE850029CAC46B00D735F9 /* StackInfoView.swift in Sources */,
 				B3AE851329CE3EFA00D735F9 /* TutorialCard.swift in Sources */,
+				B31074772B75AEE400A259BE /* OnlineGameView.swift in Sources */,
 				B3AE850A29CC9C4800D735F9 /* PauseView.swift in Sources */,
 				B38E315129960E10005254F9 /* LargeText.swift in Sources */,
 				B3786020297CF81A00E5DB92 /* CardView.swift in Sources */,

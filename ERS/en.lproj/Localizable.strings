@@ -9,9 +9,15 @@
 // Menu Screen
 "ers" = "Egyptian Rat Screw";
 "multiplayer" = "Multiplayer";
+"online" = "Online";
 "singleplayer" = "Singleplayer";
 "tutorial" = "Tutorial";
 "options" = "Options";
+"not signed in" = "Not signed in to Game Center";
+"sign in to play" = "Sign in with Game Center to play with friends!";
+"sign in" = "Sign In";
+"cancel" = "Cancel";
+"auth error" = "Error signing in to Game Center";
 
 // In Game
 "paused" = "Paused";
