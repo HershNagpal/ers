@@ -37,7 +37,7 @@
 
 "practice mode" = "Singleplayer";
 "difficulty" = "Difficulty";
-"difficulty description" = "The difficulty of the opponent in singleplayer affects how quickly it deals and slaps, and its chance to miss an opportunity to slap.";
+"difficulty description" = "The difficulty of the bot in singleplayer affects how quickly it deals and slaps, and its chance to miss an opportunity to slap.";
 "easy" = "Easy";
 "medium" = "Medium";
 "hard" = "Hard";

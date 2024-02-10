@@ -76,8 +76,8 @@ struct Achievement: Codable, Identifiable, Hashable {
                     title: "Heart of the Cards",
                     image: "heart.square",
                     isCompleted: false,
-                    achievedDescription: "Won a singleplayer game with no rules activated.",
-                    unachievedDescription: "Win a singleplayer game with no rules activated."),
+                    achievedDescription: "Won a singleplayer game with no slap rules activated.",
+                    unachievedDescription: "Win a singleplayer game with no slap rules activated."),
     ]
 
     enum AchievementId: String, Codable {

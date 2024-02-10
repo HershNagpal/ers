@@ -20,6 +20,16 @@ struct AchievementView: View {
             VStack(alignment: .leading) {
                 AchievementTitleText(achievement.title)
                 AchievementDescriptionText(isCompleted ? achievement.achievedDescription : achievement.unachievedDescription)
+                if achievement.id == .hundredBotWins {
+                    ProgressView(value: Float(Achievement.getAchievementProgress(.botGamesWon))/100)
+                        .tint(.ersGreen)
+                } else if achievement.id == .hundredGames {
+                    ProgressView(value: Float(Achievement.getAchievementProgress(.gamesPlayed))/100)
+                        .tint(.ersGreen)
+                } else if achievement.id == .thousandGames {
+                    ProgressView(value: Float(Achievement.getAchievementProgress(.gamesPlayed))/1000)
+                        .tint(.ersGreen)
+                }
             }
             Spacer()
         }
@@ -40,6 +50,12 @@ struct AchievementView: View {
     VStack {
         AchievementView(achievement: 
                             Achievement( id: .allRulesWin,
+                         title: "Rules and Consequences",
+                         image: "flag.fill", isCompleted: nil,
+                         achievedDescription: "Won a game with every rule activated.",
+                         unachievedDescription: "Win a game with every rule and extra rule activated."))
+        AchievementView(achievement:
+                            Achievement( id: .hundredGames,
                          title: "Rules and Consequences",
                          image: "flag.fill", isCompleted: nil,
                          achievedDescription: "Won a game with every rule activated.",

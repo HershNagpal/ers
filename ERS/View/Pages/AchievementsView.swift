@@ -19,12 +19,11 @@ struct AchievementsView: View {
                 }
             }
         }
-        
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(10)
         .background(Colors.ersOrange)
+        .ignoresSafeArea(.all, edges: .bottom)
     }
-    
 }
 
 struct AchievementsView_Previews: PreviewProvider {
