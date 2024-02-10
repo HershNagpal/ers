@@ -18,7 +18,7 @@ struct RuleToggleView: View {
             Toggle(isOn: $isOn, label: {
                 RuleTitleText(ruleName)
             })
-            .toggleStyle(SwitchToggleStyle(tint: Colors.orange))
+            .toggleStyle(SwitchToggleStyle(tint: Colors.ersOrange))
             .disabled(isDisabled)
             RuleDescriptionText(ruleDescription)
         }

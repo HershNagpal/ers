@@ -9,9 +9,52 @@ import SwiftUI
 
 struct PracticeView: View {
     @Binding var path: [String]
-    @StateObject var game = Game()
+    @StateObject var game = Game(isSingleplayer: true, difficulty: 1)
     @State var isPaused: Bool = false
     @AppStorage("difficulty") var difficulty: Int = 1
+    
+    private func checkAchievements() {
+        Achievement.incrementAchievementProgress(.gamesPlayed)
+        if Achievement.getAchievementProgress(.gamesPlayed) > 100 {
+            Achievement.completeAchievement(.hundredGames)
+        } else if Achievement.getAchievementProgress(.gamesPlayed) > 1000 {
+            Achievement.completeAchievement(.thousandGames)
+        }
+        guard game.winner == .one else { return }
+        if game.addToTenOn && game.couplesOn && game.divorceOn && game.doublesOn 
+            && game.queenOfDeathOn  && game.sandwichOn && game.sequenceOn && game.topAndBottomOn {
+            Achievement.completeAchievement(.allRulesWin)
+        }
+        if !game.addToTenOn && !game.couplesOn && !game.divorceOn && !game.doublesOn
+            && !game.queenOfDeathOn  && !game.sandwichOn && !game.sequenceOn && !game.topAndBottomOn {
+            Achievement.completeAchievement(.lucky)
+        }
+        if game.burnAmount == 10 {
+            Achievement.completeAchievement(.maxBurnWin)
+        }
+        
+        Achievement.incrementAchievementProgress(.botGamesWon)
+        if Achievement.getAchievementProgress(.botGamesWon) > 100 {
+            Achievement.completeAchievement(.hundredBotWins)
+        }
+        
+        switch(difficulty) {
+        case 0:
+            Achievement.completeAchievement(.beatEasyBot)
+            break
+        case 1:
+            Achievement.completeAchievement(.beatMediumBot)
+            break
+        case 2:
+            Achievement.completeAchievement(.beatHardBot)
+            break
+        case 3:
+            Achievement.completeAchievement(.beatOuchBot)
+            break
+        default:
+            break
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -29,9 +72,12 @@ struct PracticeView: View {
                 PlayerInteractionView(isPaused: $isPaused, game: game, isDisabled: false, player: .one)
                     .ignoresSafeArea()
             }
-                .background(Colors.grey)
+                .background(Colors.ersGrey)
             if game.winner != .none {
                 GameEndView(path: $path, winner: $game.winner)
+                    .onAppear {
+                        checkAchievements()
+                    }
             }
             if isPaused {
                 PauseView(isPaused: $isPaused, path: $path, resetGame: {

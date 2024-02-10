@@ -6,10 +6,33 @@
 //
 
 import SwiftUI
+import GameKit
 
 @available(iOS 16.0, *)
 struct HomeView: View {
     @State var path = [String]()
+    @State var showAlert = false
+    @State var alertType: AlertType = .notSignedIn
+    
+    func authenticateUser() {
+        GKLocalPlayer.local.authenticateHandler = { vc, error in
+            guard error == nil else {
+                print(error?.localizedDescription ?? "")
+                alertType = .authError
+                showAlert = true
+                return
+            }
+        }
+    }
+    
+    func handlePressOnline() {
+        if GKLocalPlayer.local.isAuthenticated {
+            path.append("online")
+        } else {
+            alertType = .notSignedIn
+            showAlert = true
+        }
+    }
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -26,12 +49,13 @@ struct HomeView: View {
                 Spacer()
                 NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
                 NavigationButton(text: "singleplayer", onPress: {path.append("singleplayer")})
+                NavigationButton(text: "achievements", onPress: {path.append("achievements")})
                 NavigationButton(text: "tutorial", onPress: {path.append("tutorial")})
                 NavigationButton(text: "options", onPress: {path.append("options")})
                 Spacer()
             }
             .frame(maxWidth: .infinity)
-            .background(Colors.yellow)
+            .background(Colors.ersYellow)
             .navigationDestination(for: String.self) { string in
                 switch string {
                 case "options":
@@ -48,10 +72,39 @@ struct HomeView: View {
                 case "tutorial":
                     TutorialView(path: $path)
                         .navigationTitle("tutorial")
+                case "achievements":
+                    AchievementsView(path: $path)
+                        .navigationTitle("achievements")
                 default:
                     Spacer()
                 }
             }
+            .alert(isPresented: $showAlert) {
+                switch alertType {
+                case .authError:
+                    Alert(title: Text("auth error"))
+                case .notSignedIn:
+                    Alert(
+                        title: Text("not signed in"),
+                        message: Text("sign in to play"),
+                        primaryButton: .default(
+                            Text("sign in"),
+                            action: {
+                                showAlert = false
+                                authenticateUser()
+                            }
+                        ),
+                        secondaryButton: .destructive(
+                            Text("cancel"),
+                            action: {showAlert = false}
+                        )
+                    )
+                }
+            }
         }
     }
+}
+
+enum AlertType {
+    case authError, notSignedIn
 }
