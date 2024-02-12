@@ -13,15 +13,21 @@ struct HomeView: View {
     @State var path = [String]()
     @State var showAlert = false
     @State var alertType: AlertType = .notSignedIn
+    @EnvironmentObject private var achievementManager: AchievementManager
     
     func authenticateUser() {
         GKLocalPlayer.local.authenticateHandler = { vc, error in
             guard error == nil else {
                 print(error?.localizedDescription ?? "")
                 alertType = .authError
-                showAlert = true
+//                showAlert = true
                 return
             }
+//            for id in AchievementId.allCases {
+//                if achievementManager.hasCompletedAchievement(id) {
+//                    achievementManager.reportCompletedAchievement(id)
+//                }
+//            }
         }
     }
     
@@ -54,8 +60,11 @@ struct HomeView: View {
                 NavigationButton(text: "options", onPress: {path.append("options")})
                 Spacer()
             }
+            .onAppear {
+//                authenticateUser()
+            }
             .frame(maxWidth: .infinity)
-            .background(Colors.ersYellow)
+            .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))
             .navigationDestination(for: String.self) { string in
                 switch string {
                 case "options":

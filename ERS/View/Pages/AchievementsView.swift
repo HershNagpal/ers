@@ -14,14 +14,14 @@ struct AchievementsView: View {
     var body: some View {
         VStack {
             ScrollView {
-                ForEach(Achievement.achievementsList, id: \.self) {
+                ForEach(AchievementManager.achievementsList, id: \.self) {
                     AchievementView(achievement: $0)
                 }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(10)
-        .background(Colors.ersOrange)
+        .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))
         .ignoresSafeArea(.all, edges: .bottom)
     }
 }

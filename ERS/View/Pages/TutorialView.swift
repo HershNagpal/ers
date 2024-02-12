@@ -130,7 +130,7 @@ struct TutorialView: View {
         }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(10)
-            .background(Colors.ersOrange)
+            .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))
     }
 
 }

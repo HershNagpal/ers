@@ -15,7 +15,9 @@ class Deck: ObservableObject {
         deck = []
         for suit in Suit.allCases {
             for value in Value.allCases {
-                deck.append(Card(value: value, suit: suit))
+                if suit != .none && value != .none {
+                    deck.append(Card(value: value, suit: suit))
+                }
             }
         }
     }

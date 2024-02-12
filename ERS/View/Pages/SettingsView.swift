@@ -175,6 +175,6 @@ struct SettingsView: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .background(Colors.ersYellow)
+        .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))
     }
 }
