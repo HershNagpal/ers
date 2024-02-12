@@ -12,15 +12,14 @@ struct GameView: View {
     @Binding var path: [String]
     @StateObject var game = Game()
     @State var isPaused: Bool = false
-    @EnvironmentObject private var achievementManager: AchievementManager
     
     private func checkAchievements() {
-        achievementManager.completeAchievement(.firstGame)
-        achievementManager.incrementAchievementProgress(.gamesPlayed)
-        if achievementManager.getAchievementProgress(.gamesPlayed) > 100 {
-            achievementManager.completeAchievement(.hundredGames)
-        } else if achievementManager.getAchievementProgress(.gamesPlayed) > 1000 {
-            achievementManager.completeAchievement(.thousandGames)
+        AchievementManager.completeAchievement(.firstGame)
+        AchievementManager.incrementAchievementProgress(.gamesPlayed)
+        if AchievementManager.getAchievementProgress(.gamesPlayed) > 100 {
+            AchievementManager.completeAchievement(.hundredGames)
+        } else if AchievementManager.getAchievementProgress(.gamesPlayed) > 1000 {
+            AchievementManager.completeAchievement(.thousandGames)
         }
     }
     

@@ -12,46 +12,48 @@ struct PracticeView: View {
     @StateObject var game = Game(isSingleplayer: true, difficulty: 1)
     @State var isPaused: Bool = false
     @AppStorage("difficulty") var difficulty: Int = 1
-    @EnvironmentObject private var achievementManager: AchievementManager
     
     private func checkAchievements() {
-        achievementManager.incrementAchievementProgress(.gamesPlayed)
-        achievementManager.completeAchievement(.firstGame)
-        if achievementManager.getAchievementProgress(.gamesPlayed) > 100 {
-            achievementManager.completeAchievement(.hundredGames)
-        } else if achievementManager.getAchievementProgress(.gamesPlayed) > 1000 {
-            achievementManager.completeAchievement(.thousandGames)
+        AchievementManager.incrementAchievementProgress(.gamesPlayed)
+        AchievementManager.completeAchievement(.firstGame)
+        AchievementManager.reportIncrementAchievement(.hundredGames)
+        AchievementManager.reportIncrementAchievement(.thousandGames)
+        if AchievementManager.getAchievementProgress(.gamesPlayed) > 100 {
+            AchievementManager.completeAchievement(.hundredGames)
+        } else if AchievementManager.getAchievementProgress(.gamesPlayed) > 1000 {
+            AchievementManager.completeAchievement(.thousandGames)
         }
         guard game.winner == .one else { return }
         if game.addToTenOn && game.couplesOn && game.divorceOn && game.doublesOn 
             && game.queenOfDeathOn  && game.sandwichOn && game.sequenceOn && game.topAndBottomOn {
-            achievementManager.completeAchievement(.allRulesWin)
+            AchievementManager.completeAchievement(.allRulesWin)
         }
         if !game.addToTenOn && !game.couplesOn && !game.divorceOn && !game.doublesOn
             && !game.queenOfDeathOn  && !game.sandwichOn && !game.sequenceOn && !game.topAndBottomOn {
-            achievementManager.completeAchievement(.lucky)
+            AchievementManager.completeAchievement(.lucky)
         }
         if game.burnAmount == 10 {
-            achievementManager.completeAchievement(.maxBurnWin)
+            AchievementManager.completeAchievement(.maxBurnWin)
         }
         
-        achievementManager.incrementAchievementProgress(.botGamesWon)
-        if achievementManager.getAchievementProgress(.botGamesWon) > 100 {
-            achievementManager.completeAchievement(.hundredBotWins)
+        AchievementManager.incrementAchievementProgress(.botGamesWon)
+        AchievementManager.reportIncrementAchievement(.hundredBotWins)
+        if AchievementManager.getAchievementProgress(.botGamesWon) > 100 {
+            AchievementManager.completeAchievement(.hundredBotWins)
         }
         
         switch(difficulty) {
         case 0:
-            achievementManager.completeAchievement(.beatEasyBot)
+            AchievementManager.completeAchievement(.beatEasyBot)
             break
         case 1:
-            achievementManager.completeAchievement(.beatMediumBot)
+            AchievementManager.completeAchievement(.beatMediumBot)
             break
         case 2:
-            achievementManager.completeAchievement(.beatHardBot)
+            AchievementManager.completeAchievement(.beatHardBot)
             break
         case 3:
-            achievementManager.completeAchievement(.beatOuchBot)
+            AchievementManager.completeAchievement(.beatOuchBot)
             break
         default:
             break

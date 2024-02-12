@@ -9,33 +9,83 @@ import Foundation
 import GameKit
 
 @MainActor
-class AchievementManager: ObservableObject {
+final class AchievementManager: ObservableObject {
     
-    func completeAchievement(_ achievementId: AchievementId) {
+    static func completeAchievement(_ achievementId: AchievementId) {
         guard !hasCompletedAchievement(achievementId) else { return }
         UserDefaults.standard.set(true, forKey: achievementId.rawValue)
         guard GKLocalPlayer.local.isAuthenticated else { return }
-//        reportCompletedAchievement(achievementId)
+        reportCompletedAchievement(achievementId)
     }
     
-    func uncompleteAchievement(_ achievementId: AchievementId) {
+    static func uncompleteAchievement(_ achievementId: AchievementId) {
         UserDefaults.standard.set(false, forKey: achievementId.rawValue)
     }
     
-    func incrementAchievementProgress(_ achievementId: AchievementProgress) {
-        let previous = getAchievementProgress(achievementId)
-        UserDefaults.standard.set(previous+1, forKey: achievementId.rawValue)
+    static func setAchievementProgress(_ achievementId: AchievementId, exactAmount: Int) {
+        UserDefaults.standard.set(exactAmount, forKey: achievementId.rawValue)
     }
     
-    func getAchievementProgress(_ achievementId: AchievementProgress) -> Int {
+    static func incrementAchievementProgress(_ achievementId: AchievementProgress) {
+        let previous = getAchievementProgress(achievementId)
+        UserDefaults.standard.set(previous+1, forKey: achievementId.rawValue)            
+    }
+    
+    static func getAchievementProgress(_ achievementId: AchievementProgress) -> Int {
         return UserDefaults.standard.integer(forKey: achievementId.rawValue)
     }
     
-    func hasCompletedAchievement(_ achievementId: AchievementId) -> Bool {
+    static func hasCompletedAchievement(_ achievementId: AchievementId) -> Bool {
         return UserDefaults.standard.bool(forKey: achievementId.rawValue)
     }
     
-    func reportCompletedAchievement(_ achievementId: AchievementId) {
+    static func reportIncrementAchievement(_ achievementId: AchievementId) {
+        var percentage: Double = 0
+        switch achievementId {
+        case .hundredGames:
+            percentage = Double(getAchievementProgress(.gamesPlayed))
+            break
+        case .hundredBotWins:
+            percentage = Double(getAchievementProgress(.botGamesWon))
+            break
+        case .thousandGames:
+            percentage = Double(getAchievementProgress(.gamesPlayed)/10)
+            break
+        default:
+            return
+        }
+        guard percentage <= 100 else { return }
+        // Load the player's active achievements.
+        GKAchievement.loadAchievements(completionHandler: {(achievements: [GKAchievement]?, error: Error?) in
+            let id = achievementId.rawValue
+            var achievement: GKAchievement? = nil
+            
+            // Find an existing achievement.
+            achievement = achievements?.first(where: { $0.identifier == id})
+            
+            // Otherwise, create a new achievement.
+            if achievement == nil {
+                achievement = GKAchievement(identifier: id)
+            }
+            print("Reporting \(percentage)% completion of \(id)")
+            // Insert code to report the percentage.
+            if let achievement = achievement {
+                achievement.percentComplete = percentage
+                GKAchievement.report([achievement]) { error in
+                    if error != nil {
+                        print("Error Reporting Achievement Progress \(id):\(achievement.percentComplete): \(String(describing: error.debugDescription))")
+                    }
+                }
+            }
+            
+            if error != nil {
+                // Handle the error that occurs.
+                print("Error Loading Achievement Progress \(id): \(String(describing: error))")
+            }
+        })
+    }
+    
+    static func reportCompletedAchievement(_ achievementId: AchievementId) {
         // Load the player's active achievements.
         GKAchievement.loadAchievements(completionHandler: {(achievements: [GKAchievement]?, error: Error?) in
             let id = achievementId.rawValue
@@ -53,7 +103,9 @@ class AchievementManager: ObservableObject {
             if let achievement = achievement {
                 achievement.percentComplete = 100
                 GKAchievement.report([achievement]) { error in
-                    print("Error Reporting Achievement: \(String(describing: error))")
+                    if error != nil {
+                        print("Error Reporting Achievement \(id): \(String(describing: error.debugDescription))")
+                    }
                 }
             }
             
