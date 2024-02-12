@@ -18,8 +18,9 @@ struct Achievement: Codable, Identifiable, Hashable {
     let unachievedDescription: String
 }
 
-enum AchievementId: String, Codable {
-    case beatEasyBot,
+enum AchievementId: String, Codable, CaseIterable {
+    case firstGame,
+    beatEasyBot,
     beatMediumBot,
     beatHardBot,
     beatOuchBot,

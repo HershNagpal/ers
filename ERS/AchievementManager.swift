@@ -12,7 +12,10 @@ import GameKit
 class AchievementManager: ObservableObject {
     
     func completeAchievement(_ achievementId: AchievementId) {
+        guard !hasCompletedAchievement(achievementId) else { return }
         UserDefaults.standard.set(true, forKey: achievementId.rawValue)
+        guard GKLocalPlayer.local.isAuthenticated else { return }
+//        reportCompletedAchievement(achievementId)
     }
     
     func uncompleteAchievement(_ achievementId: AchievementId) {
@@ -28,34 +31,46 @@ class AchievementManager: ObservableObject {
         return UserDefaults.standard.integer(forKey: achievementId.rawValue)
     }
     
-    func hasCompletedAchievement(_ achievementId: String) -> Bool {
-        return UserDefaults.standard.bool(forKey: achievementId)
+    func hasCompletedAchievement(_ achievementId: AchievementId) -> Bool {
+        return UserDefaults.standard.bool(forKey: achievementId.rawValue)
     }
     
     func reportCompletedAchievement(_ achievementId: AchievementId) {
         // Load the player's active achievements.
         GKAchievement.loadAchievements(completionHandler: {(achievements: [GKAchievement]?, error: Error?) in
-            let achievementID = achievementId.rawValue
+            let id = achievementId.rawValue
             var achievement: GKAchievement? = nil
             
             // Find an existing achievement.
-            achievement = achievements?.first(where: { $0.identifier == achievementID})
+            achievement = achievements?.first(where: { $0.identifier == id})
             
             // Otherwise, create a new achievement.
             if achievement == nil {
-                achievement = GKAchievement(identifier: achievementID)
+                achievement = GKAchievement(identifier: id)
             }
             
             // Insert code to report the percentage.
+            if let achievement = achievement {
+                achievement.percentComplete = 100
+                GKAchievement.report([achievement]) { error in
+                    print("Error Reporting Achievement: \(String(describing: error))")
+                }
+            }
             
             if error != nil {
                 // Handle the error that occurs.
-                print("Error: \(String(describing: error))")
+                print("Error Loading Achievement: \(String(describing: error))")
             }
         })
     }
     
     static let achievementsList = [
+        Achievement(id: .firstGame,
+                    title: "First Slaps",
+                    image: "hand.wave",
+                    isCompleted: false,
+                    achievedDescription: "Played your first game of ERS!",
+                    unachievedDescription: "Play out a game of ERS on singleplayer or multiplayer."),
         Achievement(id: .beatEasyBot,
                     title: "Beat Easy Bot",
                     image: "brain.filled.head.profile",

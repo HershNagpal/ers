@@ -35,7 +35,7 @@ struct AchievementView: View {
             Spacer()
         }
         .onAppear {
-            self.isCompleted = achievementManager.hasCompletedAchievement(achievement.id.rawValue)
+            self.isCompleted = achievementManager.hasCompletedAchievement(achievement.id)
         }
         .padding()
         .frame(maxWidth: .infinity)

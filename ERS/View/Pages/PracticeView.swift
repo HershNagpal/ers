@@ -16,6 +16,7 @@ struct PracticeView: View {
     
     private func checkAchievements() {
         achievementManager.incrementAchievementProgress(.gamesPlayed)
+        achievementManager.completeAchievement(.firstGame)
         if achievementManager.getAchievementProgress(.gamesPlayed) > 100 {
             achievementManager.completeAchievement(.hundredGames)
         } else if achievementManager.getAchievementProgress(.gamesPlayed) > 1000 {

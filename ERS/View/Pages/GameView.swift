@@ -15,6 +15,7 @@ struct GameView: View {
     @EnvironmentObject private var achievementManager: AchievementManager
     
     private func checkAchievements() {
+        achievementManager.completeAchievement(.firstGame)
         achievementManager.incrementAchievementProgress(.gamesPlayed)
         if achievementManager.getAchievementProgress(.gamesPlayed) > 100 {
             achievementManager.completeAchievement(.hundredGames)
