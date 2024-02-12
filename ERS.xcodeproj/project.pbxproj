@@ -14,6 +14,7 @@
 		B310747D2B75BF2300A259BE /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310747C2B75BF2300A259BE /* Achievement.swift */; };
 		B310747F2B769D7200A259BE /* AchievementTitleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310747E2B769D7200A259BE /* AchievementTitleText.swift */; };
 		B31074812B769DC800A259BE /* AchievementDescriptionText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31074802B769DC800A259BE /* AchievementDescriptionText.swift */; };
+		B31074872B79648900A259BE /* AchievementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31074862B79648900A259BE /* AchievementManager.swift */; };
 		B31B8CEE297A2BAE00FDC910 /* ERSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8CED297A2BAE00FDC910 /* ERSApp.swift */; };
 		B31B8CF2297A2BB000FDC910 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B31B8CF1297A2BB000FDC910 /* Assets.xcassets */; };
 		B31B8CF5297A2BB000FDC910 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B31B8CF4297A2BB000FDC910 /* Preview Assets.xcassets */; };
@@ -68,6 +69,7 @@
 		B310747C2B75BF2300A259BE /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
 		B310747E2B769D7200A259BE /* AchievementTitleText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementTitleText.swift; sourceTree = "<group>"; };
 		B31074802B769DC800A259BE /* AchievementDescriptionText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDescriptionText.swift; sourceTree = "<group>"; };
+		B31074862B79648900A259BE /* AchievementManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementManager.swift; sourceTree = "<group>"; };
 		B31B8CEA297A2BAE00FDC910 /* ERS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ERS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B31B8CED297A2BAE00FDC910 /* ERSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERSApp.swift; sourceTree = "<group>"; };
 		B31B8CF1297A2BB000FDC910 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				B30BA1492A429F13007E7014 /* Localizable.strings */,
 				B3564A5F2A0B7BC300F2915E /* ERS: Egyptian Rat Screw.storekit */,
 				B33ED3882A2E982D001C5126 /* PurchaseManager.swift */,
+				B31074862B79648900A259BE /* AchievementManager.swift */,
 			);
 			path = ERS;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				B3AE853029CEC1D400D735F9 /* RuleToggleView.swift in Sources */,
 				B3AE850C29CCA7A300D735F9 /* GameEndView.swift in Sources */,
 				B3AE850E29CCB8DD00D735F9 /* Colors.swift in Sources */,
+				B31074872B79648900A259BE /* AchievementManager.swift in Sources */,
 				B31B8D03297A2D4C00FDC910 /* Deck.swift in Sources */,
 				B33ED3892A2E982D001C5126 /* PurchaseManager.swift in Sources */,
 				B3AE84FE29CA910600D735F9 /* MediumText.swift in Sources */,

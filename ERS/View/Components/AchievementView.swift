@@ -11,6 +11,7 @@ import GameKit
 struct AchievementView: View {
     let achievement: Achievement
     @State var isCompleted: Bool = false
+    @EnvironmentObject private var achievementManager: AchievementManager
     
     var body: some View {
         HStack {
@@ -21,20 +22,20 @@ struct AchievementView: View {
                 AchievementTitleText(achievement.title)
                 AchievementDescriptionText(isCompleted ? achievement.achievedDescription : achievement.unachievedDescription)
                 if achievement.id == .hundredBotWins {
-                    ProgressView(value: Float(Achievement.getAchievementProgress(.botGamesWon))/100)
+                    ProgressView(value: Float(achievementManager.getAchievementProgress(.botGamesWon))/100)
                         .tint(.ersGreen)
                 } else if achievement.id == .hundredGames {
-                    ProgressView(value: Float(Achievement.getAchievementProgress(.gamesPlayed))/100)
+                    ProgressView(value: Float(achievementManager.getAchievementProgress(.gamesPlayed))/100)
                         .tint(.ersGreen)
                 } else if achievement.id == .thousandGames {
-                    ProgressView(value: Float(Achievement.getAchievementProgress(.gamesPlayed))/1000)
+                    ProgressView(value: Float(achievementManager.getAchievementProgress(.gamesPlayed))/1000)
                         .tint(.ersGreen)
                 }
             }
             Spacer()
         }
         .onAppear {
-            self.isCompleted = Achievement.hasCompletedAchievement(achievement.id.rawValue)
+            self.isCompleted = achievementManager.hasCompletedAchievement(achievement.id.rawValue)
         }
         .padding()
         .frame(maxWidth: .infinity)

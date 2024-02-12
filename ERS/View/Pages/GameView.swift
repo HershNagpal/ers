@@ -6,25 +6,27 @@
 //
 
 import SwiftUI
+import GameKit
 
 struct GameView: View {
     @Binding var path: [String]
     @StateObject var game = Game()
     @State var isPaused: Bool = false
+    @EnvironmentObject private var achievementManager: AchievementManager
     
     private func checkAchievements() {
-        Achievement.incrementAchievementProgress(.gamesPlayed)
-        if Achievement.getAchievementProgress(.gamesPlayed) > 100 {
-            Achievement.completeAchievement(.hundredGames)
-        } else if Achievement.getAchievementProgress(.gamesPlayed) > 1000 {
-            Achievement.completeAchievement(.thousandGames)
+        achievementManager.incrementAchievementProgress(.gamesPlayed)
+        if achievementManager.getAchievementProgress(.gamesPlayed) > 100 {
+            achievementManager.completeAchievement(.hundredGames)
+        } else if achievementManager.getAchievementProgress(.gamesPlayed) > 1000 {
+            achievementManager.completeAchievement(.thousandGames)
         }
     }
     
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                PlayerInteractionView(isPaused: $isPaused, game: game, isDisabled: true, player: .two)
+                PlayerInteractionView(isPaused: $isPaused, game: game, isDisabled: false, player: .two)
                     .rotationEffect(Angle(degrees: 180))
                     .ignoresSafeArea()
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck2, lastDeckCount: game.deck1.numCards())
