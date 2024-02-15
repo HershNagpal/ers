@@ -11,20 +11,17 @@ import GameKit
 @main
 struct ERSApp: App {
     @StateObject private var purchaseManager: PurchaseManager
-    @StateObject private var achievementManager: AchievementManager
 
     init() {
         let purchaseManager = PurchaseManager()
-        let achievementManager = AchievementManager()
         self._purchaseManager = StateObject(wrappedValue: purchaseManager)
-        self._achievementManager = StateObject(wrappedValue: achievementManager)
     }
     
     var body: some Scene {
         WindowGroup {
             HomeView()
                 .environmentObject(purchaseManager)
-                .environmentObject(achievementManager)
+                .environmentObject(HomeViewModel())
                 .task {
                     await purchaseManager.updatePurchasedProducts()
                 }

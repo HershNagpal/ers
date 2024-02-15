@@ -10,38 +10,27 @@ import GameKit
 
 struct AchievementView: View {
     let achievement: Achievement
-    @State var isCompleted: Bool = false
-    @EnvironmentObject private var achievementManager: AchievementManager
     
     var body: some View {
         HStack {
             Image(systemName: achievement.image)
-                .foregroundColor(isCompleted ? .ersGreen : .ersDarkGrey)
+                .foregroundColor(achievement.isCompleted ? .ersGreen : .ersDarkGrey)
                 .font(.title)
             VStack(alignment: .leading) {
                 AchievementTitleText(achievement.title)
-                AchievementDescriptionText(isCompleted ? achievement.achievedDescription : achievement.unachievedDescription)
-                if achievement.id == .hundredBotWins {
-                    ProgressView(value: Float(achievementManager.getAchievementProgress(.botGamesWon))/100)
-                        .tint(.ersGreen)
-                } else if achievement.id == .hundredGames {
-                    ProgressView(value: Float(achievementManager.getAchievementProgress(.gamesPlayed))/100)
-                        .tint(.ersGreen)
-                } else if achievement.id == .thousandGames {
-                    ProgressView(value: Float(achievementManager.getAchievementProgress(.gamesPlayed))/1000)
+                AchievementDescriptionText(achievement.isCompleted ? achievement.achievedDescription : achievement.unachievedDescription)
+                if achievement.percentComplete > 0 && achievement.percentComplete < 100 {
+                    ProgressView(value: Float(achievement.percentComplete)/100)
                         .tint(.ersGreen)
                 }
             }
             Spacer()
         }
-        .onAppear {
-            self.isCompleted = achievementManager.hasCompletedAchievement(achievement.id)
-        }
         .padding()
         .frame(maxWidth: .infinity)
         .foregroundColor(.black)
         .background(.white)
-        .border(isCompleted ? .ersGreen : .ersDarkGrey, width: 5)
+        .border(achievement.isCompleted ? .ersGreen : .ersDarkGrey, width: 5)
         .cornerRadius(8)
     }
 }
@@ -52,13 +41,19 @@ struct AchievementView: View {
         AchievementView(achievement: 
                             Achievement( id: .allRulesWin,
                          title: "Rules and Consequences",
-                         image: "flag.fill", isCompleted: nil,
+                         image: "flag.fill", percentComplete: 0,
                          achievedDescription: "Won a game with every rule activated.",
                          unachievedDescription: "Win a game with every rule and extra rule activated."))
         AchievementView(achievement:
                             Achievement( id: .hundredGames,
                          title: "Rules and Consequences",
-                         image: "flag.fill", isCompleted: nil,
+                                         image: "flag.fill", percentComplete: 50,
+                         achievedDescription: "Won a game with every rule activated.",
+                         unachievedDescription: "Win a game with every rule and extra rule activated."))
+        AchievementView(achievement:
+                            Achievement( id: .hundredGames,
+                         title: "Rules and Consequences",
+                                         image: "flag.fill", percentComplete: 100,
                          achievedDescription: "Won a game with every rule activated.",
                          unachievedDescription: "Win a game with every rule and extra rule activated."))
     }

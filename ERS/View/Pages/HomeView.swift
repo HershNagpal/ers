@@ -8,37 +8,28 @@
 import SwiftUI
 import GameKit
 
-@available(iOS 16.0, *)
-struct HomeView: View {
-    @State var path = [String]()
-    @State var showAlert = false
-    @State var alertType: AlertType = .notSignedIn
-    @EnvironmentObject private var achievementManager: AchievementManager
+@MainActor
+final class HomeViewModel: ObservableObject {
+    @Published var showAlert = false
+    @Published var alertType: AlertType = .notSignedIn
     
     func authenticateUser() {
         GKLocalPlayer.local.authenticateHandler = { vc, error in
             guard error == nil else {
                 print(error?.localizedDescription ?? "")
-                alertType = .authError
+                self.alertType = .authError
 //                showAlert = true
                 return
             }
-//            for id in AchievementId.allCases {
-//                if achievementManager.hasCompletedAchievement(id) {
-//                    achievementManager.reportCompletedAchievement(id)
-//                }
-//            }
         }
     }
+}
+
+@available(iOS 16.0, *)
+struct HomeView: View {
+    @EnvironmentObject var vm: HomeViewModel
     
-    func handlePressOnline() {
-        if GKLocalPlayer.local.isAuthenticated {
-            path.append("online")
-        } else {
-            alertType = .notSignedIn
-            showAlert = true
-        }
-    }
+    @State var path = [String]()
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -61,7 +52,8 @@ struct HomeView: View {
                 Spacer()
             }
             .onAppear {
-//                authenticateUser()
+                vm.authenticateUser()
+                AchievementManager.syncAchievements()
             }
             .frame(maxWidth: .infinity)
             .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))
@@ -88,8 +80,8 @@ struct HomeView: View {
                     Spacer()
                 }
             }
-            .alert(isPresented: $showAlert) {
-                switch alertType {
+            .alert(isPresented: $vm.showAlert) {
+                switch vm.alertType {
                 case .authError:
                     Alert(title: Text("auth error"))
                 case .notSignedIn:
@@ -99,13 +91,13 @@ struct HomeView: View {
                         primaryButton: .default(
                             Text("sign in"),
                             action: {
-                                showAlert = false
-                                authenticateUser()
+                                vm.showAlert = false
+                                vm.authenticateUser()
                             }
                         ),
                         secondaryButton: .destructive(
                             Text("cancel"),
-                            action: {showAlert = false}
+                            action: {vm.showAlert = false}
                         )
                     )
                 }

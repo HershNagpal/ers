@@ -10,10 +10,13 @@ import GameKit
 import SwiftUI
 
 struct Achievement: Codable, Identifiable, Hashable {
-    var id: AchievementId
+    let id: AchievementId
     let title: String
     let image: String
-    let isCompleted: Bool?
+    let percentComplete: Double
+    var isCompleted: Bool {
+        get { percentComplete >= 100 }
+    }
     let achievedDescription: String
     let unachievedDescription: String
 }
@@ -30,8 +33,4 @@ enum AchievementId: String, Codable, CaseIterable {
     maxBurnWin,
     allRulesWin,
     lucky
-}
-
-enum AchievementProgress: String, Codable {
-    case botGamesWon, gamesPlayed
 }
