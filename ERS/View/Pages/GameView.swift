@@ -14,13 +14,10 @@ struct GameView: View {
     @State var isPaused: Bool = false
     
     private func checkAchievements() {
-        AchievementManager.completeAchievement(.firstGame)
-        AchievementManager.incrementAchievementProgress(.gamesPlayed)
-        if AchievementManager.getAchievementProgress(.gamesPlayed) > 100 {
-            AchievementManager.completeAchievement(.hundredGames)
-        } else if AchievementManager.getAchievementProgress(.gamesPlayed) > 1000 {
-            AchievementManager.completeAchievement(.thousandGames)
-        }
+        AchievementManager.setAchievementProgress(.hundredGames,
+              percentComplete: min(AchievementManager.getAchievementProgress(.hundredGames)+1,100))
+        AchievementManager.setAchievementProgress(.thousandGames,
+              percentComplete: min(AchievementManager.getAchievementProgress(.thousandGames)+0.1,100))
     }
     
     var body: some View {

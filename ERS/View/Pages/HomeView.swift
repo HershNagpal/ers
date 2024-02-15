@@ -21,47 +21,6 @@ final class HomeViewModel: ObservableObject {
 //                showAlert = true
                 return
             }
-            for id in AchievementId.allCases {
-                if AchievementManager.hasCompletedAchievement(id) {
-                    AchievementManager.reportCompletedAchievement(id)
-                }
-                GKAchievement.loadAchievements(completionHandler: {(achievements: [GKAchievement]?, error: Error?) in
-                    let achievementID = id.rawValue
-                    var achievement: GKAchievement? = nil
-                    
-                    // Find an existing achievement.
-                    achievement = achievements?.first(where: { $0.identifier == achievementID})
-                    
-                    if let achievement = achievement {
-                        if achievement.isCompleted {
-                            AchievementManager.completeAchievement(id)
-                        } else if id == .hundredBotWins || id == .thousandGames || id == .hundredGames {
-                            let completion = achievement.percentComplete
-                            print("Loading achievement \(id):\(achievement.percentComplete)")
-                            switch id {
-                            case .hundredGames:
-                                AchievementManager.setAchievementProgress(id, exactAmount: Int(completion))
-                                break
-                            case .hundredBotWins:
-                                AchievementManager.setAchievementProgress(id, exactAmount: Int(completion))
-                                break
-                            case .thousandGames:
-                                AchievementManager.setAchievementProgress(id, exactAmount: Int(completion*10))
-                                break
-                            default:
-                                break
-                            }
-                        }
-                    }
-                    
-                    // Insert code to report the percentage.
-                    
-                    if error != nil {
-                        // Handle the error that occurs.
-                        print("Error Authenticating Achievements: \(String(describing: error))")
-                    }
-                })
-            }
         }
     }
 }
@@ -94,6 +53,7 @@ struct HomeView: View {
             }
             .onAppear {
                 vm.authenticateUser()
+                AchievementManager.syncAchievements()
             }
             .frame(maxWidth: .infinity)
             .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))

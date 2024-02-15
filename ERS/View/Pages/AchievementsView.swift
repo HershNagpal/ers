@@ -15,7 +15,14 @@ struct AchievementsView: View {
         VStack {
             ScrollView {
                 ForEach(AchievementManager.achievementsList, id: \.self) {
-                    AchievementView(achievement: $0)
+                    let achievement = Achievement(
+                        id: $0.id,
+                        title: $0.title,
+                        image: $0.image,
+                        percentComplete: AchievementManager.getAchievementProgress($0.id),
+                        achievedDescription: $0.unachievedDescription,
+                        unachievedDescription: $0.achievedDescription)
+                    AchievementView(achievement: achievement)
                 }
             }
         }
@@ -23,6 +30,9 @@ struct AchievementsView: View {
         .padding(10)
         .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))
         .ignoresSafeArea(.all, edges: .bottom)
+        .onAppear {
+            AchievementManager.syncAchievements()
+        }
     }
 }
 
