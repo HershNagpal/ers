@@ -14,6 +14,7 @@ struct PlayerInteractionView: View {
     var player: PlayerNumber
     @AppStorage("easyClaim") var easyClaim: Bool = true
     @AppStorage("easyDeal") var easyDeal: Bool = true
+    @Binding var confettiCounter: Int
     
     var body: some View {
         ZStack {
@@ -34,7 +35,9 @@ struct PlayerInteractionView: View {
                             : Colors.ersGreen
                         )
                 }
-                Button(action: { if !isDisabled {game.slap(player)}}) {
+                Button(action: { if !isDisabled {
+                    if game.slap(player) { confettiCounter += 1 }
+                }}) {
                     VStack {
                         Image("hand")
                             .resizable()

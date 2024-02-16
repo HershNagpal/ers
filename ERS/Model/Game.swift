@@ -110,8 +110,8 @@ class Game: ObservableObject {
         currentPlayer = currentPlayer == .one ? .two : .one
     }
     
-    func slap(_ player: PlayerNumber) {
-        guard stack.count > 0 else { return }
+    func slap(_ player: PlayerNumber) -> Bool {
+        guard stack.count > 0 else { return false }
         if isValidSlap(player) {
             stack.append(contentsOf: burnPile)
             player == .one
@@ -122,9 +122,10 @@ class Game: ObservableObject {
             stackClaimSlap = .none
             currentPlayer = player
             countdown = -1
-            return
+            return true
         }
         burnCards(player, amount: burnAmount)
+        return false
     }
     
     func isValidSlap(_ player: PlayerNumber) -> Bool {
