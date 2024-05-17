@@ -20,8 +20,8 @@ struct AchievementsView: View {
                         title: $0.title,
                         image: $0.image,
                         percentComplete: AchievementManager.getAchievementProgress($0.id),
-                        achievedDescription: $0.unachievedDescription,
-                        unachievedDescription: $0.achievedDescription)
+                        achievedDescription: $0.achievedDescription,
+                        unachievedDescription: $0.unachievedDescription)
                     AchievementView(achievement: achievement)
                 }
             }

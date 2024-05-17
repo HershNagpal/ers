@@ -34,6 +34,8 @@
 "easy deal description" = "Changes the color of the deal button when it isn't your turn.";
 "easy claim" = "Easy Claim";
 "easy claim description" = "Changes the color of the slap button when your opponent has used their chances after you played a face card or ace.";
+"confetti slap" = "Confetti Slap";
+"confetti slap description" = "Shoots confetti when a player wins a pile.";
 
 "practice mode" = "Singleplayer";
 "difficulty" = "Difficulty";
