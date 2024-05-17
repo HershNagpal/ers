@@ -99,6 +99,7 @@ struct PracticeView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + randomTime-randomTime/4) {
             if game.stackClaimSlap == .two {
                 let _ = game.slap(.two)
+                confettiCounter2 += 1
             }
             
             if game.isValidSlap(.two) && Int.random(in: 1..<100) > chanceToSkipSlap {
