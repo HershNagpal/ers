@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GameKit
 
 @main
 struct ERSApp: App {
@@ -20,6 +21,7 @@ struct ERSApp: App {
         WindowGroup {
             HomeView()
                 .environmentObject(purchaseManager)
+                .environmentObject(HomeViewModel())
                 .task {
                     await purchaseManager.updatePurchasedProducts()
                 }

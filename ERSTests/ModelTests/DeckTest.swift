@@ -22,7 +22,9 @@ class DeckTest: XCTestCase {
         let deck = Deck()
         for suit in Suit.allCases {
             for value in Value.allCases {
-                XCTAssertTrue(deck.draw()?.toString() == "\(value) of \(suit)")
+                if suit != .none && value != .none {
+                    XCTAssertTrue(deck.draw()?.toString() == "\(value) of \(suit)")
+                }
             }
         }
         XCTAssertTrue(deck.numCards() == 0)

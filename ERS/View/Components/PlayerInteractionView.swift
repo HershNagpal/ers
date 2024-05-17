@@ -14,6 +14,8 @@ struct PlayerInteractionView: View {
     var player: PlayerNumber
     @AppStorage("easyClaim") var easyClaim: Bool = true
     @AppStorage("easyDeal") var easyDeal: Bool = true
+    @AppStorage("confettiSlap") var confettiSlap: Bool = true
+    @Binding var confettiCounter: Int
     
     var body: some View {
         ZStack {
@@ -29,12 +31,14 @@ struct PlayerInteractionView: View {
                         .background(
                             easyDeal
                                 ? game.currentPlayer == player && game.stackClaimSlap == .none
-                                ? Colors.green
-                                : Colors.grey
-                            : Colors.green
+                                ? Colors.ersGreen
+                                : Colors.ersGrey
+                            : Colors.ersGreen
                         )
                 }
-                Button(action: { if !isDisabled {game.slap(player)}}) {
+                Button(action: { if !isDisabled {
+                    if game.slap(player) && confettiSlap { confettiCounter += 1 }
+                }}) {
                     VStack {
                         Image("hand")
                             .resizable()
@@ -44,8 +48,8 @@ struct PlayerInteractionView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(
                             game.stackClaimSlap == player && easyClaim
-                                ? Colors.green
-                                : Colors.red
+                                ? Colors.ersGreen
+                                : Colors.ersRed
                         )
                 }
                 
@@ -54,7 +58,7 @@ struct PlayerInteractionView: View {
                 Image(systemName: "pause")
                     .font(.system(size: 40))
                     .frame(width: 75, height: 75)
-                    .background(Colors.yellow)
+                    .background(Colors.ersYellow)
                     .foregroundColor(.black)
                     .cornerRadius(75)
             }

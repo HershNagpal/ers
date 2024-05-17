@@ -14,6 +14,8 @@ class Game: ObservableObject {
     var countdown: Int
     var currentPlayer: PlayerNumber
     var stackClaimSlap: PlayerNumber
+    let isSingleplayer: Bool
+    let difficulty: Int
     @Published var stack: [Card]
     @Published var burnPile: [Card]
     @Published var winner: PlayerNumber
@@ -42,6 +44,24 @@ class Game: ObservableObject {
         numTurns = 0
         deck1.shuffle()
         deck2.shuffle()
+        isSingleplayer = false
+        difficulty = -1
+    }
+    
+    init(isSingleplayer: Bool, difficulty: Int) {
+        self.deck1 = Deck(player: .one)
+        self.deck2 = Deck(player: .two)
+        stack = []
+        burnPile = []
+        winner = .none
+        countdown = -1
+        currentPlayer = .one
+        stackClaimSlap = .none
+        numTurns = 0
+        deck1.shuffle()
+        deck2.shuffle()
+        self.isSingleplayer = isSingleplayer
+        self.difficulty = difficulty
     }
     
     func deal(_ player: PlayerNumber) {
@@ -90,8 +110,8 @@ class Game: ObservableObject {
         currentPlayer = currentPlayer == .one ? .two : .one
     }
     
-    func slap(_ player: PlayerNumber) {
-        guard stack.count > 0 else { return }
+    func slap(_ player: PlayerNumber) -> Bool {
+        guard stack.count > 0 else { return false }
         if isValidSlap(player) {
             stack.append(contentsOf: burnPile)
             player == .one
@@ -102,9 +122,10 @@ class Game: ObservableObject {
             stackClaimSlap = .none
             currentPlayer = player
             countdown = -1
-            return
+            return true
         }
         burnCards(player, amount: burnAmount)
+        return false
     }
     
     func isValidSlap(_ player: PlayerNumber) -> Bool {

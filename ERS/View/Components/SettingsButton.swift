@@ -33,7 +33,7 @@ struct SettingsButton: View {
             } label: {
                 RuleTitleText(text)
                     .foregroundColor(.white)
-                    .background(Colors.darkGrey)
+                    .background(Colors.ersDarkGrey)
             }
         }
     }

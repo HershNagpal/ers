@@ -39,7 +39,7 @@ struct NavigationButton: View {
                     .frame(width: 300, height: 50)
                     .padding(10)
                     .foregroundColor(.white)
-                    .background(Colors.darkGrey)
+                    .background(Colors.ersDarkGrey)
             }
             .cornerRadius(10)
         }

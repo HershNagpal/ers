@@ -29,6 +29,7 @@ struct SettingsView: View {
     
     @AppStorage("easyDeal") var easyDeal: Bool = true
     @AppStorage("easyClaim") var easyClaim: Bool = true
+    @AppStorage("confettiSlap") var confettiSlap: Bool = true
     
     @AppStorage("doublesOn") var doublesOn: Bool = true
     @AppStorage("sandwichOn") var sandwichOn: Bool = true
@@ -64,6 +65,10 @@ struct SettingsView: View {
                 RuleToggleView(ruleName: "easy claim", ruleDescription: "easy claim description", isDisabled: $freeSettingsDisabled, isOn: $easyClaim)
                     .onChange(of: easyClaim) { value in
                         easyClaim = value
+                    }
+                RuleToggleView(ruleName: "confetti slap", ruleDescription: "confetti slap description", isDisabled: $freeSettingsDisabled, isOn: $confettiSlap)
+                    .onChange(of: easyClaim) { value in
+                        confettiSlap = value
                     }
             }
             
@@ -175,6 +180,6 @@ struct SettingsView: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .background(Colors.yellow)
+        .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))
     }
 }
