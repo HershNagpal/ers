@@ -67,7 +67,7 @@ struct SettingsView: View {
                         easyClaim = value
                     }
                 RuleToggleView(ruleName: "confetti slap", ruleDescription: "confetti slap description", isDisabled: $freeSettingsDisabled, isOn: $confettiSlap)
-                    .onChange(of: easyClaim) { value in
+                    .onChange(of: confettiSlap) { value in
                         confettiSlap = value
                     }
             }
