@@ -25,6 +25,7 @@
 		B33ED3892A2E982D001C5126 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33ED3882A2E982D001C5126 /* PurchaseManager.swift */; };
 		B3564A612A11FF4F00F2915E /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3564A602A11FF4F00F2915E /* SettingsButton.swift */; };
 		B3786020297CF81A00E5DB92 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B378601F297CF81A00E5DB92 /* CardView.swift */; };
+		B38A58B32C406B7C0060C6E7 /* AppStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38A58B22C406B7C0060C6E7 /* AppStorageManager.swift */; };
 		B38E314D2995FD57005254F9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E314C2995FD57005254F9 /* SettingsView.swift */; };
 		B38E315129960E10005254F9 /* LargeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E315029960E10005254F9 /* LargeText.swift */; };
 		B38E315329961037005254F9 /* NavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E315229961037005254F9 /* NavigationButton.swift */; };
@@ -84,6 +85,7 @@
 		B3564A5F2A0B7BC300F2915E /* ERS: Egyptian Rat Screw.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ERS: Egyptian Rat Screw.storekit"; sourceTree = "<group>"; };
 		B3564A602A11FF4F00F2915E /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		B378601F297CF81A00E5DB92 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		B38A58B22C406B7C0060C6E7 /* AppStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageManager.swift; sourceTree = "<group>"; };
 		B38E314C2995FD57005254F9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B38E315029960E10005254F9 /* LargeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeText.swift; sourceTree = "<group>"; };
 		B38E315229961037005254F9 /* NavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButton.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		B31B8CEC297A2BAE00FDC910 /* ERS */ = {
 			isa = PBXGroup;
 			children = (
+				B38A58B12C406B470060C6E7 /* Utility */,
 				B3AE853929D0A54F00D735F9 /* ERS.entitlements */,
 				B3AE84F729CA1D7600D735F9 /* Info.plist */,
 				B31B8CFC297A2C1100FDC910 /* View */,
@@ -161,8 +164,6 @@
 				B31B8CF3297A2BB000FDC910 /* Preview Content */,
 				B30BA1492A429F13007E7014 /* Localizable.strings */,
 				B3564A5F2A0B7BC300F2915E /* ERS: Egyptian Rat Screw.storekit */,
-				B33ED3882A2E982D001C5126 /* PurchaseManager.swift */,
-				B31074862B79648900A259BE /* AchievementManager.swift */,
 			);
 			path = ERS;
 			sourceTree = "<group>";
@@ -212,6 +213,16 @@
 				B31B8D1A297A662300FDC910 /* DeckTest.swift */,
 			);
 			path = ModelTests;
+			sourceTree = "<group>";
+		};
+		B38A58B12C406B470060C6E7 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				B31074862B79648900A259BE /* AchievementManager.swift */,
+				B33ED3882A2E982D001C5126 /* PurchaseManager.swift */,
+				B38A58B22C406B7C0060C6E7 /* AppStorageManager.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		B38E314E29960DC6005254F9 /* Components */ = {
@@ -376,6 +387,7 @@
 				B3AE850E29CCB8DD00D735F9 /* Colors.swift in Sources */,
 				B31074872B79648900A259BE /* AchievementManager.swift in Sources */,
 				B31B8D03297A2D4C00FDC910 /* Deck.swift in Sources */,
+				B38A58B32C406B7C0060C6E7 /* AppStorageManager.swift in Sources */,
 				B33ED3892A2E982D001C5126 /* PurchaseManager.swift in Sources */,
 				B3AE84FE29CA910600D735F9 /* MediumText.swift in Sources */,
 				B300E3E42A4119B20010E351 /* TitleText.swift in Sources */,

@@ -15,22 +15,11 @@ class Game: ObservableObject {
     var currentPlayer: PlayerNumber
     var stackClaimSlap: PlayerNumber
     let isSingleplayer: Bool
-    let difficulty: Int
     @Published var stack: [Card]
     @Published var burnPile: [Card]
     @Published var winner: PlayerNumber
     @Published var numTurns: Int
-    
-    @AppStorage("doublesOn") var doublesOn: Bool = true
-    @AppStorage("sandwichOn") var sandwichOn: Bool = true
-    @AppStorage("couplesOn") var couplesOn: Bool = true
-    @AppStorage("divorceOn") var divorceOn: Bool = false
-    @AppStorage("queenOfDeathOn") var queenOfDeathOn: Bool = false
-    @AppStorage("topAndBottomOn") var topAndBottomOn: Bool = false
-    @AppStorage("addToTenOn") var addToTenOn: Bool = false
-    @AppStorage("sequenceOn") var sequenceOn: Bool = false
-    
-    @AppStorage("burnAmount") var burnAmount: Int = 1
+    let asm = AppStorageManager() // TODO: Fix this
     
     init() {
         self.deck1 = Deck(player: .one)
@@ -45,10 +34,9 @@ class Game: ObservableObject {
         deck1.shuffle()
         deck2.shuffle()
         isSingleplayer = false
-        difficulty = -1
     }
     
-    init(isSingleplayer: Bool, difficulty: Int) {
+    init(isSingleplayer: Bool) {
         self.deck1 = Deck(player: .one)
         self.deck2 = Deck(player: .two)
         stack = []
@@ -61,7 +49,6 @@ class Game: ObservableObject {
         deck1.shuffle()
         deck2.shuffle()
         self.isSingleplayer = isSingleplayer
-        self.difficulty = difficulty
     }
     
     func deal(_ player: PlayerNumber) {
@@ -124,7 +111,7 @@ class Game: ObservableObject {
             countdown = -1
             return true
         }
-        burnCards(player, amount: burnAmount)
+        burnCards(player, amount: asm.burnAmount)
         return false
     }
     
@@ -172,13 +159,13 @@ class Game: ObservableObject {
     }
     
     private func isDoubles() -> Bool {
-        guard doublesOn else { return false }
+        guard asm.doublesOn else { return false }
         guard stack.count > 1 else { return false }
         return stack[0].value == stack[1].value
     }
     
     private func isCouples() -> Bool {
-        guard couplesOn else { return false }
+        guard asm.couplesOn else { return false }
         guard stack.count > 1 else { return false }
         if stack[0].value == .queen && stack[1].value == .king {
             return true
@@ -189,13 +176,13 @@ class Game: ObservableObject {
     }
     
     private func isSandwich() -> Bool {
-        guard sandwichOn else { return false }
+        guard asm.sandwichOn else { return false }
         guard stack.count > 2 else { return false }
         return stack[0].value == stack[2].value
     }
     
     private func isDivorce() -> Bool {
-        guard divorceOn else { return false }
+        guard asm.divorceOn else { return false }
         guard stack.count > 2 else { return false }
         if stack[0].value == .queen && stack[2].value == .king {
             return true
@@ -206,13 +193,13 @@ class Game: ObservableObject {
     }
     
     private func isQueenOfDeath() -> Bool {
-        guard queenOfDeathOn else { return false }
+        guard asm.queenOfDeathOn else { return false }
         guard stack.count > 0 else { return false }
         return stack[0].value == .queen && stack[0].suit == .hearts
     }
     
     private func isTopAndBottom() -> Bool {
-        guard topAndBottomOn else { return false }
+        guard asm.topAndBottomOn else { return false }
         guard stack.count > 1 else { return false }
         if stack.first!.value == stack.last!.value {
             return true
@@ -221,7 +208,7 @@ class Game: ObservableObject {
     }
     
     private func isAddToTen() -> Bool {
-        guard addToTenOn else { return false }
+        guard asm.addToTenOn else { return false }
         if stack.count >= 2 {
             if stack[0].value.rawValue + stack[1].value.rawValue == 10 {
                 return true
@@ -237,7 +224,7 @@ class Game: ObservableObject {
     }
     
     private func isSequence() -> Bool {
-        guard sequenceOn else { return false }
+        guard asm.sequenceOn else { return false }
         guard stack.count >= 3 else { return false }
         if stack[0].value.rawValue+1 == stack[1].value.rawValue && stack[1].value.rawValue+1 == stack[2].value.rawValue {
             return true

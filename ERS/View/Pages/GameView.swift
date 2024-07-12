@@ -10,6 +10,7 @@ import GameKit
 import ConfettiSwiftUI
 
 struct GameView: View {
+    @EnvironmentObject var asm: AppStorageManager
     @Binding var path: [String]
     @StateObject var game = Game()
     @State var isPaused: Bool = false

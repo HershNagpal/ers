@@ -10,11 +10,12 @@ import ConfettiSwiftUI
 
 struct PracticeView: View {
     @Binding var path: [String]
-    @StateObject var game = Game(isSingleplayer: true, difficulty: 1)
     @State var isPaused: Bool = false
     @AppStorage("difficulty") var difficulty: Int = 1
     @State var confettiCounter1: Int = 0
     @State var confettiCounter2: Int = 0
+    @EnvironmentObject var asm: AppStorageManager
+    @StateObject var game = Game(isSingleplayer: true)
 
     private func checkAchievements() {
         AchievementManager.setAchievementProgress(.hundredGames,
@@ -24,15 +25,15 @@ struct PracticeView: View {
         guard game.winner == .one else { return }
         AchievementManager.setAchievementProgress(.hundredBotWins,
               percentComplete: min(AchievementManager.getAchievementProgress(.hundredBotWins)+1,100))
-        if game.addToTenOn && game.couplesOn && game.divorceOn && game.doublesOn
-            && game.queenOfDeathOn  && game.sandwichOn && game.sequenceOn && game.topAndBottomOn {
+        if asm.addToTenOn && asm.couplesOn && asm.divorceOn && asm.doublesOn
+            && asm.queenOfDeathOn  && asm.sandwichOn && asm.sequenceOn && asm.topAndBottomOn {
             AchievementManager.completeAchievement(.allRulesWin)
         }
-        if !game.addToTenOn && !game.couplesOn && !game.divorceOn && !game.doublesOn
-            && !game.queenOfDeathOn  && !game.sandwichOn && !game.sequenceOn && !game.topAndBottomOn {
+        if !asm.addToTenOn && !asm.couplesOn && !asm.divorceOn && !asm.doublesOn
+            && !asm.queenOfDeathOn  && !asm.sandwichOn && !asm.sequenceOn && !asm.topAndBottomOn {
             AchievementManager.completeAchievement(.lucky)
         }
-        if game.burnAmount >= 10 {
+        if asm.burnAmount >= 10 {
             AchievementManager.completeAchievement(.maxBurnWin)
         }
         
