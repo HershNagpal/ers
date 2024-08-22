@@ -14,7 +14,6 @@ final class AchievementManager: ObservableObject {
     static func syncAchievements() {
         guard GKLocalPlayer.local.isAuthenticated else { return }
         var achievementIds = AchievementId.allCases
-        print("--------------------------------")
         GKAchievement.loadAchievements(completionHandler: {(achievements: [GKAchievement]?, error: Error?) in
             guard let achievements = achievements else { return }
             for achievement in achievements {

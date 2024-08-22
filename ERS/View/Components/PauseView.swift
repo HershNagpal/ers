@@ -23,7 +23,7 @@ struct PauseView: View {
             NavigationButton(text: "back to menu", onPress: {path.removeAll()})
             Spacer()
         }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            .padding(24)
             .background(.ultraThinMaterial)
     }
 }

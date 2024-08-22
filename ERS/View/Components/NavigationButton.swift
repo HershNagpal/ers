@@ -23,9 +23,12 @@ struct NavigationButton: View {
             Button() {
                 onPress()
             } label: {
-                ButtonText(text)
-                    .frame(width: 300, height: 50)
-                    .padding(10)
+                HStack {
+                    ButtonText(text)
+                        .padding([.leading, .trailing])
+                }
+                    .frame(maxWidth: 500)
+                    .padding()
                     .foregroundColor(.white)
                     .background(.black)
             }
@@ -48,6 +51,6 @@ struct NavigationButton: View {
 
 struct NavigationButton_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationButton(text: "Start Game", onPress: {})
+        NavigationButton(text: "Singleplayer", onPress: {})
     }
 }

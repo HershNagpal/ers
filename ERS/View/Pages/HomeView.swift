@@ -25,7 +25,6 @@ final class HomeViewModel: ObservableObject {
     }
 }
 
-@available(iOS 16.0, *)
 struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
     
@@ -38,7 +37,7 @@ struct HomeView: View {
                 ZStack {
                     Image("hand")
                         .resizable()
-                        .frame(width: 150, height: 150)
+                        .frame(width: 250, height: 250)
                     TitleText("ers")
                         .foregroundColor(.white)
                         .shadow(color: .black, radius: 1)
@@ -46,16 +45,19 @@ struct HomeView: View {
                 Spacer()
                 NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
                 NavigationButton(text: "singleplayer", onPress: {path.append("singleplayer")})
-                NavigationButton(text: "achievements", onPress: {path.append("achievements")})
-                NavigationButton(text: "tutorial", onPress: {path.append("tutorial")})
-                NavigationButton(text: "options", onPress: {path.append("options")})
-                Spacer()
+
+                HStack {
+                    NavigationIcon(iconName: "trophy.fill", onPress: {path.append("achievements")})
+                    NavigationIcon(iconName: "doc.questionmark", onPress: {path.append("tutorial")})
+                    NavigationIcon(iconName: "gearshape.fill", onPress: {path.append("options")})
+                }
+                .frame(maxWidth: 500)
             }
             .onAppear {
                 vm.authenticateUser()
                 AchievementManager.syncAchievements()
             }
-            .frame(maxWidth: .infinity)
+            .padding(24)
             .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))
             .navigationDestination(for: String.self) { string in
                 switch string {
