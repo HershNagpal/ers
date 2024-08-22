@@ -46,7 +46,7 @@ struct HomeView: View {
                 NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
                 NavigationButton(text: "singleplayer", onPress: {path.append("singleplayer")})
 
-                HStack {
+                HStack(spacing: 32) {
                     NavigationIcon(iconName: "trophy.fill", onPress: {path.append("achievements")})
                     NavigationIcon(iconName: "doc.questionmark", onPress: {path.append("tutorial")})
                     NavigationIcon(iconName: "gearshape.fill", onPress: {path.append("options")})

@@ -16,6 +16,7 @@ struct PracticeView: View {
     @State var confettiCounter2: Int = 0
     @EnvironmentObject var asm: AppStorageManager
     @StateObject var game = Game(isSingleplayer: true)
+    @State var burn: Bool = false
 
     private func checkAchievements() {
         AchievementManager.setAchievementProgress(.hundredGames,
@@ -58,22 +59,24 @@ struct PracticeView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                PlayerInteractionView(isPaused: $isPaused, game: game, isDisabled: true, player: .two, confettiCounter: $confettiCounter2)
+                PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: true, player: .two, confettiCounter: $confettiCounter2)
                     .rotationEffect(Angle(degrees: 180))
                     .ignoresSafeArea()
                     .confettiCannon(counter: $confettiCounter2, num: 40, confettis: [.shape(.slimRectangle)], colors: [.red, .yellow, .green, .blue, .purple], confettiSize: 20, rainHeight: 200, fadesOut: true, opacity: 1, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 150)
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck2, lastDeckCount: game.deck1.numCards())
                     .rotationEffect(Angle(degrees: 180))
-                    .padding([.bottom, .trailing], 10)
                 CardStackView(stack: $game.stack)
                     .frame(maxWidth: .infinity, minHeight: 300, alignment: .center)
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck1, lastDeckCount: game.deck1.numCards())
-                    .padding([.bottom, .leading], 10)
-                PlayerInteractionView(isPaused: $isPaused, game: game, isDisabled: false, player: .one, confettiCounter: $confettiCounter1)
+                PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: false, player: .one, confettiCounter: $confettiCounter1)
                     .ignoresSafeArea()
                     .confettiCannon(counter: $confettiCounter1, num: 40, confettis: [.shape(.slimRectangle)], colors: [.red, .yellow, .green, .blue, .purple], confettiSize: 20, rainHeight: 200, fadesOut: true, opacity: 1, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 150)
             }
+                .onChange(of: game.burnPile.count) {
+                    burn.toggle()
+                }
                 .background(Colors.ersGrey)
+            
             if game.winner != .none {
                 GameEndView(path: $path, winner: $game.winner)
                     .onAppear {

@@ -9,6 +9,9 @@ import SwiftUI
 
 struct PlayerInteractionView: View {
     @Binding var isPaused: Bool
+    
+    @Binding var burn: Bool
+    
     @StateObject var game: Game
     let isDisabled: Bool
     var player: PlayerNumber
@@ -22,10 +25,12 @@ struct PlayerInteractionView: View {
             HStack(spacing: 0) {
                 Button(action: { if !isDisabled {game.deal(player)}}) {
                     VStack {
-                        Image("deck")
+                        Image(systemName: "arrow.up.doc.on.clipboard")
                             .resizable()
                             .scaledToFit()
-                            .frame(maxWidth: 100, maxHeight: 100)
+                            .frame(maxWidth: 75, maxHeight: 75)
+                        ProgressView(value: Float(player == .one ? game.deck1.deck.count : game.deck2.deck.count) / 52)
+                            .frame(maxWidth: 75)
                     }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(
@@ -40,10 +45,11 @@ struct PlayerInteractionView: View {
                     if game.slap(player) && confettiSlap { confettiCounter += 1 }
                 }}) {
                     VStack {
-                        Image("hand")
+                        Image(systemName: "hand.wave.fill")
                             .resizable()
                             .scaledToFit()
-                            .frame(maxWidth: 100, maxHeight: 100)
+                            .frame(maxWidth: 75, maxHeight: 75)
+                            .padding(.leading, 16)
                     }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(
