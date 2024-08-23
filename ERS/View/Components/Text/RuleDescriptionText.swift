@@ -18,7 +18,6 @@ struct RuleDescriptionText: View {
         Text(text)
             .font(.footnote)
             .fontWeight(.light)
-            .foregroundColor(.black)
     }
 }
 

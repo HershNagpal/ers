@@ -14,7 +14,7 @@ struct AchievementView: View {
     var body: some View {
         HStack {
             Image(systemName: achievement.image)
-                .foregroundColor(achievement.isCompleted ? .ersGreen : .ersDarkGrey)
+                .foregroundColor(achievement.isCompleted ? .ersGreen : .gray)
                 .font(.title)
             VStack(alignment: .leading) {
                 AchievementTitleText(achievement.title)
@@ -28,9 +28,8 @@ struct AchievementView: View {
         }
         .padding()
         .frame(maxWidth: .infinity)
-        .foregroundColor(.black)
-        .background(.white)
-        .border(achievement.isCompleted ? .ersGreen : .ersDarkGrey, width: 5)
+        .background(.ersDarkGrey)
+        .border(achievement.isCompleted ? .ersGreen : .gray, width: 5)
         .cornerRadius(8)
     }
 }

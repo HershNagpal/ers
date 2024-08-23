@@ -18,7 +18,6 @@ struct RuleTitleText: View {
         Text(text)
             .font(.title3)
             .fontWeight(.light)
-            .foregroundColor(.black)
     }
 }
 

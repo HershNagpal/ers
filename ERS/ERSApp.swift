@@ -22,10 +22,11 @@ struct ERSApp: App {
             HomeView()
                 .environmentObject(purchaseManager)
                 .environmentObject(HomeViewModel())
+                .environmentObject(AppStorageManager())
                 .task {
                     await purchaseManager.updatePurchasedProducts()
                 }
-                .preferredColorScheme(.light)
+                .preferredColorScheme(.dark)
         }
     }
 }

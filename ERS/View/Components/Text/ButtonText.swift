@@ -17,7 +17,7 @@ struct ButtonText: View {
     var body: some View {
         Text(text)
             .font(.title)
-            .fontWeight(.thin)
+            .fontWeight(.regular)
     }
 }
 

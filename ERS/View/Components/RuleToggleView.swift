@@ -22,8 +22,6 @@ struct RuleToggleView: View {
             .disabled(isDisabled)
             RuleDescriptionText(ruleDescription)
         }
-        .frame(maxWidth: .infinity)
-        .foregroundColor(.black)
     }
 }
 

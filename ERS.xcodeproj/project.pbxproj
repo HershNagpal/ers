@@ -23,8 +23,10 @@
 		B31B8D19297A611B00FDC910 /* CardTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8D18297A611B00FDC910 /* CardTest.swift */; };
 		B31B8D1B297A662300FDC910 /* DeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8D1A297A662300FDC910 /* DeckTest.swift */; };
 		B33ED3892A2E982D001C5126 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33ED3882A2E982D001C5126 /* PurchaseManager.swift */; };
+		B34FD3222C76E656009DB3CD /* NavigationIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD3212C76E656009DB3CD /* NavigationIcon.swift */; };
 		B3564A612A11FF4F00F2915E /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3564A602A11FF4F00F2915E /* SettingsButton.swift */; };
 		B3786020297CF81A00E5DB92 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B378601F297CF81A00E5DB92 /* CardView.swift */; };
+		B38A58B32C406B7C0060C6E7 /* AppStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38A58B22C406B7C0060C6E7 /* AppStorageManager.swift */; };
 		B38E314D2995FD57005254F9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E314C2995FD57005254F9 /* SettingsView.swift */; };
 		B38E315129960E10005254F9 /* LargeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E315029960E10005254F9 /* LargeText.swift */; };
 		B38E315329961037005254F9 /* NavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E315229961037005254F9 /* NavigationButton.swift */; };
@@ -44,7 +46,6 @@
 		B3AE851329CE3EFA00D735F9 /* TutorialCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE851229CE3EFA00D735F9 /* TutorialCard.swift */; };
 		B3AE852229CE4A1C00D735F9 /* PlayerNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE852129CE4A1C00D735F9 /* PlayerNumber.swift */; };
 		B3AE852429CE4F8000D735F9 /* TutorialText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE852329CE4F8000D735F9 /* TutorialText.swift */; };
-		B3AE852E29CEA6E700D735F9 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE852D29CEA6E700D735F9 /* PracticeView.swift */; };
 		B3AE853029CEC1D400D735F9 /* RuleToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE852F29CEC1D400D735F9 /* RuleToggleView.swift */; };
 		B3AE853229CEC5AD00D735F9 /* RuleDescriptionText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE853129CEC5AD00D735F9 /* RuleDescriptionText.swift */; };
 		B3AE853429CEC5B500D735F9 /* RuleTitleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AE853329CEC5B500D735F9 /* RuleTitleText.swift */; };
@@ -81,9 +82,11 @@
 		B31B8D18297A611B00FDC910 /* CardTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTest.swift; sourceTree = "<group>"; };
 		B31B8D1A297A662300FDC910 /* DeckTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckTest.swift; sourceTree = "<group>"; };
 		B33ED3882A2E982D001C5126 /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
+		B34FD3212C76E656009DB3CD /* NavigationIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationIcon.swift; sourceTree = "<group>"; };
 		B3564A5F2A0B7BC300F2915E /* ERS: Egyptian Rat Screw.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ERS: Egyptian Rat Screw.storekit"; sourceTree = "<group>"; };
 		B3564A602A11FF4F00F2915E /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		B378601F297CF81A00E5DB92 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		B38A58B22C406B7C0060C6E7 /* AppStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageManager.swift; sourceTree = "<group>"; };
 		B38E314C2995FD57005254F9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B38E315029960E10005254F9 /* LargeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeText.swift; sourceTree = "<group>"; };
 		B38E315229961037005254F9 /* NavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButton.swift; sourceTree = "<group>"; };
@@ -104,7 +107,6 @@
 		B3AE851229CE3EFA00D735F9 /* TutorialCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCard.swift; sourceTree = "<group>"; };
 		B3AE852129CE4A1C00D735F9 /* PlayerNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerNumber.swift; sourceTree = "<group>"; };
 		B3AE852329CE4F8000D735F9 /* TutorialText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialText.swift; sourceTree = "<group>"; };
-		B3AE852D29CEA6E700D735F9 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		B3AE852F29CEC1D400D735F9 /* RuleToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleToggleView.swift; sourceTree = "<group>"; };
 		B3AE853129CEC5AD00D735F9 /* RuleDescriptionText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleDescriptionText.swift; sourceTree = "<group>"; };
 		B3AE853329CEC5B500D735F9 /* RuleTitleText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleTitleText.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		B31B8CEC297A2BAE00FDC910 /* ERS */ = {
 			isa = PBXGroup;
 			children = (
+				B38A58B12C406B470060C6E7 /* Utility */,
 				B3AE853929D0A54F00D735F9 /* ERS.entitlements */,
 				B3AE84F729CA1D7600D735F9 /* Info.plist */,
 				B31B8CFC297A2C1100FDC910 /* View */,
@@ -161,8 +164,6 @@
 				B31B8CF3297A2BB000FDC910 /* Preview Content */,
 				B30BA1492A429F13007E7014 /* Localizable.strings */,
 				B3564A5F2A0B7BC300F2915E /* ERS: Egyptian Rat Screw.storekit */,
-				B33ED3882A2E982D001C5126 /* PurchaseManager.swift */,
-				B31074862B79648900A259BE /* AchievementManager.swift */,
 			);
 			path = ERS;
 			sourceTree = "<group>";
@@ -214,6 +215,16 @@
 			path = ModelTests;
 			sourceTree = "<group>";
 		};
+		B38A58B12C406B470060C6E7 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				B31074862B79648900A259BE /* AchievementManager.swift */,
+				B33ED3882A2E982D001C5126 /* PurchaseManager.swift */,
+				B38A58B22C406B7C0060C6E7 /* AppStorageManager.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		B38E314E29960DC6005254F9 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +234,7 @@
 				B3AE84FA29CA641100D735F9 /* DebugView.swift */,
 				B3AE84FF29CAC46B00D735F9 /* StackInfoView.swift */,
 				B38E315229961037005254F9 /* NavigationButton.swift */,
+				B34FD3212C76E656009DB3CD /* NavigationIcon.swift */,
 				B3AE84F829CA4B3400D735F9 /* PlayerInteractionView.swift */,
 				B3AE850929CC9C4800D735F9 /* PauseView.swift */,
 				B3AE851229CE3EFA00D735F9 /* TutorialCard.swift */,
@@ -239,7 +251,6 @@
 			children = (
 				B38E314C2995FD57005254F9 /* SettingsView.swift */,
 				B3AE84F129C94CBA00D735F9 /* GameView.swift */,
-				B3AE852D29CEA6E700D735F9 /* PracticeView.swift */,
 				B3AE850129CB49E300D735F9 /* HomeView.swift */,
 				B3AE850F29CE2B5D00D735F9 /* TutorialView.swift */,
 				B31074782B75BDAD00A259BE /* AchievementsView.swift */,
@@ -375,7 +386,9 @@
 				B3AE850C29CCA7A300D735F9 /* GameEndView.swift in Sources */,
 				B3AE850E29CCB8DD00D735F9 /* Colors.swift in Sources */,
 				B31074872B79648900A259BE /* AchievementManager.swift in Sources */,
+				B34FD3222C76E656009DB3CD /* NavigationIcon.swift in Sources */,
 				B31B8D03297A2D4C00FDC910 /* Deck.swift in Sources */,
+				B38A58B32C406B7C0060C6E7 /* AppStorageManager.swift in Sources */,
 				B33ED3892A2E982D001C5126 /* PurchaseManager.swift in Sources */,
 				B3AE84FE29CA910600D735F9 /* MediumText.swift in Sources */,
 				B300E3E42A4119B20010E351 /* TitleText.swift in Sources */,
@@ -398,7 +411,6 @@
 				B3AE84F629CA1C1A00D735F9 /* CardStackView.swift in Sources */,
 				B3AE84F429C94CDC00D735F9 /* Game.swift in Sources */,
 				B38E314D2995FD57005254F9 /* SettingsView.swift in Sources */,
-				B3AE852E29CEA6E700D735F9 /* PracticeView.swift in Sources */,
 				B3AE853429CEC5B500D735F9 /* RuleTitleText.swift in Sources */,
 				B38E315329961037005254F9 /* NavigationButton.swift in Sources */,
 				B3AE852229CE4A1C00D735F9 /* PlayerNumber.swift in Sources */,
@@ -583,11 +595,12 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.egyptianratscrew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -620,11 +633,12 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.egyptianratscrew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

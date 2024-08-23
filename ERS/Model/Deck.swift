@@ -9,7 +9,7 @@ import Combine
 
 class Deck: ObservableObject {
     
-    private var deck: [Card]
+    var deck: [Card]
     
     init() {
         deck = []

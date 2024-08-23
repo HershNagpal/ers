@@ -25,7 +25,6 @@ struct SettingsButton: View {
             } label: {
                 RuleTitleText(text)
                     .padding(10)
-                    .foregroundColor(.black)
             }
         } else {
             Button() {
@@ -33,7 +32,7 @@ struct SettingsButton: View {
             } label: {
                 RuleTitleText(text)
                     .foregroundColor(.white)
-                    .background(Colors.ersDarkGrey)
+                    .background(.gray)
             }
         }
     }

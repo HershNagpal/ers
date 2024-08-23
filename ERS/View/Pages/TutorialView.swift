@@ -24,13 +24,13 @@ struct TutorialView: View {
             TutorialCard(tutorialNumber: $tutorialNumber)
             if(tutorialNumber == 2) {
                 Spacer()
-                Image("deck")
+                Image("deckIcon")
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
-                    .background(Colors.ersGreen)
-                    .cornerRadius(15)
+                    .foregroundColor(.white)
                 Spacer()
+                    
             }
             else if(tutorialNumber == 3) {
                 Spacer()
@@ -48,12 +48,11 @@ struct TutorialView: View {
             
             else if(tutorialNumber == 5) {
                 Spacer()
-                Image("hand")
+                Image(systemName: "hand.wave.fill")
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
-                    .background(Colors.ersRed)
-                    .cornerRadius(15)
+                    .foregroundColor(.white)
                 Spacer()
             }
             
@@ -103,22 +102,21 @@ struct TutorialView: View {
             }
             else if(tutorialNumber == 13) {
                 Spacer()
-                Image("burn")
+                Image(systemName: "flame")
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
-                    .background(Colors.ersGrey)
-                    .cornerRadius(15)
+                    .foregroundColor(.white)
                 Spacer()
             }
             else if(tutorialNumber == 14) {
                 Spacer()
-                Image("stack")
+                Image(systemName: "rectangle.stack")
                     .resizable()
                     .scaledToFit()
+                    .rotationEffect(.degrees(270))
                     .frame(maxWidth: 200, maxHeight: 200)
-                    .background(Colors.ersGrey)
-                    .cornerRadius(15)
+                    .foregroundColor(.white)
                 Spacer()
             }
             
@@ -130,7 +128,7 @@ struct TutorialView: View {
         }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(10)
-            .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))
+            .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
     }
 
 }

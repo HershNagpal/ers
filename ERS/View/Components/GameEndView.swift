@@ -15,6 +15,7 @@ struct GameEndView: View {
         VStack {
             LargeText(LocalizedStringKey("player " + winner.rawValue + " wins"))
             NavigationButton(text: "back to menu", onPress: {path.removeAll()})
+                .padding()
         }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .background(.ultraThinMaterial)

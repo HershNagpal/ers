@@ -11,60 +11,32 @@ struct StackInfoView: View {
     @Binding var stack: [Card]
     @Binding var burnPile: [Card]
     @Binding var deck: Deck
-    @State var burnScaleAmount: Double = 0
-    @State var deckScaleAmount: Double = 0
+    @State var burnScale: Bool = false
+    @State var deckScale: Bool = false
     @State var lastDeckCount: Int
     
     var body: some View {
-        HStack(spacing: 5) {
-            VStack(spacing: 0) {
-                Image("stack")
+        HStack(spacing: 8) {
+            VStack(spacing: 4) {
+                Image(systemName: "rectangle.stack")
                     .resizable()
                     .scaledToFit()
-                    .frame(maxWidth: 40, maxHeight: 40)
+                    .rotationEffect(.degrees(270))
+                    .frame(maxWidth: 30, maxHeight: 30)
                 MediumText("\(stack.count)")
                     
             }
-            VStack(spacing: 0) {
-                Image("burn")
+            VStack(spacing: 4) {
+                Image(systemName: "flame")
                     .resizable()
                     .scaledToFit()
-                    .frame(maxWidth: 40, maxHeight: 40)
-                    .scaleEffect(1 + burnScaleAmount)
-                    .onChange(of: burnPile.count) { count in
-                        if count != 0 && burnPile.count != 0 {
-                            withAnimation(.easeInOut(duration: 0.2)) {
-                                burnScaleAmount = 0.5
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                withAnimation(.easeInOut(duration: 0.2)) {
-                                    burnScaleAmount = 0.0
-                                }
-                            }
-                        }
+                    .symbolRenderingMode(.multicolor)
+                    .symbolEffect(.bounce, value: burnScale)
+                    .frame(maxWidth: 30, maxHeight: 30)
+                    .onChange(of: burnPile.count) {
+                        burnScale.toggle()
                     }
                 MediumText("\(burnPile.count)")
-            }
-            VStack(spacing: 0) {
-                Image("deck")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: 40, maxHeight: 40)
-                    .scaleEffect(1 + deckScaleAmount)
-                    .onChange(of: deck.numCards()) { count in
-                        if count > lastDeckCount {
-                            withAnimation(.easeInOut(duration: 0.2)) {
-                                deckScaleAmount = 0.5
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                withAnimation(.easeInOut(duration: 0.2)) {
-                                    deckScaleAmount = 0.0
-                                }
-                            }
-                        }
-                        lastDeckCount = count
-                    }
-                MediumText("\(deck.numCards())")
             }
             Spacer()
         }

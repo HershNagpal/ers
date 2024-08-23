@@ -10,12 +10,7 @@ import StoreKit
 
 struct SettingsView: View {
     @EnvironmentObject private var purchaseManager: PurchaseManager
-    
-    private var disableRuleToggles: Binding<Bool> { Binding (
-        get: { !purchasedRules },
-        set: { _ in }
-        )
-    }
+    @EnvironmentObject var asm: AppStorageManager
     
     let burnValues = [1,2,3,4,5,10]
     let difficulties = ["easy", "medium", "hard", "ouch"]
@@ -23,25 +18,6 @@ struct SettingsView: View {
     @State var showRestoreAlert = false
     @State var showRestoreErrorAlert = false
     @State var freeSettingsDisabled = false
-
-    @AppStorage("purchasedRules") var purchasedRules: Bool = false
-    @AppStorage("rulesWithAds") var rulesWithAds: Bool = false
-    
-    @AppStorage("easyDeal") var easyDeal: Bool = true
-    @AppStorage("easyClaim") var easyClaim: Bool = true
-    @AppStorage("confettiSlap") var confettiSlap: Bool = true
-    
-    @AppStorage("doublesOn") var doublesOn: Bool = true
-    @AppStorage("sandwichOn") var sandwichOn: Bool = true
-    @AppStorage("couplesOn") var couplesOn: Bool = true
-    @AppStorage("divorceOn") var divorceOn: Bool = false
-    @AppStorage("queenOfDeathOn") var queenOfDeathOn: Bool = false
-    @AppStorage("topAndBottomOn") var topAndBottomOn: Bool = false
-    @AppStorage("addToTenOn") var addToTenOn: Bool = false
-    @AppStorage("sequenceOn") var sequenceOn: Bool = false
-    
-    @AppStorage("difficulty") var difficulty: Int = 1
-    @AppStorage("burnAmount") var burnAmount: Int = 1
     
     func restorePurchases() {
         Task {
@@ -58,23 +34,31 @@ struct SettingsView: View {
     var body: some View {
         List() {
             Section(header: RuleSectionText("visuals")) {
-                RuleToggleView(ruleName: "easy deal", ruleDescription: "easy deal description", isDisabled: $freeSettingsDisabled, isOn: $easyDeal)
-                    .onChange(of: easyDeal) { value in
-                        easyDeal = value
+                RuleToggleView(ruleName: "easy deal", ruleDescription: "easy deal description", isDisabled: $freeSettingsDisabled, isOn: $asm.easyDeal)
+                    .onChange(of: asm.easyDeal) { _, value in
+                        asm.easyDeal = value
                     }
-                RuleToggleView(ruleName: "easy claim", ruleDescription: "easy claim description", isDisabled: $freeSettingsDisabled, isOn: $easyClaim)
-                    .onChange(of: easyClaim) { value in
-                        easyClaim = value
+                RuleToggleView(ruleName: "easy claim", ruleDescription: "easy claim description", isDisabled: $freeSettingsDisabled, isOn: $asm.easyClaim)
+                    .onChange(of: asm.easyClaim) { _, value in
+                        asm.easyClaim = value
                     }
-                RuleToggleView(ruleName: "confetti slap", ruleDescription: "confetti slap description", isDisabled: $freeSettingsDisabled, isOn: $confettiSlap)
-                    .onChange(of: confettiSlap) { value in
-                        confettiSlap = value
+                RuleToggleView(ruleName: "confetti slap", ruleDescription: "confetti slap description", isDisabled: $freeSettingsDisabled, isOn: $asm.confettiSlap)
+                    .onChange(of: asm.confettiSlap) { _, value in
+                        asm.confettiSlap = value
+                    }
+                RuleToggleView(ruleName: "haptic feedback", ruleDescription: "haptic feedback description", isDisabled: $freeSettingsDisabled, isOn: $asm.hapticFeedback)
+                    .onChange(of: asm.hapticFeedback) { _, value in
+                        asm.hapticFeedback = value
+                    }
+                RuleToggleView(ruleName: "flat stack", ruleDescription: "flat stack description", isDisabled: $freeSettingsDisabled, isOn: $asm.flatStack)
+                    .onChange(of: asm.flatStack) { _, value in
+                        asm.flatStack = value
                     }
             }
             
             Section(header: RuleSectionText("singleplayer")) {
                 VStack(alignment: .leading) {
-                    Picker(selection: $difficulty, label: RuleTitleText("difficulty")) {
+                    Picker(selection: $asm.difficulty, label: RuleTitleText("difficulty")) {
                         ForEach(0...3, id: \.self) { index in
                             Text(LocalizedStringKey(String(difficulties[index])))
                         }
@@ -82,25 +66,23 @@ struct SettingsView: View {
                     }
                     RuleDescriptionText("difficulty description")
                 }
-                .onChange(of: difficulty) { value in
-                    difficulty = value
+                .onChange(of: asm.difficulty) { _, value in
+                    asm.difficulty = value
                 }
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.black)
             }
             
             Section(header: RuleSectionText("basic rules")) {
-                RuleToggleView(ruleName: "doubles", ruleDescription: "doubles description", isDisabled: $freeSettingsDisabled, isOn: $doublesOn)
-                    .onChange(of: doublesOn) { value in
-                        doublesOn = value
+                RuleToggleView(ruleName: "doubles", ruleDescription: "doubles description", isDisabled: $freeSettingsDisabled, isOn: $asm.doublesOn)
+                    .onChange(of: asm.doublesOn) { _, value in
+                        asm.doublesOn = value
                     }
-                RuleToggleView(ruleName: "sandwich", ruleDescription: "sandwich description", isDisabled: $freeSettingsDisabled, isOn: $sandwichOn)
-                    .onChange(of: sandwichOn) { value in
-                        sandwichOn = value
+                RuleToggleView(ruleName: "sandwich", ruleDescription: "sandwich description", isDisabled: $freeSettingsDisabled, isOn: $asm.sandwichOn)
+                    .onChange(of: asm.sandwichOn) { _, value in
+                        asm.sandwichOn = value
                     }
-                RuleToggleView(ruleName: "couples", ruleDescription: "couples description", isDisabled: $freeSettingsDisabled, isOn: $couplesOn)
-                    .onChange(of: couplesOn) { value in
-                        couplesOn = value
+                RuleToggleView(ruleName: "couples", ruleDescription: "couples description", isDisabled: $freeSettingsDisabled, isOn: $asm.couplesOn)
+                    .onChange(of: asm.couplesOn) { _, value in
+                        asm.couplesOn = value
                     }
             }
             
@@ -111,44 +93,42 @@ struct SettingsView: View {
 //                            UserDefaults.standard.set(addToTenOn, forKey: "addToTenOn")
 //                        }
 //                }
-                RuleToggleView(ruleName: "divorce", ruleDescription: "divorce description", isDisabled: disableRuleToggles, isOn: $divorceOn)
-                    .onChange(of: divorceOn) { value in
-                        divorceOn = value
+                RuleToggleView(ruleName: "divorce", ruleDescription: "divorce description", isDisabled: asm.disableRuleToggles, isOn: $asm.divorceOn)
+                    .onChange(of: asm.divorceOn) { _, value in
+                        asm.divorceOn = value
                     }
-                RuleToggleView(ruleName: "queen of death", ruleDescription: "queen of death description", isDisabled: disableRuleToggles, isOn: $queenOfDeathOn)
-                    .onChange(of: queenOfDeathOn) { value in
-                        queenOfDeathOn = value
+                RuleToggleView(ruleName: "queen of death", ruleDescription: "queen of death description", isDisabled: asm.disableRuleToggles, isOn: $asm.queenOfDeathOn)
+                    .onChange(of: asm.queenOfDeathOn) { _, value in
+                        asm.queenOfDeathOn = value
                     }
-                RuleToggleView(ruleName: "top and bottom", ruleDescription: "top and bottom description", isDisabled: disableRuleToggles, isOn: $topAndBottomOn)
-                    .onChange(of: topAndBottomOn) { value in
-                        topAndBottomOn = value
+                RuleToggleView(ruleName: "top and bottom", ruleDescription: "top and bottom description", isDisabled: asm.disableRuleToggles, isOn: $asm.topAndBottomOn)
+                    .onChange(of: asm.topAndBottomOn) { _, value in
+                        asm.topAndBottomOn = value
                     }
-                RuleToggleView(ruleName: "add to ten", ruleDescription: "add to ten description", isDisabled: disableRuleToggles, isOn: $addToTenOn)
-                    .onChange(of: addToTenOn) { value in
-                        addToTenOn = value
+                RuleToggleView(ruleName: "add to ten", ruleDescription: "add to ten description", isDisabled: asm.disableRuleToggles, isOn: $asm.addToTenOn)
+                    .onChange(of: asm.addToTenOn) { _, value in
+                        asm.addToTenOn = value
                     }
-                RuleToggleView(ruleName: "sequence", ruleDescription: "sequence description", isDisabled: disableRuleToggles, isOn: $sequenceOn)
-                    .onChange(of: sequenceOn) { value in
-                        sequenceOn = value
+                RuleToggleView(ruleName: "sequence", ruleDescription: "sequence description", isDisabled: asm.disableRuleToggles, isOn: $asm.sequenceOn)
+                    .onChange(of: asm.sequenceOn) { _, value in
+                        asm.sequenceOn = value
                     }
                 VStack(alignment: .leading) {
-                    Picker(selection: $burnAmount, label: RuleTitleText("burn amount")) {
+                    Picker(selection: $asm.burnAmount, label: RuleTitleText("burn amount")) {
                         ForEach(burnValues, id: \.self) { option in
                             RuleDescriptionText("\(option)")
                         }
                         .pickerStyle(.menu)
-                        .disabled(!purchasedRules)
+                        .disabled(!asm.purchasedRules)
                     }
                     RuleDescriptionText("burn amount description")
                 }
-                .onChange(of: burnAmount) { value in
-                    burnAmount = value
+                .onChange(of: asm.burnAmount) { _, value in
+                    asm.burnAmount = value
                 }
-                .disabled(!purchasedRules)
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.black)
+                .disabled(!asm.purchasedRules)
             }
-            if (!purchasedRules) {
+            if (!asm.purchasedRules) {
                 Section(header: RuleSectionText("purchases")) {
                     ForEach(purchaseManager.products) { (product) in
                         SettingsButton(text: LocalizedStringKey(product.id), onPress: {
@@ -180,6 +160,6 @@ struct SettingsView: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))
+        .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
     }
 }

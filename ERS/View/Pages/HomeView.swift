@@ -25,7 +25,6 @@ final class HomeViewModel: ObservableObject {
     }
 }
 
-@available(iOS 16.0, *)
 struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
     
@@ -36,38 +35,41 @@ struct HomeView: View {
             VStack(spacing: 20) {
                 Spacer()
                 ZStack {
-                    Image("hand")
+                    Image(systemName: "hand.wave")
                         .resizable()
-                        .frame(width: 150, height: 150)
+                        .frame(width: 250, height: 250)
+                        .foregroundColor(.ersOrange)
                     TitleText("ers")
-                        .foregroundColor(.white)
-                        .shadow(color: .black, radius: 1)
                 }
                 Spacer()
                 NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
                 NavigationButton(text: "singleplayer", onPress: {path.append("singleplayer")})
-                NavigationButton(text: "achievements", onPress: {path.append("achievements")})
-                NavigationButton(text: "tutorial", onPress: {path.append("tutorial")})
-                NavigationButton(text: "options", onPress: {path.append("options")})
-                Spacer()
+
+                HStack(spacing: 32) {
+                    Spacer()
+                    NavigationIcon(iconName: "trophy.fill", onPress: {path.append("achievements")})
+                    NavigationIcon(iconName: "doc.questionmark", onPress: {path.append("tutorial")})
+                    NavigationIcon(iconName: "gearshape.fill", onPress: {path.append("options")})
+                    Spacer()
+                }
             }
             .onAppear {
                 vm.authenticateUser()
                 AchievementManager.syncAchievements()
             }
-            .frame(maxWidth: .infinity)
-            .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))
+            .padding(24)
+            .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
             .navigationDestination(for: String.self) { string in
                 switch string {
                 case "options":
                     SettingsView()
                         .navigationTitle("options")
                 case "multiplayer":
-                    GameView(path: $path)
+                    GameView(path: $path, isSingleplayer: false)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)
                 case "singleplayer":
-                    PracticeView(path: $path)
+                    GameView(path: $path, isSingleplayer: true)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)
                 case "tutorial":
