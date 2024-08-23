@@ -36,6 +36,8 @@
 "easy claim description" = "Changes the color of the slap button when your opponent has used their chances after you played a face card or ace.";
 "confetti slap" = "Confetti Slap";
 "confetti slap description" = "Shoots confetti when a player wins a pile.";
+"flat stack" = "Simplified Stack";
+"flat stack description" = "Shows only the top three cards in a flat line rather than a continuous pile of cards in game.";
 
 "practice mode" = "Singleplayer";
 "difficulty" = "Difficulty";

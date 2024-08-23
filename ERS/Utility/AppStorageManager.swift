@@ -15,6 +15,7 @@ class AppStorageManager: ObservableObject {
     @AppStorage("easyDeal") var easyDeal: Bool = true
     @AppStorage("easyClaim") var easyClaim: Bool = true
     @AppStorage("confettiSlap") var confettiSlap: Bool = true
+    @AppStorage("flatStack") var flatStack: Bool = true
     
     @AppStorage("doublesOn") var doublesOn: Bool = true
     @AppStorage("sandwichOn") var sandwichOn: Bool = true

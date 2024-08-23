@@ -18,9 +18,13 @@ struct PauseView: View {
             Spacer()
             LargeText("paused")
             Spacer()
-            NavigationButton(text: "resume", onPress: {isPaused = false})
-            NavigationButton(text: "restart", onPress: {resetGame()})
-            NavigationButton(text: "back to menu", onPress: {path.removeAll()})
+            HStack(spacing: 32) {
+                Spacer()
+                NavigationIcon(iconName: "play.fill", onPress: {isPaused = false})
+                NavigationIcon(iconName: "arrow.counterclockwise", onPress: {resetGame()})
+                NavigationIcon(iconName: "house", onPress: {path.removeAll()})
+                Spacer()
+            }
             Spacer()
         }
             .padding(24)

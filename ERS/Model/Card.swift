@@ -5,13 +5,17 @@
 //  Created by Hersh Nagpal on 1/19/23.
 //
 
-class Card {
+import Foundation
+
+struct Card {
+    let id: UUID
     let value: Value
     let suit: Suit
     
     init(value: Value, suit: Suit) {
         self.value = value
         self.suit = suit
+        self.id = UUID()
     }
     
     func toString() -> String {
