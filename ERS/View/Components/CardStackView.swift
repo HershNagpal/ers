@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct CardStackView: View {
+    @EnvironmentObject var asm: AppStorageManager
     @Binding var stack: [Card]
     let rotationValue: Double = 30
-    @AppStorage("flatStack") var flatStack: Bool = false
     
     var body: some View {
-        if flatStack {
+        if asm.flatStack {
             ZStack() {
                 CardView(
                     stack.count > 2 ? stack[2] : Card(value: .none, suit: .none)

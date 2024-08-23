@@ -8,14 +8,12 @@
 import SwiftUI
 
 struct PlayerInteractionView: View {
+    @EnvironmentObject var asm: AppStorageManager
     @Binding var isPaused: Bool
     @Binding var burn: Bool
     @StateObject var game: Game
     let isDisabled: Bool
     var player: PlayerNumber
-    @AppStorage("easyClaim") var easyClaim: Bool = true
-    @AppStorage("easyDeal") var easyDeal: Bool = true
-    @AppStorage("confettiSlap") var confettiSlap: Bool = true
     @Binding var confettiCounter: Int
     @State var deal: Bool = false
     
@@ -36,7 +34,7 @@ struct PlayerInteractionView: View {
                     }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(
-                            easyDeal
+                            asm.easyDeal
                                 ? game.currentPlayer == player && game.stackClaimSlap == .none
                                 ? Colors.ersGreen
                                 : .ersGreyBackground
@@ -44,10 +42,10 @@ struct PlayerInteractionView: View {
                         )
                 }
                 Button(action: { if !isDisabled {
-                    if game.slap(player) && confettiSlap { confettiCounter += 1 }
+                    if game.slap(player) && asm.confettiSlap { confettiCounter += 1 }
                 }}) {
                     VStack {
-                        Image(systemName: (game.stackClaimSlap == player && easyClaim) ? "checkmark" : "hand.wave.fill")
+                        Image(systemName: (game.stackClaimSlap == player && asm.easyClaim) ? "checkmark" : "hand.wave.fill")
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: 75, maxHeight: 75)
@@ -56,7 +54,7 @@ struct PlayerInteractionView: View {
                     }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(
-                            game.stackClaimSlap == player && easyClaim
+                            game.stackClaimSlap == player && asm.easyClaim
                                 ? Colors.ersGreen
                                 : Colors.ersRed
                         )

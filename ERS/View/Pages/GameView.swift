@@ -10,7 +10,6 @@ import GameKit
 import ConfettiSwiftUI
 
 struct GameView: View {
-    @AppStorage("difficulty") var difficulty: Int = 1
     @EnvironmentObject var asm: AppStorageManager
     @Binding var path: [String]
     @StateObject var game = Game()
@@ -42,7 +41,7 @@ struct GameView: View {
             AchievementManager.completeAchievement(.maxBurnWin)
         }
         
-        switch(difficulty) {
+        switch(asm.difficulty) {
         case 0:
             AchievementManager.completeAchievement(.beatEasyBot)
             break
@@ -63,8 +62,8 @@ struct GameView: View {
     private func playerTwoTurn()  {
         guard isSingleplayer else { return }
         let slapSkipDict = [20, 20, 10, 10]
-        let randomTime = Double(4/(difficulty+1))
-        let chanceToSkipSlap = slapSkipDict[difficulty]
+        let randomTime = Double(4/(asm.difficulty+1))
+        let chanceToSkipSlap = slapSkipDict[asm.difficulty]
         
         DispatchQueue.main.asyncAfter(deadline: .now() + randomTime-randomTime/4) {
             if game.stackClaimSlap == .two {
@@ -103,16 +102,19 @@ struct GameView: View {
                 PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: isSingleplayer, player: .two, confettiCounter: $confettiCounter2)
                     .rotationEffect(Angle(degrees: 180))
                     .ignoresSafeArea()
+                    .environmentObject(asm)
                     .confettiCannon(counter: $confettiCounter2, num: 40, confettis: [.shape(.slimRectangle)], colors: [.red, .yellow, .green, .blue, .purple], confettiSize: 20, rainHeight: 200, fadesOut: true, opacity: 1, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 150)
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck2, lastDeckCount: game.deck1.numCards())
                     .rotationEffect(Angle(degrees: 180))
                     .padding([.top, .trailing], 10)
                 CardStackView(stack: $game.stack)
                     .frame(maxWidth: .infinity, minHeight: 300, alignment: .center)
+                    .environmentObject(asm)
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck1, lastDeckCount: game.deck1.numCards())
                     .padding([.bottom, .leading], 10)
                 PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: false, player: .one, confettiCounter: $confettiCounter1)
                     .ignoresSafeArea()
+                    .environmentObject(asm)
                     .confettiCannon(counter: $confettiCounter1, num: 40, confettis: [.shape(.slimRectangle)], colors: [.red, .yellow, .green, .blue, .purple], confettiSize: 20, rainHeight: 200, fadesOut: true, opacity: 1, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 150)
             }
                 .onChange(of: game.burnPile.count) {
