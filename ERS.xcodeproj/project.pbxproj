@@ -24,6 +24,8 @@
 		B31B8D1B297A662300FDC910 /* DeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8D1A297A662300FDC910 /* DeckTest.swift */; };
 		B33ED3892A2E982D001C5126 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33ED3882A2E982D001C5126 /* PurchaseManager.swift */; };
 		B34FD3222C76E656009DB3CD /* NavigationIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD3212C76E656009DB3CD /* NavigationIcon.swift */; };
+		B34FD3282C78F317009DB3CD /* Game+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD3272C78F317009DB3CD /* Game+Extensions.swift */; };
+		B34FD32A2C78FC1E009DB3CD /* MultiplayerToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD3292C78FC1E009DB3CD /* MultiplayerToggleView.swift */; };
 		B3564A612A11FF4F00F2915E /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3564A602A11FF4F00F2915E /* SettingsButton.swift */; };
 		B3786020297CF81A00E5DB92 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B378601F297CF81A00E5DB92 /* CardView.swift */; };
 		B38A58B32C406B7C0060C6E7 /* AppStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38A58B22C406B7C0060C6E7 /* AppStorageManager.swift */; };
@@ -83,6 +85,8 @@
 		B31B8D1A297A662300FDC910 /* DeckTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckTest.swift; sourceTree = "<group>"; };
 		B33ED3882A2E982D001C5126 /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
 		B34FD3212C76E656009DB3CD /* NavigationIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationIcon.swift; sourceTree = "<group>"; };
+		B34FD3272C78F317009DB3CD /* Game+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+Extensions.swift"; sourceTree = "<group>"; };
+		B34FD3292C78FC1E009DB3CD /* MultiplayerToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerToggleView.swift; sourceTree = "<group>"; };
 		B3564A5F2A0B7BC300F2915E /* ERS: Egyptian Rat Screw.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ERS: Egyptian Rat Screw.storekit"; sourceTree = "<group>"; };
 		B3564A602A11FF4F00F2915E /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		B378601F297CF81A00E5DB92 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -182,6 +186,7 @@
 				B31B8CFE297A2C7500FDC910 /* Card.swift */,
 				B31B8D02297A2D4C00FDC910 /* Deck.swift */,
 				B3AE84F329C94CDC00D735F9 /* Game.swift */,
+				B34FD3272C78F317009DB3CD /* Game+Extensions.swift */,
 				B3AE852129CE4A1C00D735F9 /* PlayerNumber.swift */,
 				B310747C2B75BF2300A259BE /* Achievement.swift */,
 			);
@@ -242,6 +247,7 @@
 				B3AE852F29CEC1D400D735F9 /* RuleToggleView.swift */,
 				B3564A602A11FF4F00F2915E /* SettingsButton.swift */,
 				B310747A2B75BF1100A259BE /* AchievementView.swift */,
+				B34FD3292C78FC1E009DB3CD /* MultiplayerToggleView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -410,12 +416,14 @@
 				B3AE851029CE2B5D00D735F9 /* TutorialView.swift in Sources */,
 				B3AE84F629CA1C1A00D735F9 /* CardStackView.swift in Sources */,
 				B3AE84F429C94CDC00D735F9 /* Game.swift in Sources */,
+				B34FD3282C78F317009DB3CD /* Game+Extensions.swift in Sources */,
 				B38E314D2995FD57005254F9 /* SettingsView.swift in Sources */,
 				B3AE853429CEC5B500D735F9 /* RuleTitleText.swift in Sources */,
 				B38E315329961037005254F9 /* NavigationButton.swift in Sources */,
 				B3AE852229CE4A1C00D735F9 /* PlayerNumber.swift in Sources */,
 				B31074812B769DC800A259BE /* AchievementDescriptionText.swift in Sources */,
 				B3AE84F929CA4B3400D735F9 /* PlayerInteractionView.swift in Sources */,
+				B34FD32A2C78FC1E009DB3CD /* MultiplayerToggleView.swift in Sources */,
 				B3AE84F229C94CBA00D735F9 /* GameView.swift in Sources */,
 				B310747F2B769D7200A259BE /* AchievementTitleText.swift in Sources */,
 				B31074792B75BDAD00A259BE /* AchievementsView.swift in Sources */,

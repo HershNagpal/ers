@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class Game: ObservableObject {
+class Game: NSObject, ObservableObject {
     var deck1: Deck
     var deck2: Deck
     var countdown: Int
@@ -21,7 +21,7 @@ class Game: ObservableObject {
     @Published var numTurns: Int
     let asm = AppStorageManager() // TODO: Fix this
     
-    init() {
+    override init() {
         self.deck1 = Deck(player: .one)
         self.deck2 = Deck(player: .two)
         stack = []

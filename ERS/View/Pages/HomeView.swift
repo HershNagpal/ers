@@ -27,6 +27,7 @@ final class HomeViewModel: ObservableObject {
 
 struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
+    @EnvironmentObject var asm: AppStorageManager
     
     @State var path = [String]()
     
@@ -42,7 +43,10 @@ struct HomeView: View {
                     TitleText("ers")
                 }
                 Spacer()
-                NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
+                HStack {
+                    NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
+                    MultiplayerToggleView(showGameCenterAlert: $vm.showAlert, backgroundColor: .black, foregroundColor: .white)
+                }
                 NavigationButton(text: "singleplayer", onPress: {path.append("singleplayer")})
 
                 HStack(spacing: 32) {
@@ -56,6 +60,10 @@ struct HomeView: View {
             .onAppear {
                 vm.authenticateUser()
                 AchievementManager.syncAchievements()
+                guard GKLocalPlayer.local.isAuthenticated else {
+                    asm.online = false
+                    return
+                }
             }
             .padding(24)
             .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
@@ -89,18 +97,7 @@ struct HomeView: View {
                 case .notSignedIn:
                     Alert(
                         title: Text("not signed in"),
-                        message: Text("sign in to play"),
-                        primaryButton: .default(
-                            Text("sign in"),
-                            action: {
-                                vm.showAlert = false
-                                vm.authenticateUser()
-                            }
-                        ),
-                        secondaryButton: .destructive(
-                            Text("cancel"),
-                            action: {vm.showAlert = false}
-                        )
+                        message: Text("sign in to play")
                     )
                 }
             }

@@ -30,6 +30,8 @@ class AppStorageManager: ObservableObject {
     @AppStorage("difficulty") var difficulty: Int = 1
     @AppStorage("burnAmount") var burnAmount: Int = 1
     
+    @AppStorage("online") var online: Bool = false
+    
     var disableRuleToggles: Binding<Bool> { Binding (
         get: { [self] in !purchasedRules },
         set: { _ in }
