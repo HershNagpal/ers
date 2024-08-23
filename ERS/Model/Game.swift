@@ -14,12 +14,23 @@ class Game: NSObject, ObservableObject {
     var countdown: Int
     var currentPlayer: PlayerNumber
     var stackClaimSlap: PlayerNumber
-    let isSingleplayer: Bool
     @Published var stack: [Card]
     @Published var burnPile: [Card]
     @Published var winner: PlayerNumber
     @Published var numTurns: Int
     let asm = AppStorageManager() // TODO: Fix this
+    
+    init(gameData: GameData) {
+        deck1 = gameData.deck1
+        deck2 = gameData.deck2
+        stack = gameData.stack
+        countdown = gameData.countdown
+        currentPlayer = gameData.currentPlayer
+        stackClaimSlap = gameData.stackClaimSlap
+        burnPile = gameData.burnPile
+        winner = gameData.winner
+        numTurns = gameData.numTurns
+    }
     
     override init() {
         self.deck1 = Deck(player: .one)
@@ -33,22 +44,6 @@ class Game: NSObject, ObservableObject {
         numTurns = 0
         deck1.shuffle()
         deck2.shuffle()
-        isSingleplayer = false
-    }
-    
-    init(isSingleplayer: Bool) {
-        self.deck1 = Deck(player: .one)
-        self.deck2 = Deck(player: .two)
-        stack = []
-        burnPile = []
-        winner = .none
-        countdown = -1
-        currentPlayer = .one
-        stackClaimSlap = .none
-        numTurns = 0
-        deck1.shuffle()
-        deck2.shuffle()
-        self.isSingleplayer = isSingleplayer
     }
     
     func deal(_ player: PlayerNumber) {

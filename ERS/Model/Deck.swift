@@ -7,7 +7,7 @@
 
 import Combine
 
-class Deck: ObservableObject {
+class Deck: ObservableObject, Codable {
     
     var deck: [Card]
     
