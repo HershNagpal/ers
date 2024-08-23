@@ -20,6 +20,10 @@ class Game: NSObject, ObservableObject {
     @Published var numTurns: Int
     let asm = AppStorageManager() // TODO: Fix this
     
+    func getGameData() -> GameData {
+        GameData(deck1: deck1, deck2: deck2, stack: stack, burnPile: burnPile, currentPlayer: currentPlayer, stackClaimSlap: stackClaimSlap, numTurns: numTurns, winner: winner, countdown: countdown)
+    }
+    
     init(gameData: GameData) {
         deck1 = gameData.deck1
         deck2 = gameData.deck2

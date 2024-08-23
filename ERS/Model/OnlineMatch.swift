@@ -12,6 +12,7 @@ import GameKit
 @MainActor
 class OnlineMatch: NSObject, ObservableObject {
     @Published var game = Game()
+    
     // The game interface state.
     @Published var matchAvailable = false
     @Published var playingGame = false
@@ -30,5 +31,25 @@ class OnlineMatch: NSObject, ObservableObject {
     
     var opponentName: String {
         opponent?.displayName ?? "Invitation Pending"
+    }
+    
+    func resetMatch() {
+        // Reset the game data.
+        playingGame = false
+        myMatch?.disconnect()
+        myMatch?.delegate = nil
+        myMatch = nil
+        opponent = nil
+        GKAccessPoint.shared.isActive = true
+        game = Game()
+    }
+    
+    func sendGameData() {
+        do {
+            let data = game.getGameData().encode()
+            try myMatch?.sendData(toAllPlayers: data!, with: GKMatch.SendDataMode.reliable)
+        } catch {
+            print("Error: \(error.localizedDescription).")
+        }
     }
 }
