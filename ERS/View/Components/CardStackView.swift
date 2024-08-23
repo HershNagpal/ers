@@ -20,21 +20,21 @@ struct CardStackView: View {
                 )
                 .offset(x: -60, y: -40)
                 .shadow(radius: 2, x: 2, y: 2)
-                .padding(.bottom)
+                .padding(.bottom, 8)
                 .frame(width: 200)
                 CardView(
                     stack.count > 1 ? stack[1] : Card(value: .none, suit: .none)
                 )
                 .offset(x: 0, y: 0)
                 .shadow(radius: 2, x: 2, y: 2)
-                .padding(.bottom)
+                .padding(.bottom, 8)
                 .frame(width: 200)
                 CardView(
                     stack.count >= 1 ? stack[0] : Card(value: .none, suit: .none)
                 )
                 .offset(x: 60, y: 40)
                 .shadow(radius: 2, x: 2, y: 2)
-                .padding(.bottom)
+                .padding(.bottom, 8)
                 .frame(width: 200)
             }
         } else {

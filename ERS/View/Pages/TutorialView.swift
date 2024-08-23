@@ -24,13 +24,12 @@ struct TutorialView: View {
             TutorialCard(tutorialNumber: $tutorialNumber)
             if(tutorialNumber == 2) {
                 Spacer()
-                Image("deck")
+                Image(systemName: "arrow.up.doc.on.clipboard")
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
-                    .background(Colors.ersGreen)
-                    .cornerRadius(15)
                 Spacer()
+                    
             }
             else if(tutorialNumber == 3) {
                 Spacer()
@@ -48,12 +47,10 @@ struct TutorialView: View {
             
             else if(tutorialNumber == 5) {
                 Spacer()
-                Image("hand")
+                Image(systemName: "hand.wave.fill")
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
-                    .background(Colors.ersRed)
-                    .cornerRadius(15)
                 Spacer()
             }
             
@@ -103,22 +100,19 @@ struct TutorialView: View {
             }
             else if(tutorialNumber == 13) {
                 Spacer()
-                Image("burn")
+                Image(systemName: "flame")
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
-                    .background(Colors.ersGrey)
-                    .cornerRadius(15)
                 Spacer()
             }
             else if(tutorialNumber == 14) {
                 Spacer()
-                Image("stack")
+                Image(systemName: "rectangle.stack")
                     .resizable()
                     .scaledToFit()
+                    .rotationEffect(.degrees(270))
                     .frame(maxWidth: 200, maxHeight: 200)
-                    .background(Colors.ersGrey)
-                    .cornerRadius(15)
                 Spacer()
             }
             

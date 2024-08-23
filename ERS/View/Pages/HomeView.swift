@@ -47,11 +47,12 @@ struct HomeView: View {
                 NavigationButton(text: "singleplayer", onPress: {path.append("singleplayer")})
 
                 HStack(spacing: 32) {
+                    Spacer()
                     NavigationIcon(iconName: "trophy.fill", onPress: {path.append("achievements")})
                     NavigationIcon(iconName: "doc.questionmark", onPress: {path.append("tutorial")})
                     NavigationIcon(iconName: "gearshape.fill", onPress: {path.append("options")})
+                    Spacer()
                 }
-                .frame(maxWidth: 500)
             }
             .onAppear {
                 vm.authenticateUser()

@@ -31,30 +31,13 @@ struct StackInfoView: View {
                     .resizable()
                     .scaledToFit()
                     .symbolRenderingMode(.multicolor)
-//                    .foregroundStyle(.ersOrange, .black)
                     .symbolEffect(.bounce, value: burnScale)
-//                    .symbolEffect(.variableColor, options: .speed(4), value: burnScale)
                     .frame(maxWidth: 30, maxHeight: 30)
                     .onChange(of: burnPile.count) {
                         burnScale.toggle()
                     }
                 MediumText("\(burnPile.count)")
             }
-//            VStack(spacing: 0) {
-//                Image(systemName: "rectangle.fill.on.rectangle.fill")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .rotationEffect(.degrees(90))
-//                    .frame(maxWidth: 30, maxHeight: 30)
-//                    .symbolEffect(.bounce, value: deckScale)
-//                    .onChange(of: deck.numCards()) { _, count in
-//                        if count > lastDeckCount {
-//                            deckScale.toggle()
-//                        }
-//                        lastDeckCount = count
-//                    }
-//                MediumText("\(deck.numCards())")
-//            }
             Spacer()
         }
     }
