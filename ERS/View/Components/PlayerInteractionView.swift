@@ -47,11 +47,12 @@ struct PlayerInteractionView: View {
                     if game.slap(player) && confettiSlap { confettiCounter += 1 }
                 }}) {
                     VStack {
-                        Image(systemName: "hand.wave.fill")
+                        Image(systemName: (game.stackClaimSlap == player && easyClaim) ? "checkmark" : "hand.wave.fill")
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: 75, maxHeight: 75)
                             .padding(.leading, 16)
+                            .contentTransition(.symbolEffect(.replace, options: .speed(2)))
                     }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(

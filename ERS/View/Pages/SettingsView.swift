@@ -46,6 +46,10 @@ struct SettingsView: View {
                     .onChange(of: asm.confettiSlap) { _, value in
                         asm.confettiSlap = value
                     }
+                RuleToggleView(ruleName: "haptic feedback", ruleDescription: "haptic feedback description", isDisabled: $freeSettingsDisabled, isOn: $asm.hapticFeedback)
+                    .onChange(of: asm.hapticFeedback) { _, value in
+                        asm.hapticFeedback = value
+                    }
                 RuleToggleView(ruleName: "flat stack", ruleDescription: "flat stack description", isDisabled: $freeSettingsDisabled, isOn: $asm.flatStack)
                     .onChange(of: asm.flatStack) { _, value in
                         asm.flatStack = value

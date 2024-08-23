@@ -31,11 +31,13 @@
 // Options
 "visuals" = "Visuals";
 "easy deal" = "Easy Deal";
-"easy deal description" = "Changes the color of the deal button when it isn't your turn.";
+"easy deal description" = "Lights up the deal button on your turn.";
 "easy claim" = "Easy Claim";
-"easy claim description" = "Changes the color of the slap button when your opponent has used their chances after you played a face card or ace.";
+"easy claim description" = "Lights up your slap button when you win a face card face-off.";
 "confetti slap" = "Confetti Slap";
 "confetti slap description" = "Shoots confetti when a player wins a pile.";
+"haptic feedback" = "Haptic Feedback";
+"haptic feedback description" = "Vibrates in response to your actions while playing the game.";
 "flat stack" = "Simplified Stack";
 "flat stack description" = "Shows only the top three cards in a flat line rather than a continuous pile of cards in game.";
 

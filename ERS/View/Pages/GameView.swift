@@ -92,6 +92,13 @@ struct GameView: View {
     
     var body: some View {
         ZStack {
+            if asm.hapticFeedback {
+                Color.clear
+                    .sensoryFeedback(.increase, trigger: game.stack.count)
+                    .sensoryFeedback(.success, trigger: confettiCounter1)
+                    .sensoryFeedback(.success, trigger: confettiCounter2)
+                    .sensoryFeedback(.impact(flexibility: .solid), trigger: burn)
+            }
             VStack(spacing: 0) {
                 PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: isSingleplayer, player: .two, confettiCounter: $confettiCounter2)
                     .rotationEffect(Angle(degrees: 180))
@@ -113,10 +120,6 @@ struct GameView: View {
                     showBurnAlert.toggle()
                 }
                 .background(.ersGreyBackground)
-                .sensoryFeedback(.increase, trigger: game.stack.count)
-                .sensoryFeedback(.success, trigger: confettiCounter1)
-                .sensoryFeedback(.success, trigger: confettiCounter2)
-                .sensoryFeedback(.impact(flexibility: .solid), trigger: burn)
             
             if game.winner != .none {
                 GameEndView(path: $path, winner: $game.winner)
@@ -132,6 +135,7 @@ struct GameView: View {
             }
         }
         .onAppear {
+            guard isSingleplayer else { return }
             playerTwoTurn()
         }
     }
