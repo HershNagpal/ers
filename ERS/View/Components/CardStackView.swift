@@ -10,7 +10,7 @@ import SwiftUI
 struct CardStackView: View {
     @Binding var stack: [Card]
     let rotationValue: Double = 30
-    @AppStorage("flatStack") var flatStack: Bool = true
+    @AppStorage("flatStack") var flatStack: Bool = false
     
     var body: some View {
         if flatStack {
