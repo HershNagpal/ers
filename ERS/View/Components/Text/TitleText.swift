@@ -16,9 +16,10 @@ struct TitleText: View {
     
     var body: some View {
         Text(text)
-            .font(.largeTitle)
+            .font(.system(size: 50))
             .fontWeight(.heavy)
-            .shadow(radius: 2, x: 2, y: 2)
+//            .shadow(radius: 4, x: 0, y: 0)
+            .shadow(color: .black, radius: 1)
     }
 }
 

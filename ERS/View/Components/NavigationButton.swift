@@ -11,11 +11,15 @@ struct NavigationButton: View {
     let text: LocalizedStringKey
     let onPress: () -> Void
     let isDisabled: Bool
+    let backgroundColor: Color
+    let foregroundColor: Color
     
-    init(text: LocalizedStringKey, onPress: @escaping () -> Void, isDisabled: Bool = false) {
+    init(text: LocalizedStringKey, onPress: @escaping () -> Void, isDisabled: Bool = false, backgroundColor: Color = .black, foregroundColor: Color = .white) {
         self.text = text
         self.onPress = onPress
         self.isDisabled = isDisabled
+        self.backgroundColor = backgroundColor
+        self.foregroundColor = foregroundColor
     }
     
     var body: some View {
@@ -29,11 +33,11 @@ struct NavigationButton: View {
                 }
                     .frame(maxWidth: 500)
                     .padding()
-                    .foregroundColor(.white)
-                    .background(.black)
+                    .foregroundColor(foregroundColor)
+                    .background(backgroundColor)
             }
             .cornerRadius(10)
-            .shadow(radius: 2, x: -2, y: 2)
+//            .shadow(radius: 2, x: -2, y: 2)
         } else {
             Button() {
                 return
@@ -42,7 +46,7 @@ struct NavigationButton: View {
                     .frame(width: 300, height: 50)
                     .padding(10)
                     .foregroundColor(.white)
-                    .background(Colors.ersDarkGrey)
+                    .background(.gray)
             }
             .cornerRadius(10)
         }

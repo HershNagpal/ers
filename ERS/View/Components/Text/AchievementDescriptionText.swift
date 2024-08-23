@@ -18,7 +18,6 @@ struct AchievementDescriptionText: View {
         Text(text)
             .font(.subheadline)
             .fontWeight(.thin)
-            .foregroundColor(.black)
     }
 }
 

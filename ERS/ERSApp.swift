@@ -26,7 +26,7 @@ struct ERSApp: App {
                 .task {
                     await purchaseManager.updatePurchasedProducts()
                 }
-                .preferredColorScheme(.light)
+                .preferredColorScheme(.dark)
         }
     }
 }

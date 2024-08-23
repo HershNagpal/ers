@@ -28,7 +28,7 @@ struct AchievementsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(10)
-        .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))
+        .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top)).background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
         .ignoresSafeArea(.all, edges: .bottom)
         .onAppear {
             AchievementManager.syncAchievements()

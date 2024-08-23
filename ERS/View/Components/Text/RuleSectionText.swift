@@ -18,7 +18,6 @@ struct RuleSectionText: View {
         Text(text)
             .font(.title2)
             .fontWeight(.thin)
-            .foregroundColor(.black)
     }
 }
 

@@ -14,12 +14,11 @@ struct TutorialCard: View {
         VStack {
             TutorialText(LocalizedStringKey("t"+String(tutorialNumber)))
         }
-        .foregroundColor(.black)
         .padding(15)
         .frame(maxWidth: .infinity)
-        .background(Colors.ersYellow)
+        .background(Colors.ersDarkGrey)
         .cornerRadius(15)
-        .shadow(radius: 2, x: -2, y: 2)
+//        .shadow(radius: 2, x: -2, y: 2)
     }
 }
 

@@ -79,7 +79,7 @@ struct SingleplayerView: View {
                     burn.toggle()
                     showBurnAlert.toggle()
                 }
-                .background(Colors.ersGrey)
+                .background(.ersGreyBackground)
                 .sensoryFeedback(.increase, trigger: game.stack.count)
                 .sensoryFeedback(.success, trigger: confettiCounter1)
                 .sensoryFeedback(.success, trigger: confettiCounter2)

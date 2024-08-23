@@ -37,15 +37,17 @@ struct MultiplayerView: View {
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck2, lastDeckCount: game.deck1.numCards())
                     .rotationEffect(Angle(degrees: 180))
                     .padding([.top, .trailing], 10)
+                    .foregroundColor(.white)
                 CardStackView(stack: $game.stack)
                     .frame(maxWidth: .infinity, minHeight: 300, alignment: .center)
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck1, lastDeckCount: game.deck1.numCards())
                     .padding([.bottom, .leading], 10)
+                    .foregroundColor(.white)
                 PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: false, player: .one, confettiCounter: $confettiCounter1)
                     .ignoresSafeArea()
                     .confettiCannon(counter: $confettiCounter1, num: 40, confettis: [.shape(.slimRectangle)], colors: [.red, .yellow, .green, .blue, .purple], confettiSize: 20, rainHeight: 200, fadesOut: true, opacity: 1, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 150)
             }
-                .background(Colors.ersGrey)
+                .background(.ersGreyBackground)
                 .onChange(of: game.burnPile.count) {
                     burn.toggle()
                     withAnimation {

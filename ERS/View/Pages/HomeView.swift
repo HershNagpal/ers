@@ -35,12 +35,11 @@ struct HomeView: View {
             VStack(spacing: 20) {
                 Spacer()
                 ZStack {
-                    Image("hand")
+                    Image(systemName: "hand.wave")
                         .resizable()
                         .frame(width: 250, height: 250)
+                        .foregroundColor(.ersOrange)
                     TitleText("ers")
-                        .foregroundColor(.white)
-                        .shadow(color: .black, radius: 1)
                 }
                 Spacer()
                 NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
@@ -59,7 +58,7 @@ struct HomeView: View {
                 AchievementManager.syncAchievements()
             }
             .padding(24)
-            .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))
+            .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
             .navigationDestination(for: String.self) { string in
                 switch string {
                 case "options":

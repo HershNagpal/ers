@@ -10,6 +10,15 @@ import SwiftUI
 struct NavigationIcon: View {
     let iconName: String
     let onPress: () -> Void
+    let backgroundColor: Color
+    let foregroundColor: Color
+    
+    init(iconName: String, onPress: @escaping () -> Void, isDisabled: Bool = false, backgroundColor: Color = .black, foregroundColor: Color = .white) {
+        self.iconName = iconName
+        self.onPress = onPress
+        self.backgroundColor = backgroundColor
+        self.foregroundColor = foregroundColor
+    }
     
     var body: some View {
         Button() {
@@ -18,12 +27,12 @@ struct NavigationIcon: View {
             Image(systemName: iconName)
                 .frame(width: 35, height: 35)
                 .padding()
-                .foregroundColor(.white)
-                .background(.black)
+                .foregroundColor(foregroundColor)
+                .background(backgroundColor)
                 .font(.system(size: 35))
         }
         .cornerRadius(10)
-        .shadow(radius: 2, x: -2, y: 2)
+//        .shadow(radius: 2, x: -2, y: 2)
     }
 }
 

@@ -24,10 +24,11 @@ struct TutorialView: View {
             TutorialCard(tutorialNumber: $tutorialNumber)
             if(tutorialNumber == 2) {
                 Spacer()
-                Image(systemName: "arrow.up.doc.on.clipboard")
+                Image("deckIcon")
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
+                    .foregroundColor(.white)
                 Spacer()
                     
             }
@@ -51,6 +52,7 @@ struct TutorialView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
+                    .foregroundColor(.white)
                 Spacer()
             }
             
@@ -104,6 +106,7 @@ struct TutorialView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
+                    .foregroundColor(.white)
                 Spacer()
             }
             else if(tutorialNumber == 14) {
@@ -113,6 +116,7 @@ struct TutorialView: View {
                     .scaledToFit()
                     .rotationEffect(.degrees(270))
                     .frame(maxWidth: 200, maxHeight: 200)
+                    .foregroundColor(.white)
                 Spacer()
             }
             
@@ -124,7 +128,7 @@ struct TutorialView: View {
         }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(10)
-            .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))
+            .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
     }
 
 }

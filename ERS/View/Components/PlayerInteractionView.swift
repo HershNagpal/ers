@@ -27,7 +27,7 @@ struct PlayerInteractionView: View {
                     deal.toggle()
                 }}) {
                     VStack {
-                        Image(systemName: "arrow.up.doc.on.clipboard")
+                        Image("deckIcon")
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: 75, maxHeight: 75)
@@ -39,7 +39,7 @@ struct PlayerInteractionView: View {
                             easyDeal
                                 ? game.currentPlayer == player && game.stackClaimSlap == .none
                                 ? Colors.ersGreen
-                                : Colors.ersGrey
+                                : .ersGreyBackground
                             : Colors.ersGreen
                         )
                 }
@@ -65,8 +65,8 @@ struct PlayerInteractionView: View {
                 Image(systemName: "pause")
                     .font(.system(size: 40))
                     .frame(width: 75, height: 75)
-                    .background(Colors.ersYellow)
-                    .foregroundColor(.black)
+                    .background(.ersGreyBackground)
+                    .foregroundColor(.white)
                     .cornerRadius(75)
             }
         }

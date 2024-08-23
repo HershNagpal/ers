@@ -18,8 +18,6 @@ struct MediumText: View {
         Text(text)
             .font(.subheadline)
             .fontWeight(.thin)
-//            .shadow(radius: 2, x: 2, y: 2)
-            .foregroundColor(.black)
     }
 }
 

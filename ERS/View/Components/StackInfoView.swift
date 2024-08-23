@@ -16,8 +16,8 @@ struct StackInfoView: View {
     @State var lastDeckCount: Int
     
     var body: some View {
-        HStack(spacing: 5) {
-            VStack(spacing: 0) {
+        HStack(spacing: 8) {
+            VStack(spacing: 4) {
                 Image(systemName: "rectangle.stack")
                     .resizable()
                     .scaledToFit()
@@ -26,7 +26,7 @@ struct StackInfoView: View {
                 MediumText("\(stack.count)")
                     
             }
-            VStack(spacing: 0) {
+            VStack(spacing: 4) {
                 Image(systemName: "flame")
                     .resizable()
                     .scaledToFit()

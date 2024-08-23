@@ -65,8 +65,6 @@ struct SettingsView: View {
                 .onChange(of: asm.difficulty) { _, value in
                     asm.difficulty = value
                 }
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.black)
             }
             
             Section(header: RuleSectionText("basic rules")) {
@@ -125,8 +123,6 @@ struct SettingsView: View {
                     asm.burnAmount = value
                 }
                 .disabled(!asm.purchasedRules)
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.black)
             }
             if (!asm.purchasedRules) {
                 Section(header: RuleSectionText("purchases")) {
@@ -160,6 +156,6 @@ struct SettingsView: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .background(LinearGradient(gradient: Gradient(colors: [.ersYellow, .ersOrange]), startPoint: .top, endPoint: .bottom))
+        .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
     }
 }
