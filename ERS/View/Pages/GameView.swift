@@ -1,30 +1,33 @@
 //
-//  SingleplayerView.swift
+//  GameView.swift
 //  ERS
 //
-//  Created by Hersh Nagpal on 3/24/23.
+//  Created by Hersh Nagpal on 3/20/23.
 //
 
 import SwiftUI
+import GameKit
 import ConfettiSwiftUI
 
-struct SingleplayerView: View {
-    @Binding var path: [String]
-    @State var isPaused: Bool = false
+struct GameView: View {
     @AppStorage("difficulty") var difficulty: Int = 1
+    @EnvironmentObject var asm: AppStorageManager
+    @Binding var path: [String]
+    @StateObject var game = Game()
+    @State var isPaused: Bool = false
     @State var confettiCounter1: Int = 0
     @State var confettiCounter2: Int = 0
-    @EnvironmentObject var asm: AppStorageManager
-    @StateObject var game = Game(isSingleplayer: true)
     @State var burn: Bool = false
     @State var showBurnAlert: Bool = false
-
+    let isSingleplayer: Bool
+    
     private func checkAchievements() {
-        AchievementManager.setAchievementProgress(.hundredGames,
-              percentComplete: min(AchievementManager.getAchievementProgress(.hundredGames)+1,100))
-        AchievementManager.setAchievementProgress(.thousandGames,
-              percentComplete: min(AchievementManager.getAchievementProgress(.thousandGames)+0.1,100))
+        AchievementManager.setAchievementProgress(.hundredGames, percentComplete: min(AchievementManager.getAchievementProgress(.hundredGames)+1,100))
+        AchievementManager.setAchievementProgress(.thousandGames, percentComplete: min(AchievementManager.getAchievementProgress(.thousandGames)+0.1,100))
+        
+        guard isSingleplayer else { return }
         guard game.winner == .one else { return }
+        
         AchievementManager.setAchievementProgress(.hundredBotWins,
               percentComplete: min(AchievementManager.getAchievementProgress(.hundredBotWins)+1,100))
         if asm.addToTenOn && asm.couplesOn && asm.divorceOn && asm.doublesOn
@@ -57,10 +60,40 @@ struct SingleplayerView: View {
         }
     }
     
+    private func playerTwoTurn()  {
+        guard isSingleplayer else { return }
+        let slapSkipDict = [20, 20, 10, 10]
+        let randomTime = Double(4/(difficulty+1))
+        let chanceToSkipSlap = slapSkipDict[difficulty]
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + randomTime-randomTime/4) {
+            if game.stackClaimSlap == .two {
+                let _ = game.slap(.two)
+                confettiCounter2 += 1
+            }
+            
+            if game.isValidSlap(.two) && Int.random(in: 1..<100) > chanceToSkipSlap {
+                let _ = game.slap(.two)
+                confettiCounter2 += 1
+            }
+            
+            if game.currentPlayer == .two && game.stackClaimSlap == .none {
+                game.deal(.two)
+                DispatchQueue.main.asyncAfter(deadline: .now() + randomTime/2) {
+                    if game.isValidSlap(.two) && Int.random(in: 1..<100) > chanceToSkipSlap {
+                        let _ = game.slap(.two)
+                        confettiCounter2 += 1
+                    }
+                }
+            }
+            playerTwoTurn()
+        }
+    }
+    
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: true, player: .two, confettiCounter: $confettiCounter2)
+                PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: isSingleplayer, player: .two, confettiCounter: $confettiCounter2)
                     .rotationEffect(Angle(degrees: 180))
                     .ignoresSafeArea()
                     .confettiCannon(counter: $confettiCounter2, num: 40, confettis: [.shape(.slimRectangle)], colors: [.red, .yellow, .green, .blue, .purple], confettiSize: 20, rainHeight: 200, fadesOut: true, opacity: 1, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 150)
@@ -103,32 +136,4 @@ struct SingleplayerView: View {
         }
     }
     
-    private func playerTwoTurn()  {
-        let slapSkipDict = [20, 20, 10, 10]
-        let randomTime = Double(4/(difficulty+1))
-        let chanceToSkipSlap = slapSkipDict[difficulty]
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + randomTime-randomTime/4) {
-            if game.stackClaimSlap == .two {
-                let _ = game.slap(.two)
-                confettiCounter2 += 1
-            }
-            
-            if game.isValidSlap(.two) && Int.random(in: 1..<100) > chanceToSkipSlap {
-                let _ = game.slap(.two)
-                confettiCounter2 += 1
-            }
-            
-            if game.currentPlayer == .two && game.stackClaimSlap == .none {
-                game.deal(.two)
-                DispatchQueue.main.asyncAfter(deadline: .now() + randomTime/2) {
-                    if game.isValidSlap(.two) && Int.random(in: 1..<100) > chanceToSkipSlap {
-                        let _ = game.slap(.two)
-                        confettiCounter2 += 1
-                    }
-                }
-            }
-            playerTwoTurn()
-        }
-    }
 }

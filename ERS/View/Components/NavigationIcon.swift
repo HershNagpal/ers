@@ -32,7 +32,6 @@ struct NavigationIcon: View {
                 .font(.system(size: 35))
         }
         .cornerRadius(10)
-//        .shadow(radius: 2, x: -2, y: 2)
     }
 }
 

@@ -18,7 +18,6 @@ struct LargeText: View {
         Text(text)
             .font(.largeTitle)
             .fontWeight(.light)
-//            .shadow(radius: 2, x: 2, y: 2)
     }
 }
 

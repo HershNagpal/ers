@@ -18,7 +18,6 @@ struct TitleText: View {
         Text(text)
             .font(.system(size: 50))
             .fontWeight(.heavy)
-//            .shadow(radius: 4, x: 0, y: 0)
             .shadow(color: .black, radius: 1)
     }
 }

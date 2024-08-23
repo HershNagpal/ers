@@ -37,7 +37,6 @@ struct NavigationButton: View {
                     .background(backgroundColor)
             }
             .cornerRadius(10)
-//            .shadow(radius: 2, x: -2, y: 2)
         } else {
             Button() {
                 return

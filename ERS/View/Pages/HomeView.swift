@@ -65,11 +65,11 @@ struct HomeView: View {
                     SettingsView()
                         .navigationTitle("options")
                 case "multiplayer":
-                    MultiplayerView(path: $path)
+                    GameView(path: $path, isSingleplayer: false)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)
                 case "singleplayer":
-                    SingleplayerView(path: $path)
+                    GameView(path: $path, isSingleplayer: true)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)
                 case "tutorial":

@@ -18,7 +18,6 @@ struct TutorialCard: View {
         .frame(maxWidth: .infinity)
         .background(Colors.ersDarkGrey)
         .cornerRadius(15)
-//        .shadow(radius: 2, x: -2, y: 2)
     }
 }
 
