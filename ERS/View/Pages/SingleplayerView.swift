@@ -1,5 +1,5 @@
 //
-//  PracticeView.swift
+//  SingleplayerView.swift
 //  ERS
 //
 //  Created by Hersh Nagpal on 3/24/23.
@@ -8,7 +8,7 @@
 import SwiftUI
 import ConfettiSwiftUI
 
-struct PracticeView: View {
+struct SingleplayerView: View {
     @Binding var path: [String]
     @State var isPaused: Bool = false
     @AppStorage("difficulty") var difficulty: Int = 1
@@ -17,6 +17,7 @@ struct PracticeView: View {
     @EnvironmentObject var asm: AppStorageManager
     @StateObject var game = Game(isSingleplayer: true)
     @State var burn: Bool = false
+    @State var showBurnAlert: Bool = false
 
     private func checkAchievements() {
         AchievementManager.setAchievementProgress(.hundredGames,
@@ -65,17 +66,24 @@ struct PracticeView: View {
                     .confettiCannon(counter: $confettiCounter2, num: 40, confettis: [.shape(.slimRectangle)], colors: [.red, .yellow, .green, .blue, .purple], confettiSize: 20, rainHeight: 200, fadesOut: true, opacity: 1, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 150)
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck2, lastDeckCount: game.deck1.numCards())
                     .rotationEffect(Angle(degrees: 180))
+                    .padding([.top, .trailing], 10)
                 CardStackView(stack: $game.stack)
                     .frame(maxWidth: .infinity, minHeight: 300, alignment: .center)
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck1, lastDeckCount: game.deck1.numCards())
+                    .padding([.bottom, .leading], 10)
                 PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: false, player: .one, confettiCounter: $confettiCounter1)
                     .ignoresSafeArea()
                     .confettiCannon(counter: $confettiCounter1, num: 40, confettis: [.shape(.slimRectangle)], colors: [.red, .yellow, .green, .blue, .purple], confettiSize: 20, rainHeight: 200, fadesOut: true, opacity: 1, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 150)
             }
                 .onChange(of: game.burnPile.count) {
                     burn.toggle()
+                    showBurnAlert.toggle()
                 }
                 .background(Colors.ersGrey)
+                .sensoryFeedback(.increase, trigger: game.stack.count)
+                .sensoryFeedback(.success, trigger: confettiCounter1)
+                .sensoryFeedback(.success, trigger: confettiCounter2)
+                .sensoryFeedback(.impact(flexibility: .solid), trigger: burn)
             
             if game.winner != .none {
                 GameEndView(path: $path, winner: $game.winner)

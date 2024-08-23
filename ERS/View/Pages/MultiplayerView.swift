@@ -1,5 +1,5 @@
 //
-//  GameView.swift
+//  MultiplayerView.swift
 //  ERS
 //
 //  Created by Hersh Nagpal on 3/20/23.
@@ -9,7 +9,7 @@ import SwiftUI
 import GameKit
 import ConfettiSwiftUI
 
-struct GameView: View {
+struct MultiplayerView: View {
     @EnvironmentObject var asm: AppStorageManager
     @Binding var path: [String]
     @StateObject var game = Game()
@@ -18,6 +18,7 @@ struct GameView: View {
     @State var confettiCounter2: Int = 0
     
     @State var burn: Bool = false
+    @State var showBurnAlert: Bool = false
     
     private func checkAchievements() {
         AchievementManager.setAchievementProgress(.hundredGames,
@@ -47,7 +48,14 @@ struct GameView: View {
                 .background(Colors.ersGrey)
                 .onChange(of: game.burnPile.count) {
                     burn.toggle()
+                    withAnimation {
+                        showBurnAlert.toggle()
+                    }
                 }
+                .sensoryFeedback(.increase, trigger: game.stack.count)
+                .sensoryFeedback(.success, trigger: confettiCounter1)
+                .sensoryFeedback(.success, trigger: confettiCounter2)
+                .sensoryFeedback(.impact(flexibility: .solid), trigger: burn)
             
             if game.winner != .none {
                 GameEndView(path: $path, winner: $game.winner)
