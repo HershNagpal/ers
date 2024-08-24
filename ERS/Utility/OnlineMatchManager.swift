@@ -1,5 +1,5 @@
 //
-//  OnlineMatch.swift
+//  OnlineMatchManager.swift
 //  ERS
 //
 //  Created by Hersh Nagpal on 8/23/24.
@@ -10,17 +10,28 @@ import SwiftUI
 import GameKit
 
 @MainActor
-final class OnlineMatch: NSObject, ObservableObject {
+final class OnlineMatchManager: NSObject, ObservableObject {
     @Published var game: Game?
     
     // The game interface state.
     @Published var matchAvailable = false
     @Published var playingGame = false
     @Published var myMatch: GKMatch? = nil
-    @Published var automatch = false
     @Published var opponent: GKPlayer? = nil
     @Published var opponentAvatar: Image? = nil
     @Published var localPlayerNumber: PlayerNumber = .none
+    @Published var goHome: Bool = false
+    
+    func resetController() {
+        print("Resetting Match Manager")
+        game = nil
+        localPlayerNumber = .none
+        myMatch = nil
+        opponent = nil
+        opponentAvatar = nil
+        matchAvailable = false
+        playingGame = false
+    }
     
     var rootViewController: UIViewController? {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
@@ -57,6 +68,7 @@ final class OnlineMatch: NSObject, ObservableObject {
         // Present the interface where the player selects opponents and starts the game.
         if let viewController = GKMatchmakerViewController(matchRequest: request) {
             viewController.matchmakerDelegate = self
+//            viewController.matchmakingMode = .inviteOnly
             rootViewController?.present(viewController, animated: true) { }
         }
     }
@@ -65,8 +77,10 @@ final class OnlineMatch: NSObject, ObservableObject {
     /// - Parameter match: The object that represents the real-time match.
     /// - Tag:startMyMatchWith
     func startMyMatchWith(match: GKMatch) {
+        print("Starting Match")
         GKAccessPoint.shared.isActive = false
         playingGame = true
+        print("playingGame = \(playingGame)")
         myMatch = match
         myMatch?.delegate = self
         
@@ -90,13 +104,16 @@ final class OnlineMatch: NSObject, ObservableObject {
                 localPlayerNumber = .one
             }
         }
+        
         if localPlayerNumber == .one {
             game = Game(localPlayer: .one)
             sendGameData()
         }
+        print("Match loaded as player \(localPlayerNumber.rawValue)")
     }
     
     func sendAction(action: GameAction.Action, player: PlayerNumber) {
+        print("Sending Action")
         guard game != nil else { return }
         do {
             let data = GameAction(action: action, player: player).encode()
@@ -107,6 +124,7 @@ final class OnlineMatch: NSObject, ObservableObject {
     }
     
     func sendGameData() {
+        print("Sending Game")
         guard let game = game else { return }
         do {
             let data = game.getGameData().encode()
@@ -119,18 +137,45 @@ final class OnlineMatch: NSObject, ObservableObject {
     /// Cleans up the view's state when the local player closes the dashboard.
     func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
         // Dismiss the view controller.
+        print("Dashboard Closed")
         gameCenterViewController.dismiss(animated: true)
+        resetController()
+        goHome.toggle()
+    }
+}
+
+extension OnlineMatchManager {
+    func authenticatePlayer() {
+        // Set the authentication handler that GameKit invokes.
+        GKLocalPlayer.local.authenticateHandler = { viewController, error in
+            if let viewController = viewController {
+                // If the view controller is non-nil, present it to the player so they can
+                // perform some necessary action to complete authentication.
+                self.rootViewController?.present(viewController, animated: true) { }
+                return
+            }
+            if let error {
+                // If you can’t authenticate the player, disable Game Center features in your game.
+                print("Error: \(error.localizedDescription).")
+                return
+            }
+            
+            // Register for real-time invitations from other players.
+            GKLocalPlayer.local.register(self)
+        }
     }
 }
 
 // MARK: GKMatchmakerViewControllerDelegate
 
-extension OnlineMatch: GKMatchmakerViewControllerDelegate {
+extension OnlineMatchManager: GKMatchmakerViewControllerDelegate {
     /// Dismisses the matchmaker interface and starts the game when a player accepts an invitation.
     func matchmakerViewController(_ viewController: GKMatchmakerViewController,
                                   didFind match: GKMatch) {
+        print("Found Match")
         // Dismiss the view controller.
         viewController.dismiss(animated: true) { }
+        match.delegate = self
         
         // Start the game with the player.
         if !playingGame && match.expectedPlayerCount == 0 {
@@ -140,7 +185,10 @@ extension OnlineMatch: GKMatchmakerViewControllerDelegate {
     
     /// Dismisses the matchmaker interface when either player cancels matchmaking.
     func matchmakerViewControllerWasCancelled(_ viewController: GKMatchmakerViewController) {
+        print("Controller Cancelled")
         viewController.dismiss(animated: true)
+        resetController()
+        goHome.toggle()
     }
     
     /// Reports an error during the matchmaking process.
@@ -151,7 +199,7 @@ extension OnlineMatch: GKMatchmakerViewControllerDelegate {
 
 // MARK: GKLocalPlayerListener
 
-extension OnlineMatch: GKLocalPlayerListener {
+extension OnlineMatchManager: GKLocalPlayerListener {
     /// Handles when the local player sends requests to start a match with other players.
     func player(_ player: GKPlayer, didRequestMatchWithRecipients recipientPlayers: [GKPlayer]) {
         print("\n\nSending invites to other players.")
@@ -159,6 +207,7 @@ extension OnlineMatch: GKLocalPlayerListener {
     
     /// Presents the matchmaker interface when the local player accepts an invitation from another player.
     func player(_ player: GKPlayer, didAccept invite: GKInvite) {
+        print("Accepted Invite")
         // Present the matchmaker view controller in the invitation state.
         if let viewController = GKMatchmakerViewController(invite: invite) {
             viewController.matchmakerDelegate = self
@@ -169,20 +218,28 @@ extension OnlineMatch: GKLocalPlayerListener {
 
 // MARK: GKMatchDelegate
 
-extension OnlineMatch: GKMatchDelegate {
+extension OnlineMatchManager: GKMatchDelegate {
     /// Handles receiving a message from another player.
     /// - Tag:didReceiveData
     func match(_ match: GKMatch, didReceive data: Data, fromRemotePlayer player: GKPlayer) {
         // Decode the data representation of the game data.
+        print("Data Recieved")
         if let gameData = decode(matchData: data) {
+            print("Recieved Game")
             self.game = Game(gameData: gameData, localPlayer: localPlayerNumber)
         }
         if let action = decode(actionData: data) {
+            print("Recieved Action \(action.player):\(action.action)")
             switch action.action {
             case .deal:
                 game?.deal(action.player)
             case .slap:
                 let _ = game?.slap(action.player)
+            case .forfeit:
+                game?.winner = action.player
+            case .confetti:
+                // TODO: Add
+                break
             }
         }
     }
@@ -190,6 +247,7 @@ extension OnlineMatch: GKMatchDelegate {
     /// Handles a connected, disconnected, or unknown player state.
     /// - Tag:didChange
     func match(_ match: GKMatch, player: GKPlayer, didChange state: GKPlayerConnectionState) {
+        print("State changed: \(state)")
         switch state {
         case .connected:
             print("\(player.displayName) Connected")
@@ -199,19 +257,19 @@ extension OnlineMatch: GKMatchDelegate {
                 opponent = match.players[0]
                 
                 // Load the opponent's avatar.
-                opponent?.loadPhoto(for: GKPlayer.PhotoSize.small) { (image, error) in
-                    if let image {
-                        self.opponentAvatar = Image(uiImage: image)
-                    }
-                    if let error {
-                        print("Error: \(error.localizedDescription).")
-                    }
-                }
+//                opponent?.loadPhoto(for: GKPlayer.PhotoSize.small) { (image, error) in
+//                    if let image {
+//                        self.opponentAvatar = Image(uiImage: image)
+//                    }
+//                    if let error {
+//                        print("Error: \(error.localizedDescription).")
+//                    }
+//                }
             }
         case .disconnected:
             print("\(player.displayName) Disconnected")
             if let game = game {
-                game.winner = .one
+                game.winner = game.localPlayer
             }
         default:
             print("\(player.displayName) Connection Unknown")
@@ -221,6 +279,7 @@ extension OnlineMatch: GKMatchDelegate {
     /// Handles an error during the matchmaking process.
     func match(_ match: GKMatch, didFailWithError error: Error?) {
         print("\n\nMatch object fails with error: \(error!.localizedDescription)")
+        goHome.toggle()
     }
 
     /// Reinvites a player when they disconnect from the match.

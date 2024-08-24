@@ -10,25 +10,15 @@ import GameKit
 
 @MainActor
 final class HomeViewModel: ObservableObject {
-    @Published var showAlert = false
-    @Published var alertType: AlertType = .notSignedIn
-    
-    func authenticateUser() {
-        GKLocalPlayer.local.authenticateHandler = { vc, error in
-            guard error == nil else {
-                print(error?.localizedDescription ?? "")
-                self.alertType = .authError
-//                showAlert = true
-                return
-            }
-        }
-    }
 }
 
 struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
     @EnvironmentObject var asm: AppStorageManager
+    @EnvironmentObject var onlineMatchManager: OnlineMatchManager
     @State var path = [String]()
+    @State var showAlert = false
+    @State var alertType: AlertType = .notSignedIn
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -44,7 +34,7 @@ struct HomeView: View {
                 Spacer()
                 HStack {
                     NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
-                    MultiplayerToggleView(showGameCenterAlert: $vm.showAlert, backgroundColor: .black, foregroundColor: .white)
+                    MultiplayerToggleView(showGameCenterAlert: $showAlert, backgroundColor: .black, foregroundColor: .white)
                 }
                 NavigationButton(text: "singleplayer", onPress: {path.append("singleplayer")})
 
@@ -57,8 +47,9 @@ struct HomeView: View {
                 }
             }
             .onAppear {
-                vm.authenticateUser()
+                onlineMatchManager.authenticatePlayer()
                 AchievementManager.syncAchievements()
+                onlineMatchManager.resetController()
                 guard GKLocalPlayer.local.isAuthenticated else {
                     asm.online = false
                     return
@@ -76,6 +67,7 @@ struct HomeView: View {
                         OnlineGameView(path: $path)
                             .navigationBarBackButtonHidden()
                             .statusBar(hidden: true)
+                            .environmentObject(onlineMatchManager)
                     } else {
                         LocalGameView(path: $path, isSingleplayer: false)
                             .navigationBarBackButtonHidden()
@@ -95,8 +87,8 @@ struct HomeView: View {
                     Spacer()
                 }
             }
-            .alert(isPresented: $vm.showAlert) {
-                switch vm.alertType {
+            .alert(isPresented: $showAlert) {
+                switch alertType {
                 case .authError:
                     Alert(title: Text("auth error"))
                 case .notSignedIn:

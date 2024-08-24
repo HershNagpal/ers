@@ -10,13 +10,7 @@ import Foundation
 struct GameData: Codable {
     let deck1: Deck
     let deck2: Deck
-    let stack: [Card]
-    let burnPile: [Card]
     let currentPlayer: PlayerNumber
-    let stackClaimSlap: PlayerNumber
-    let numTurns: Int
-    let winner: PlayerNumber
-    let countdown: Int
     
     func encode() -> Data? {
         let encoder = PropertyListEncoder()
@@ -34,7 +28,7 @@ struct GameData: Codable {
 
 struct GameAction: Codable {
     enum Action: String, Codable {
-        case deal, slap
+        case deal, slap, forfeit, confetti
     }
     let action: Action
     let player: PlayerNumber

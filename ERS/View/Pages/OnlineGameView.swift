@@ -9,28 +9,40 @@ import SwiftUI
 
 struct OnlineGameView: View {
     @Binding var path: [String]
-    @StateObject var onlineMatch = OnlineMatch()
+    @EnvironmentObject var onlineMatch: OnlineMatchManager
+    @EnvironmentObject var asm: AppStorageManager
+    @State var ruleState: RuleState?
+    @State var playingGame: Bool = false
     
     var body: some View {
         ZStack {
             if onlineMatch.playingGame, let game = onlineMatch.game {
-                GameView(path: $path, game: game, localPlayer: game.localPlayer, isSingleplayer: false,
-                         sendAction: {onlineMatch.sendAction(action: $0, player: $1)})
-//                Text("\(onlineMatch.localPlayerNumber.rawValue) : \(onlineMatch.game?.localPlayer.rawValue ?? "3") : \(onlineMatch.game?.currentPlayer.rawValue ?? "3")")
-//                    .foregroundColor(.white)
-//                    .background(.black)
+                GameView(path: $path, game: game, localPlayer: game.localPlayer, isSingleplayer: false, sendAction: {onlineMatch.sendAction(action: $0, player: $1)})
             } else {
-                VStack {
+                HStack {
                     Spacer()
-                    HStack {
+                    VStack() {
                         Spacer()
+//                        Text("\(onlineMatch.playingGame)")
                     }
                 }
                 .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
             }
         }
-        .onAppear() {
+        .onChange(of: onlineMatch.goHome) {
+            print("Going Home")
+            path.removeAll()
+        }
+        .onAppear {
+            print("Appearing")
+            ruleState = asm.saveRuleState()
             onlineMatch.choosePlayer()
+        }
+        .onDisappear {
+            print("Disappearing")
+            if let ruleState = ruleState {
+                asm.restoreRuleState(from: ruleState)
+            }
         }
     }
 }

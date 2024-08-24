@@ -26,27 +26,21 @@ class Game: NSObject, ObservableObject {
         GameData(
             deck1: deck1, 
             deck2: deck2,
-            stack: stack,
-            burnPile: burnPile,
-            currentPlayer: currentPlayer,
-            stackClaimSlap: stackClaimSlap,
-            numTurns: numTurns,
-            winner: winner,
-            countdown: countdown
+            currentPlayer: currentPlayer
         )
     }
     
     init(gameData: GameData, localPlayer: PlayerNumber) {
         deck1 = gameData.deck1
         deck2 = gameData.deck2
-        stack = gameData.stack
-        countdown = gameData.countdown
         currentPlayer = gameData.currentPlayer
-        stackClaimSlap = gameData.stackClaimSlap
-        burnPile = gameData.burnPile
-        winner = gameData.winner
-        numTurns = gameData.numTurns
         self.localPlayer = localPlayer
+        stack = []
+        burnPile = []
+        stackClaimSlap = .none
+        numTurns = 0
+        winner = .none
+        countdown = -1
     }
     
     init(localPlayer: PlayerNumber) {

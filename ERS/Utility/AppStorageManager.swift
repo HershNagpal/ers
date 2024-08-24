@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class AppStorageManager: ObservableObject {
+final class AppStorageManager: ObservableObject {
     @AppStorage("purchasedRules") var purchasedRules: Bool = false
     @AppStorage("rulesWithAds") var rulesWithAds: Bool = false
     
@@ -32,9 +32,35 @@ class AppStorageManager: ObservableObject {
     
     @AppStorage("online") var online: Bool = false
     
+    func saveRuleState() -> RuleState {
+        RuleState(doublesOn: doublesOn, sandwichOn: sandwichOn, couplesOn: couplesOn, divorceOn: divorceOn, queenOfDeathOn: queenOfDeathOn, topAndBottomOn: topAndBottomOn, addToTenOn: addToTenOn, sequenceOn: sequenceOn)
+    }
+    
+    func restoreRuleState(from state: RuleState) -> Void {
+        doublesOn = state.doublesOn
+        sandwichOn = state.sandwichOn
+        couplesOn = state.couplesOn
+        divorceOn = state.divorceOn
+        queenOfDeathOn = state.queenOfDeathOn
+        topAndBottomOn = state.topAndBottomOn
+        addToTenOn = state.addToTenOn
+        sequenceOn = state.sequenceOn
+    }
+    
     var disableRuleToggles: Binding<Bool> { Binding (
         get: { [self] in !purchasedRules },
         set: { _ in }
         )
     }
+}
+
+struct RuleState: Codable {
+    let doublesOn: Bool
+    let sandwichOn: Bool
+    let couplesOn: Bool
+    let divorceOn: Bool
+    let queenOfDeathOn: Bool
+    let topAndBottomOn: Bool
+    let addToTenOn: Bool
+    let sequenceOn: Bool
 }

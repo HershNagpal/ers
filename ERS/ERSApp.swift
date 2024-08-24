@@ -23,6 +23,7 @@ struct ERSApp: App {
                 .environmentObject(purchaseManager)
                 .environmentObject(HomeViewModel())
                 .environmentObject(AppStorageManager())
+                .environmentObject(OnlineMatchManager())
                 .task {
                     await purchaseManager.updatePurchasedProducts()
                 }

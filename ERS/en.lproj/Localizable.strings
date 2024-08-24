@@ -29,7 +29,7 @@
 "player two wins" = "Player Two wins!";
 
 // Options
-"visuals" = "Visuals";
+"general" = "General";
 "easy deal" = "Easy Deal";
 "easy deal description" = "Lights up the deal button on your turn.";
 "easy claim" = "Easy Claim";
