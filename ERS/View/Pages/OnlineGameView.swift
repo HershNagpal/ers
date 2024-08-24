@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GameKit
 
 struct OnlineGameView: View {
     @Binding var path: [String]
@@ -13,16 +14,24 @@ struct OnlineGameView: View {
     @EnvironmentObject var asm: AppStorageManager
     @State var ruleState: RuleState?
     @State var playingGame: Bool = false
+    @State var showSheet: Bool = false
     
     var body: some View {
         ZStack {
-            if onlineMatch.playingGame && onlineMatch.localPlayerNumber != .none, let game = onlineMatch.game {
+            if onlineMatch.playingGame && onlineMatch.localPlayerNumber != .none, let _ = onlineMatch.game {
                 GameView(path: $path, game: onlineMatch.game!, localPlayer: onlineMatch.localPlayerNumber, isSingleplayer: false, sendAction: {onlineMatch.sendAction(action: $0, player: $1)})
                     .onAppear {
                         onlineMatch.acceptedInvite = false
+                        showSheet = true
                     }
                     .onDisappear {
                         onlineMatch.resetController()
+                    }
+                    .sheet(isPresented: $showSheet) {
+                        VStack(spacing: 8) {
+                            let playerNumber = onlineMatch.localPlayerNumber
+                            RuleDisplayView(localPlayer: onlineMatch.localPlayerNumber, rulesPlayer: .one, dismiss: {showSheet = false})
+                        }
                     }
             } else {
                 HStack {
@@ -47,7 +56,7 @@ struct OnlineGameView: View {
         .onDisappear {
             print("Disappearing")
             if let ruleState = ruleState {
-                asm.restoreRuleState(from: ruleState)
+                asm.apply(state: ruleState)
             }
         }
     }

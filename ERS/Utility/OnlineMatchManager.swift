@@ -68,6 +68,11 @@ final class OnlineMatchManager: NSObject, ObservableObject {
         return try? PropertyListDecoder().decode(GameAction.self, from: actionData)
     }
     
+    func decode(rulesData: Data) -> RuleState? {
+        // Convert the data object to a game data object.
+        return try? PropertyListDecoder().decode(RuleState.self, from: rulesData)
+    }
+    
     func choosePlayer() {
         // Create a match request.
         let request = GKMatchRequest()
@@ -122,6 +127,7 @@ final class OnlineMatchManager: NSObject, ObservableObject {
         if localPlayerNumber == .one {
             game = Game(localPlayer: .one)
             sendGameData()
+            sendGameRules()
         }
 //        print("Match loaded as player \(localPlayerNumber.rawValue)")
     }
@@ -142,6 +148,17 @@ final class OnlineMatchManager: NSObject, ObservableObject {
         guard let game = game else { return }
         do {
             let data = game.getGameData().encode()
+            try myMatch?.sendData(toAllPlayers: data!, with: GKMatch.SendDataMode.reliable)
+        } catch {
+            print("Error: \(error.localizedDescription).")
+        }
+    }
+    
+    func sendGameRules() {
+//        print("Sending Rules")
+        guard let game = game else { return }
+        do {
+            let data = asm.saveRuleState().encode()
             try myMatch?.sendData(toAllPlayers: data!, with: GKMatch.SendDataMode.reliable)
         } catch {
             print("Error: \(error.localizedDescription).")
@@ -242,8 +259,7 @@ extension OnlineMatchManager: GKMatchDelegate {
         if let gameData = decode(matchData: data) {
 //            print("Recieved Game")
             self.game = Game(gameData: gameData, localPlayer: localPlayerNumber)
-        }
-        if let action = decode(actionData: data) {
+        } else if let action = decode(actionData: data) {
 //            print("Recieved Action \(action.player):\(action.action)")
             switch action.action {
             case .deal:
@@ -256,6 +272,8 @@ extension OnlineMatchManager: GKMatchDelegate {
                 // TODO: Add
                 break
             }
+        } else if let rules = decode(rulesData: data) {
+            asm.apply(state: rules)
         }
     }
     

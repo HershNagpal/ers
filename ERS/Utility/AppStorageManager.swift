@@ -36,7 +36,7 @@ final class AppStorageManager: ObservableObject {
         RuleState(doublesOn: doublesOn, sandwichOn: sandwichOn, couplesOn: couplesOn, divorceOn: divorceOn, queenOfDeathOn: queenOfDeathOn, topAndBottomOn: topAndBottomOn, addToTenOn: addToTenOn, sequenceOn: sequenceOn)
     }
     
-    func restoreRuleState(from state: RuleState) -> Void {
+    func apply(state: RuleState) -> Void {
         doublesOn = state.doublesOn
         sandwichOn = state.sandwichOn
         couplesOn = state.couplesOn
@@ -63,4 +63,17 @@ struct RuleState: Codable {
     let topAndBottomOn: Bool
     let addToTenOn: Bool
     let sequenceOn: Bool
+    
+    func encode() -> Data? {
+        let encoder = PropertyListEncoder()
+        encoder.outputFormat = .xml
+        
+        do {
+            let data = try encoder.encode(self)
+            return data
+        } catch {
+            print("Error: \(error.localizedDescription).")
+            return nil
+        }
+    }
 }
