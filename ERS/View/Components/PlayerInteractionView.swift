@@ -17,7 +17,7 @@ struct PlayerInteractionView: View {
     @Binding var confettiCounter: Int
     @State var deal: Bool = false
     
-    let sendUpdate: (() -> Void)?
+    let sendAction: ((GameAction.Action, PlayerNumber) -> Void)?
     let image: Image?
     
     var body: some View {
@@ -26,8 +26,8 @@ struct PlayerInteractionView: View {
                 Button(action: { if !isDisabled {
                     game.deal(player)
                     deal.toggle()
-                    if let sendUpdate = sendUpdate {
-                        sendUpdate()
+                    if let sendAction = sendAction {
+                        sendAction(.deal, player)
                     }
                 }}) {
                     VStack {
@@ -49,8 +49,8 @@ struct PlayerInteractionView: View {
                 }
                 Button(action: { if !isDisabled {
                     if game.slap(player) && asm.confettiSlap { confettiCounter += 1 }
-                    if let sendUpdate = sendUpdate {
-                        sendUpdate()
+                    if let sendAction = sendAction {
+                        sendAction(.slap, player)
                     }
                 }}) {
                     VStack {

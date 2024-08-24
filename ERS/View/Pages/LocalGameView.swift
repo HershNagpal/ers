@@ -19,7 +19,7 @@ struct LocalGameView: View {
     let isSingleplayer: Bool
     
     var body: some View {
-        GameView(path: $path, game: vm.game, localPlayer: .one, isSingleplayer: isSingleplayer, sendUpdate: nil)
+        GameView(path: $path, game: vm.game, localPlayer: .one, isSingleplayer: isSingleplayer, sendAction: nil)
     }
 }
 

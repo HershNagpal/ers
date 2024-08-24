@@ -40,6 +40,11 @@ final class OnlineMatch: NSObject, ObservableObject {
         return try? PropertyListDecoder().decode(GameData.self, from: matchData)
     }
     
+    func decode(actionData: Data) -> GameAction? {
+        // Convert the data object to a game data object.
+        return try? PropertyListDecoder().decode(GameAction.self, from: actionData)
+    }
+    
     func choosePlayer() {
         // Create a match request.
         let request = GKMatchRequest()
@@ -88,6 +93,16 @@ final class OnlineMatch: NSObject, ObservableObject {
         if localPlayerNumber == .one {
             game = Game(localPlayer: .one)
             sendGameData()
+        }
+    }
+    
+    func sendAction(action: GameAction.Action, player: PlayerNumber) {
+        guard game != nil else { return }
+        do {
+            let data = GameAction(action: action, player: player).encode()
+            try myMatch?.sendData(toAllPlayers: data!, with: GKMatch.SendDataMode.reliable)
+        } catch {
+            print("Error: \(error.localizedDescription).")
         }
     }
     
@@ -159,11 +174,17 @@ extension OnlineMatch: GKMatchDelegate {
     /// - Tag:didReceiveData
     func match(_ match: GKMatch, didReceive data: Data, fromRemotePlayer player: GKPlayer) {
         // Decode the data representation of the game data.
-        guard let gameData = decode(matchData: data) else { return }
-        
-        // Update the interface from the game data.
-        self.game = Game(gameData: gameData, localPlayer: localPlayerNumber)
-        print("yee")
+        if let gameData = decode(matchData: data) {
+            self.game = Game(gameData: gameData, localPlayer: localPlayerNumber)
+        }
+        if let action = decode(actionData: data) {
+            switch action.action {
+            case .deal:
+                game?.deal(action.player)
+            case .slap:
+                let _ = game?.slap(action.player)
+            }
+        }
     }
     
     /// Handles a connected, disconnected, or unknown player state.

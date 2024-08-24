@@ -31,3 +31,23 @@ struct GameData: Codable {
         }
     }
 }
+
+struct GameAction: Codable {
+    enum Action: String, Codable {
+        case deal, slap
+    }
+    let action: Action
+    let player: PlayerNumber
+    
+    func encode() -> Data? {
+        let encoder = PropertyListEncoder()
+        encoder.outputFormat = .xml
+        do {
+            let data = try encoder.encode(self)
+            return data
+        } catch {
+            print("Error: \(error.localizedDescription).")
+            return nil
+        }
+    }
+}

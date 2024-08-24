@@ -20,7 +20,7 @@ struct GameView: View {
     @State var showBurnAlert: Bool = false
     let localPlayer: PlayerNumber
     let isSingleplayer: Bool
-    let sendUpdate: (() -> Void)?
+    let sendAction: ((GameAction.Action, PlayerNumber) -> Void)?
     
     private func checkAchievements() {
         AchievementManager.setAchievementProgress(.hundredGames, percentComplete: min(AchievementManager.getAchievementProgress(.hundredGames)+1,100))
@@ -101,7 +101,7 @@ struct GameView: View {
                     .sensoryFeedback(.impact(flexibility: .solid), trigger: burn)
             }
             VStack(spacing: 0) {
-                PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: isSingleplayer || asm.online, player: localPlayer == .one ? .two : .one, confettiCounter: $confettiCounter2, sendUpdate: sendUpdate, image: nil)
+                PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: isSingleplayer || asm.online, player: localPlayer == .one ? .two : .one, confettiCounter: $confettiCounter2, sendAction: sendAction, image: nil)
                     .rotationEffect(Angle(degrees: 180))
                     .ignoresSafeArea()
                     .environmentObject(asm)
@@ -114,7 +114,7 @@ struct GameView: View {
                     .environmentObject(asm)
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck1, lastDeckCount: game.deck1.numCards())
                     .padding([.bottom, .leading], 10)
-                PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: false, player: localPlayer, confettiCounter: $confettiCounter1, sendUpdate: sendUpdate, image: nil)
+                PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: false, player: localPlayer, confettiCounter: $confettiCounter1, sendAction: sendAction, image: nil)
                     .ignoresSafeArea()
                     .environmentObject(asm)
                     .confettiCannon(counter: localPlayer == .one ? $confettiCounter1: $confettiCounter2, num: 40, confettis: [.shape(.slimRectangle)], colors: [.red, .yellow, .green, .blue, .purple], confettiSize: 20, rainHeight: 200, fadesOut: true, opacity: 1, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 150)
