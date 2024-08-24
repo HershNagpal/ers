@@ -49,6 +49,7 @@ struct HomeView: View {
             .onChange(of: onlineMatchManager.acceptedInvite) {
                 if $1 {
                     asm.online = true
+                    path.removeAll()
                     path.append("multiplayer")
                 }
             }

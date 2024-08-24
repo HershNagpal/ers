@@ -103,14 +103,14 @@ final class OnlineMatchManager: NSObject, ObservableObject {
             guard let opponent = myMatch?.players[0] else { return }
             
             // Load the opponent's avatar.
-//            opponent.loadPhoto(for: GKPlayer.PhotoSize.small) { (image, error) in
-//                if let image {
-//                    self.opponentAvatar = Image(uiImage: image)
-//                }
-//                if let error {
-//                    print("Error: \(error.localizedDescription).")
-//                }
-//            }
+            opponent.loadPhoto(for: GKPlayer.PhotoSize.small) { (image, error) in
+                if let image {
+                    self.opponentAvatar = Image(uiImage: image)
+                }
+                if let error {
+                    print("Error: \(error.localizedDescription).")
+                }
+            }
         
             if opponent.gamePlayerID < GKLocalPlayer.local.gamePlayerID {
                 localPlayerNumber = .two
@@ -272,14 +272,14 @@ extension OnlineMatchManager: GKMatchDelegate {
                 opponent = match.players[0]
                 
                 // Load the opponent's avatar.
-//                opponent?.loadPhoto(for: GKPlayer.PhotoSize.small) { (image, error) in
-//                    if let image {
-//                        self.opponentAvatar = Image(uiImage: image)
-//                    }
-//                    if let error {
-//                        print("Error: \(error.localizedDescription).")
-//                    }
-//                }
+                opponent?.loadPhoto(for: GKPlayer.PhotoSize.small) { (image, error) in
+                    if let image {
+                        self.opponentAvatar = Image(uiImage: image)
+                    }
+                    if let error {
+                        print("Error: \(error.localizedDescription).")
+                    }
+                }
             }
         case .disconnected:
 //            print("\(player.displayName) Disconnected")
