@@ -16,7 +16,7 @@ struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
     @EnvironmentObject var asm: AppStorageManager
     @EnvironmentObject var onlineMatchManager: OnlineMatchManager
-    @State var path = [String]()
+    @Binding var path: [String]
     @State var showAlert = false
     @State var alertType: AlertType = .notSignedIn
     
@@ -46,17 +46,22 @@ struct HomeView: View {
                     Spacer()
                 }
             }
+            .onChange(of: onlineMatchManager.acceptedInvite) {
+                if $1 {
+                    asm.online = true
+                    path.append("multiplayer")
+                }
+            }
+            .padding(24)
+            .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
             .onAppear {
                 onlineMatchManager.authenticatePlayer()
                 AchievementManager.syncAchievements()
-                onlineMatchManager.resetController()
                 guard GKLocalPlayer.local.isAuthenticated else {
                     asm.online = false
                     return
                 }
             }
-            .padding(24)
-            .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
             .navigationDestination(for: String.self) { string in
                 switch string {
                 case "options":

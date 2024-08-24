@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 @MainActor
-class Game: NSObject, ObservableObject {
+class Game: ObservableObject {
     var deck1: Deck
     var deck2: Deck
     var countdown: Int
@@ -58,7 +58,7 @@ class Game: NSObject, ObservableObject {
         self.localPlayer = localPlayer
     }
     
-    override init() {
+    init() {
         deck1 = Deck(player: .one)
         deck2 = Deck(player: .two)
         stack = []

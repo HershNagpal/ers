@@ -16,8 +16,14 @@ struct OnlineGameView: View {
     
     var body: some View {
         ZStack {
-            if onlineMatch.playingGame, let game = onlineMatch.game {
-                GameView(path: $path, game: game, localPlayer: game.localPlayer, isSingleplayer: false, sendAction: {onlineMatch.sendAction(action: $0, player: $1)})
+            if onlineMatch.playingGame && onlineMatch.localPlayerNumber != .none, let game = onlineMatch.game {
+                GameView(path: $path, game: onlineMatch.game!, localPlayer: onlineMatch.localPlayerNumber, isSingleplayer: false, sendAction: {onlineMatch.sendAction(action: $0, player: $1)})
+                    .onAppear {
+                        onlineMatch.acceptedInvite = false
+                    }
+                    .onDisappear {
+                        onlineMatch.resetController()
+                    }
             } else {
                 HStack {
                     Spacer()
