@@ -28,6 +28,8 @@
 		B34FD32D2C790533009DB3CD /* MatchmakingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD32C2C790533009DB3CD /* MatchmakingView.swift */; };
 		B34FD32F2C790595009DB3CD /* OnlineMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD32E2C790595009DB3CD /* OnlineMatch.swift */; };
 		B34FD3312C790E1A009DB3CD /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD3302C790E1A009DB3CD /* GameData.swift */; };
+		B34FD3332C791E65009DB3CD /* OnlineGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD3322C791E65009DB3CD /* OnlineGameView.swift */; };
+		B34FD3352C793436009DB3CD /* LocalGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD3342C793436009DB3CD /* LocalGameView.swift */; };
 		B3564A612A11FF4F00F2915E /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3564A602A11FF4F00F2915E /* SettingsButton.swift */; };
 		B3786020297CF81A00E5DB92 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B378601F297CF81A00E5DB92 /* CardView.swift */; };
 		B38A58B32C406B7C0060C6E7 /* AppStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38A58B22C406B7C0060C6E7 /* AppStorageManager.swift */; };
@@ -91,6 +93,8 @@
 		B34FD32C2C790533009DB3CD /* MatchmakingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakingView.swift; sourceTree = "<group>"; };
 		B34FD32E2C790595009DB3CD /* OnlineMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineMatch.swift; sourceTree = "<group>"; };
 		B34FD3302C790E1A009DB3CD /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
+		B34FD3322C791E65009DB3CD /* OnlineGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineGameView.swift; sourceTree = "<group>"; };
+		B34FD3342C793436009DB3CD /* LocalGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalGameView.swift; sourceTree = "<group>"; };
 		B3564A5F2A0B7BC300F2915E /* ERS: Egyptian Rat Screw.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ERS: Egyptian Rat Screw.storekit"; sourceTree = "<group>"; };
 		B3564A602A11FF4F00F2915E /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		B378601F297CF81A00E5DB92 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -266,6 +270,8 @@
 				B3AE850F29CE2B5D00D735F9 /* TutorialView.swift */,
 				B31074782B75BDAD00A259BE /* AchievementsView.swift */,
 				B34FD32C2C790533009DB3CD /* MatchmakingView.swift */,
+				B34FD3322C791E65009DB3CD /* OnlineGameView.swift */,
+				B34FD3342C793436009DB3CD /* LocalGameView.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -396,6 +402,7 @@
 			files = (
 				B3AE853029CEC1D400D735F9 /* RuleToggleView.swift in Sources */,
 				B3AE850C29CCA7A300D735F9 /* GameEndView.swift in Sources */,
+				B34FD3352C793436009DB3CD /* LocalGameView.swift in Sources */,
 				B3AE850E29CCB8DD00D735F9 /* Colors.swift in Sources */,
 				B31074872B79648900A259BE /* AchievementManager.swift in Sources */,
 				B34FD3222C76E656009DB3CD /* NavigationIcon.swift in Sources */,
@@ -429,6 +436,7 @@
 				B38E315329961037005254F9 /* NavigationButton.swift in Sources */,
 				B3AE852229CE4A1C00D735F9 /* PlayerNumber.swift in Sources */,
 				B31074812B769DC800A259BE /* AchievementDescriptionText.swift in Sources */,
+				B34FD3332C791E65009DB3CD /* OnlineGameView.swift in Sources */,
 				B3AE84F929CA4B3400D735F9 /* PlayerInteractionView.swift in Sources */,
 				B34FD32A2C78FC1E009DB3CD /* MultiplayerToggleView.swift in Sources */,
 				B3AE84F229C94CBA00D735F9 /* GameView.swift in Sources */,

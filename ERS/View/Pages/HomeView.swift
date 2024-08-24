@@ -28,7 +28,6 @@ final class HomeViewModel: ObservableObject {
 struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
     @EnvironmentObject var asm: AppStorageManager
-    
     @State var path = [String]()
     
     var body: some View {
@@ -73,11 +72,17 @@ struct HomeView: View {
                     SettingsView()
                         .navigationTitle("options")
                 case "multiplayer":
-                    GameView(path: $path, isSingleplayer: false)
-                        .navigationBarBackButtonHidden()
-                        .statusBar(hidden: true)
+                    if asm.online {
+                        OnlineGameView(path: $path)
+                            .navigationBarBackButtonHidden()
+                            .statusBar(hidden: true)
+                    } else {
+                        LocalGameView(path: $path, isSingleplayer: false)
+                            .navigationBarBackButtonHidden()
+                            .statusBar(hidden: true)
+                    }
                 case "singleplayer":
-                    GameView(path: $path, isSingleplayer: true)
+                    LocalGameView(path: $path, isSingleplayer: true)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)
                 case "tutorial":

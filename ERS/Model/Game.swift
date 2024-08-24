@@ -8,12 +8,14 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 class Game: NSObject, ObservableObject {
     var deck1: Deck
     var deck2: Deck
     var countdown: Int
     var currentPlayer: PlayerNumber
     var stackClaimSlap: PlayerNumber
+    @Published var localPlayer: PlayerNumber
     @Published var stack: [Card]
     @Published var burnPile: [Card]
     @Published var winner: PlayerNumber
@@ -21,10 +23,20 @@ class Game: NSObject, ObservableObject {
     let asm = AppStorageManager() // TODO: Fix this
     
     func getGameData() -> GameData {
-        GameData(deck1: deck1, deck2: deck2, stack: stack, burnPile: burnPile, currentPlayer: currentPlayer, stackClaimSlap: stackClaimSlap, numTurns: numTurns, winner: winner, countdown: countdown)
+        GameData(
+            deck1: deck1, 
+            deck2: deck2,
+            stack: stack,
+            burnPile: burnPile,
+            currentPlayer: currentPlayer,
+            stackClaimSlap: stackClaimSlap,
+            numTurns: numTurns,
+            winner: winner,
+            countdown: countdown
+        )
     }
     
-    init(gameData: GameData) {
+    init(gameData: GameData, localPlayer: PlayerNumber) {
         deck1 = gameData.deck1
         deck2 = gameData.deck2
         stack = gameData.stack
@@ -34,11 +46,12 @@ class Game: NSObject, ObservableObject {
         burnPile = gameData.burnPile
         winner = gameData.winner
         numTurns = gameData.numTurns
+        self.localPlayer = localPlayer
     }
     
-    override init() {
-        self.deck1 = Deck(player: .one)
-        self.deck2 = Deck(player: .two)
+    init(localPlayer: PlayerNumber) {
+        deck1 = Deck(player: .one)
+        deck2 = Deck(player: .two)
         stack = []
         burnPile = []
         winner = .none
@@ -48,6 +61,22 @@ class Game: NSObject, ObservableObject {
         numTurns = 0
         deck1.shuffle()
         deck2.shuffle()
+        self.localPlayer = localPlayer
+    }
+    
+    override init() {
+        deck1 = Deck(player: .one)
+        deck2 = Deck(player: .two)
+        stack = []
+        burnPile = []
+        winner = .none
+        countdown = -1
+        currentPlayer = .one
+        stackClaimSlap = .none
+        numTurns = 0
+        deck1.shuffle()
+        deck2.shuffle()
+        localPlayer = .one
     }
     
     func deal(_ player: PlayerNumber) {

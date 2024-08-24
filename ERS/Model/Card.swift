@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card: Codable, Identifiable {
+struct Card: Codable, Identifiable, Equatable {
     let id: UUID
     let value: Value
     let suit: Suit

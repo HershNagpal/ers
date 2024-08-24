@@ -10,8 +10,8 @@ import SwiftUI
 import GameKit
 
 @MainActor
-class OnlineMatch: NSObject, ObservableObject {
-    @Published var game = Game()
+final class OnlineMatch: NSObject, ObservableObject {
+    @Published var game: Game?
     
     // The game interface state.
     @Published var matchAvailable = false
@@ -20,6 +20,7 @@ class OnlineMatch: NSObject, ObservableObject {
     @Published var automatch = false
     @Published var opponent: GKPlayer? = nil
     @Published var opponentAvatar: Image? = nil
+    @Published var localPlayerNumber: PlayerNumber = .none
     
     var rootViewController: UIViewController? {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
@@ -34,15 +35,25 @@ class OnlineMatch: NSObject, ObservableObject {
         opponent?.displayName ?? "Invitation Pending"
     }
     
-    func resetMatch() {
-        // Reset the game data.
-        playingGame = false
-        myMatch?.disconnect()
-        myMatch?.delegate = nil
-        myMatch = nil
-        opponent = nil
-        GKAccessPoint.shared.isActive = true
-        game = Game()
+    func decode(matchData: Data) -> GameData? {
+        // Convert the data object to a game data object.
+        return try? PropertyListDecoder().decode(GameData.self, from: matchData)
+    }
+    
+    func choosePlayer() {
+        // Create a match request.
+        let request = GKMatchRequest()
+        request.minPlayers = 2
+        request.maxPlayers = 2
+        
+        // If you use matchmaking rules, set the GKMatchRequest.queueName property here. If the rules use
+        // game-specific properties, set the local player's GKMatchRequest.properties too.
+        
+        // Present the interface where the player selects opponents and starts the game.
+        if let viewController = GKMatchmakerViewController(matchRequest: request) {
+            viewController.matchmakerDelegate = self
+            rootViewController?.present(viewController, animated: true) { }
+        }
     }
     
     /// Starts a match.
@@ -56,10 +67,10 @@ class OnlineMatch: NSObject, ObservableObject {
         
         // For automatch, check whether the opponent connected to the match before loading the avatar.
         if myMatch?.expectedPlayerCount == 0 {
-            opponent = myMatch?.players[0]
+            guard let opponent = myMatch?.players[0] else { return }
             
             // Load the opponent's avatar.
-            opponent?.loadPhoto(for: GKPlayer.PhotoSize.small) { (image, error) in
+            opponent.loadPhoto(for: GKPlayer.PhotoSize.small) { (image, error) in
                 if let image {
                     self.opponentAvatar = Image(uiImage: image)
                 }
@@ -67,10 +78,21 @@ class OnlineMatch: NSObject, ObservableObject {
                     print("Error: \(error.localizedDescription).")
                 }
             }
+        
+            if opponent.gamePlayerID < GKLocalPlayer.local.gamePlayerID {
+                localPlayerNumber = .two
+            } else {
+                localPlayerNumber = .one
+            }
+        }
+        if localPlayerNumber == .one {
+            game = Game(localPlayer: .one)
+            sendGameData()
         }
     }
     
     func sendGameData() {
+        guard let game = game else { return }
         do {
             let data = game.getGameData().encode()
             try myMatch?.sendData(toAllPlayers: data!, with: GKMatch.SendDataMode.reliable)
@@ -133,6 +155,17 @@ extension OnlineMatch: GKLocalPlayerListener {
 // MARK: GKMatchDelegate
 
 extension OnlineMatch: GKMatchDelegate {
+    /// Handles receiving a message from another player.
+    /// - Tag:didReceiveData
+    func match(_ match: GKMatch, didReceive data: Data, fromRemotePlayer player: GKPlayer) {
+        // Decode the data representation of the game data.
+        guard let gameData = decode(matchData: data) else { return }
+        
+        // Update the interface from the game data.
+        self.game = Game(gameData: gameData, localPlayer: localPlayerNumber)
+        print("yee")
+    }
+    
     /// Handles a connected, disconnected, or unknown player state.
     /// - Tag:didChange
     func match(_ match: GKMatch, player: GKPlayer, didChange state: GKPlayerConnectionState) {
@@ -156,6 +189,9 @@ extension OnlineMatch: GKMatchDelegate {
             }
         case .disconnected:
             print("\(player.displayName) Disconnected")
+            if let game = game {
+                game.winner = .one
+            }
         default:
             print("\(player.displayName) Connection Unknown")
         }

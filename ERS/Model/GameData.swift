@@ -18,11 +18,6 @@ struct GameData: Codable {
     let winner: PlayerNumber
     let countdown: Int
     
-    func decode(matchData: Data) -> GameData? {
-        // Convert the data object to a game data object.
-        return try? PropertyListDecoder().decode(GameData.self, from: matchData)
-    }
-    
     func encode() -> Data? {
         let encoder = PropertyListEncoder()
         encoder.outputFormat = .xml
