@@ -58,6 +58,9 @@ struct HomeView: View {
             .onAppear {
                 onlineMatchManager.authenticatePlayer()
                 AchievementManager.syncAchievements()
+                if !asm.purchasedRules {
+                    asm.turnOffExtraRules()
+                }
                 guard GKLocalPlayer.local.isAuthenticated else {
                     asm.online = false
                     return

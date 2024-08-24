@@ -28,7 +28,7 @@ struct GameData: Codable {
 
 struct GameAction: Codable {
     enum Action: String, Codable {
-        case deal, slap, forfeit, confetti
+        case deal, slap, forfeit, confetti, rulesRequest
     }
     let action: Action
     let player: PlayerNumber

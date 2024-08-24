@@ -33,7 +33,7 @@ final class AppStorageManager: ObservableObject {
     @AppStorage("online") var online: Bool = false
     
     func saveRuleState() -> RuleState {
-        RuleState(doublesOn: doublesOn, sandwichOn: sandwichOn, couplesOn: couplesOn, divorceOn: divorceOn, queenOfDeathOn: queenOfDeathOn, topAndBottomOn: topAndBottomOn, addToTenOn: addToTenOn, sequenceOn: sequenceOn)
+        RuleState(doublesOn: doublesOn, sandwichOn: sandwichOn, couplesOn: couplesOn, divorceOn: divorceOn, queenOfDeathOn: queenOfDeathOn, topAndBottomOn: topAndBottomOn, addToTenOn: addToTenOn, sequenceOn: sequenceOn, burnAmount: burnAmount)
     }
     
     func apply(state: RuleState) -> Void {
@@ -45,35 +45,33 @@ final class AppStorageManager: ObservableObject {
         topAndBottomOn = state.topAndBottomOn
         addToTenOn = state.addToTenOn
         sequenceOn = state.sequenceOn
+        burnAmount = state.burnAmount
+    }
+    
+    func reset() {
+        doublesOn = true
+        sandwichOn = true
+        couplesOn = true
+        divorceOn = false
+        queenOfDeathOn = false
+        topAndBottomOn = false
+        addToTenOn = false
+        sequenceOn = false
+        burnAmount = 1
+    }
+    
+    func turnOffExtraRules() {
+        divorceOn = false
+        queenOfDeathOn = false
+        topAndBottomOn = false
+        addToTenOn = false
+        sequenceOn = false
+        burnAmount = 1
     }
     
     var disableRuleToggles: Binding<Bool> { Binding (
         get: { [self] in !purchasedRules },
         set: { _ in }
         )
-    }
-}
-
-struct RuleState: Codable {
-    let doublesOn: Bool
-    let sandwichOn: Bool
-    let couplesOn: Bool
-    let divorceOn: Bool
-    let queenOfDeathOn: Bool
-    let topAndBottomOn: Bool
-    let addToTenOn: Bool
-    let sequenceOn: Bool
-    
-    func encode() -> Data? {
-        let encoder = PropertyListEncoder()
-        encoder.outputFormat = .xml
-        
-        do {
-            let data = try encoder.encode(self)
-            return data
-        } catch {
-            print("Error: \(error.localizedDescription).")
-            return nil
-        }
     }
 }

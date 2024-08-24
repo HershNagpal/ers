@@ -16,7 +16,7 @@ struct RuleDisplayView: View {
     var body: some View {
         VStack(spacing: 8) {
             MediumText("You are player \(localPlayer.rawValue)")
-            MediumText("Selected player \(localPlayer.rawValue)'s rules")
+            MediumText("Selected player \(rulesPlayer.rawValue)'s rules")
             if asm.doublesOn {
                 MediumText("Doubles")
             }

@@ -20,17 +20,10 @@ final class OnlineMatchManager: NSObject, ObservableObject {
     @Published var localPlayerNumber: PlayerNumber = .none
     @Published var goHome: Bool = false
     @Published var acceptedInvite: Bool = false
+    @Published var rulesPlayer: PlayerNumber = .none
     @ObservedObject var asm: AppStorageManager
     
-    init(game: Game? = nil, matchAvailable: Bool = false, playingGame: Bool = false, myMatch: GKMatch? = nil, opponent: GKPlayer? = nil, opponentAvatar: Image? = nil, localPlayerNumber: PlayerNumber = .none, goHome: Bool = false, asm: AppStorageManager) {
-        self.game = game
-        self.matchAvailable = matchAvailable
-        self.playingGame = playingGame
-        self.myMatch = myMatch
-        self.opponent = opponent
-        self.opponentAvatar = opponentAvatar
-        self.localPlayerNumber = localPlayerNumber
-        self.goHome = goHome
+    init( asm: AppStorageManager) {
         self.asm = asm
     }
     
@@ -96,7 +89,6 @@ final class OnlineMatchManager: NSObject, ObservableObject {
     func startMyMatchWith(match: GKMatch) {
 //        print("Starting Match")
         GKAccessPoint.shared.isActive = false
-        playingGame = true
 //        print("playingGame = \(playingGame)")
         myMatch = match
         myMatch?.delegate = self
@@ -127,13 +119,19 @@ final class OnlineMatchManager: NSObject, ObservableObject {
         if localPlayerNumber == .one {
             game = Game(localPlayer: .one)
             sendGameData()
-            sendGameRules()
+            if Bool.random() {
+                print("Won coin toss, sending rules.")
+                sendGameRules()
+            } else {
+                print("Lost coin toss, requesting rules.")
+                sendAction(action: .rulesRequest, player: localPlayerNumber)
+            }
         }
-//        print("Match loaded as player \(localPlayerNumber.rawValue)")
+        print("Match loaded as player \(localPlayerNumber.rawValue)")
     }
     
     func sendAction(action: GameAction.Action, player: PlayerNumber) {
-//        print("Sending Action: \(action):\(player)")
+        print("Sending Action: \(action):\(player)")
         guard game != nil else { return }
         do {
             let data = GameAction(action: action, player: player).encode()
@@ -144,7 +142,7 @@ final class OnlineMatchManager: NSObject, ObservableObject {
     }
     
     func sendGameData() {
-//        print("Sending Game")
+        print("Sending Game")
         guard let game = game else { return }
         do {
             let data = game.getGameData().encode()
@@ -155,20 +153,24 @@ final class OnlineMatchManager: NSObject, ObservableObject {
     }
     
     func sendGameRules() {
-//        print("Sending Rules")
-        guard let game = game else { return }
+        print("Sending Rules")
+        guard let _ = game else { return }
         do {
+            rulesPlayer = localPlayerNumber
+            playingGame = true
+            print("Playing game")
             let data = asm.saveRuleState().encode()
             try myMatch?.sendData(toAllPlayers: data!, with: GKMatch.SendDataMode.reliable)
         } catch {
             print("Error: \(error.localizedDescription).")
         }
+//        playingGame = true
     }
     
     /// Cleans up the view's state when the local player closes the dashboard.
     func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
         // Dismiss the view controller.
-//        print("Dashboard Closed")
+        print("Dashboard Closed")
         gameCenterViewController.dismiss(animated: true)
         resetController()
         goHome.toggle()
@@ -203,7 +205,7 @@ extension OnlineMatchManager: GKMatchmakerViewControllerDelegate {
     /// Dismisses the matchmaker interface and starts the game when a player accepts an invitation.
     func matchmakerViewController(_ viewController: GKMatchmakerViewController,
                                   didFind match: GKMatch) {
-//        print("Found Match")
+        print("Found Match")
         // Dismiss the view controller.
         viewController.dismiss(animated: true) { }
         match.delegate = self
@@ -216,7 +218,7 @@ extension OnlineMatchManager: GKMatchmakerViewControllerDelegate {
     
     /// Dismisses the matchmaker interface when either player cancels matchmaking.
     func matchmakerViewControllerWasCancelled(_ viewController: GKMatchmakerViewController) {
-//        print("Controller Cancelled")
+        print("Controller Cancelled")
         viewController.dismiss(animated: true)
         resetController()
         goHome.toggle()
@@ -238,7 +240,7 @@ extension OnlineMatchManager: GKLocalPlayerListener {
     
     /// Presents the matchmaker interface when the local player accepts an invitation from another player.
     func player(_ player: GKPlayer, didAccept invite: GKInvite) {
-//        print("Accepted Invite")
+        print("Accepted Invite")
         // Present the matchmaker view controller in the invitation state.
         if let viewController = GKMatchmakerViewController(invite: invite) {
             viewController.matchmakerDelegate = self
@@ -257,10 +259,10 @@ extension OnlineMatchManager: GKMatchDelegate {
         // Decode the data representation of the game data.
 //        print("Data Recieved")
         if let gameData = decode(matchData: data) {
-//            print("Recieved Game")
+            print("Recieved Game")
             self.game = Game(gameData: gameData, localPlayer: localPlayerNumber)
         } else if let action = decode(actionData: data) {
-//            print("Recieved Action \(action.player):\(action.action)")
+            print("Recieved Action \(action.player):\(action.action)")
             switch action.action {
             case .deal:
                 game?.deal(action.player)
@@ -271,9 +273,16 @@ extension OnlineMatchManager: GKMatchDelegate {
             case .confetti:
                 // TODO: Add
                 break
+            case .rulesRequest:
+//                rulesPlayer = localPlayerNumber
+                sendGameRules()
             }
         } else if let rules = decode(rulesData: data) {
+            print("Recieved Rules")
             asm.apply(state: rules)
+            rulesPlayer = localPlayerNumber == .one ? .two : .one
+            playingGame = true
+            print("Playing game")
         }
     }
     

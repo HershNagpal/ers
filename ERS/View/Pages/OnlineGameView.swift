@@ -29,8 +29,7 @@ struct OnlineGameView: View {
                     }
                     .sheet(isPresented: $showSheet) {
                         VStack(spacing: 8) {
-                            let playerNumber = onlineMatch.localPlayerNumber
-                            RuleDisplayView(localPlayer: onlineMatch.localPlayerNumber, rulesPlayer: .one, dismiss: {showSheet = false})
+                            RuleDisplayView(localPlayer: onlineMatch.localPlayerNumber, rulesPlayer: onlineMatch.rulesPlayer, dismiss: {showSheet = false})
                         }
                     }
             } else {
