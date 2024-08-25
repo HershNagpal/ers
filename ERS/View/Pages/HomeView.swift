@@ -78,12 +78,12 @@ struct HomeView: View {
                             .statusBar(hidden: true)
                             .environmentObject(onlineMatchManager)
                     } else {
-                        LocalGameView(path: $path, isSingleplayer: false)
+                        LocalGameView(vm: LocalGameViewModel(ruleState: asm.saveRuleState()), path: $path, isSingleplayer: false)
                             .navigationBarBackButtonHidden()
                             .statusBar(hidden: true)
                     }
                 case "singleplayer":
-                    LocalGameView(path: $path, isSingleplayer: true)
+                    LocalGameView(vm: LocalGameViewModel(ruleState: asm.saveRuleState()), path: $path, isSingleplayer: true)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)
                 case "tutorial":

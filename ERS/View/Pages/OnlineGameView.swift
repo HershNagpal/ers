@@ -29,7 +29,7 @@ struct OnlineGameView: View {
                     }
                     .sheet(isPresented: $showSheet) {
                         VStack(spacing: 8) {
-                            RuleDisplayView(localPlayer: onlineMatch.localPlayerNumber, rulesPlayer: onlineMatch.rulesPlayer, dismiss: {showSheet = false})
+                            RuleDisplayView(localPlayer: onlineMatch.localPlayerNumber, rulesPlayer: onlineMatch.rulesPlayer, dismiss: {showSheet = false}, ruleState: onlineMatch.game!.ruleState)
                         }
                     }
             } else {

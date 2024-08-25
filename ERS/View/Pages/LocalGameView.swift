@@ -8,12 +8,17 @@
 import SwiftUI
 
 @MainActor
-class LocalGameViewModel: ObservableObject {
-    @Published var game = Game()
+final class LocalGameViewModel: ObservableObject {
+    @Published var game: Game
+    
+    init(ruleState: RuleState) {
+        self.game = Game(ruleState: ruleState)
+    }
 }
 
 struct LocalGameView: View {
-    @ObservedObject var vm = LocalGameViewModel()
+    @EnvironmentObject var asm: AppStorageManager
+    @ObservedObject var vm: LocalGameViewModel
     
     @Binding var path: [String]
     let isSingleplayer: Bool
@@ -21,8 +26,4 @@ struct LocalGameView: View {
     var body: some View {
         GameView(path: $path, game: vm.game, localPlayer: .one, isSingleplayer: isSingleplayer, sendAction: nil)
     }
-}
-
-#Preview {
-    LocalGameView(path: .constant([]), isSingleplayer: true)
 }

@@ -12,39 +12,41 @@ struct RuleDisplayView: View {
     let localPlayer: PlayerNumber
     let rulesPlayer: PlayerNumber
     let dismiss: () -> Void
+    let ruleState: RuleState
     
     var body: some View {
         VStack(spacing: 8) {
             MediumText("You are player \(localPlayer.rawValue)")
             MediumText("Selected player \(rulesPlayer.rawValue)'s rules")
-            if asm.doublesOn {
+            if ruleState.doublesOn {
                 MediumText("Doubles")
             }
-            if asm.sandwichOn {
+            if ruleState.sandwichOn {
                 MediumText("Sandwich")
             }
-            if asm.couplesOn {
+            if ruleState.couplesOn {
                 MediumText("Couples")
             }
-            if asm.divorceOn {
+            if ruleState.divorceOn {
                 MediumText("Divorce")
             }
-            if asm.queenOfDeathOn {
+            if ruleState.queenOfDeathOn {
                 MediumText("Queen of Death")
             }
-            if asm.topAndBottomOn {
+            if ruleState.topAndBottomOn {
                 MediumText("Top and Bottom")
             }
-            if asm.addToTenOn {
+            if ruleState.addToTenOn {
                 MediumText("Add to Ten")
             }
-            if asm.sequenceOn {
+            if ruleState.sequenceOn {
                 MediumText("Sequence")
             }
+            MediumText("Burn Amount: \(ruleState.burnAmount)")
         }
     }
 }
 
 #Preview {
-    RuleDisplayView(localPlayer: .one, rulesPlayer: .two, dismiss: {})
+    RuleDisplayView(localPlayer: .one, rulesPlayer: .two, dismiss: {}, ruleState: RuleState(doublesOn: true, sandwichOn: true, couplesOn: true, divorceOn: true, queenOfDeathOn: false, topAndBottomOn: false, addToTenOn: false, sequenceOn: false, burnAmount: 2))
 }

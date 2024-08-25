@@ -117,14 +117,16 @@ final class OnlineMatchManager: NSObject, ObservableObject {
         }
         
         if localPlayerNumber == .one {
-            game = Game(localPlayer: .one)
-            sendGameData()
-            if Bool.random() {
-                print("Won coin toss, sending rules.")
-                sendGameRules()
+            if false {
+                print("Won coin toss, sending game.")
+                rulesPlayer = localPlayerNumber
+                game = Game(ruleState: asm.saveRuleState())
+                sendGameData()
+                playingGame = true
+                print("Playing game")
             } else {
-                print("Lost coin toss, requesting rules.")
-                sendAction(action: .rulesRequest, player: localPlayerNumber)
+                print("Lost coin toss, requesting game.")
+                sendAction(action: .gameRequest, player: localPlayerNumber)
             }
         }
         print("Match loaded as player \(localPlayerNumber.rawValue)")
@@ -132,7 +134,7 @@ final class OnlineMatchManager: NSObject, ObservableObject {
     
     func sendAction(action: GameAction.Action, player: PlayerNumber) {
         print("Sending Action: \(action):\(player)")
-        guard game != nil else { return }
+//        guard game != nil else { return }
         do {
             let data = GameAction(action: action, player: player).encode()
             try myMatch?.sendData(toAllPlayers: data!, with: GKMatch.SendDataMode.reliable)
@@ -150,21 +152,6 @@ final class OnlineMatchManager: NSObject, ObservableObject {
         } catch {
             print("Error: \(error.localizedDescription).")
         }
-    }
-    
-    func sendGameRules() {
-        print("Sending Rules")
-        guard let _ = game else { return }
-        do {
-            rulesPlayer = localPlayerNumber
-            playingGame = true
-            print("Playing game")
-            let data = asm.saveRuleState().encode()
-            try myMatch?.sendData(toAllPlayers: data!, with: GKMatch.SendDataMode.reliable)
-        } catch {
-            print("Error: \(error.localizedDescription).")
-        }
-//        playingGame = true
     }
     
     /// Cleans up the view's state when the local player closes the dashboard.
@@ -257,10 +244,13 @@ extension OnlineMatchManager: GKMatchDelegate {
     /// - Tag:didReceiveData
     func match(_ match: GKMatch, didReceive data: Data, fromRemotePlayer player: GKPlayer) {
         // Decode the data representation of the game data.
-//        print("Data Recieved")
+        print("Data Recieved")
         if let gameData = decode(matchData: data) {
             print("Recieved Game")
             self.game = Game(gameData: gameData, localPlayer: localPlayerNumber)
+            rulesPlayer = localPlayerNumber == .one ? .two : .one
+            playingGame = true
+            print("Playing Game")
         } else if let action = decode(actionData: data) {
             print("Recieved Action \(action.player):\(action.action)")
             switch action.action {
@@ -273,16 +263,13 @@ extension OnlineMatchManager: GKMatchDelegate {
             case .confetti:
                 // TODO: Add
                 break
-            case .rulesRequest:
-//                rulesPlayer = localPlayerNumber
-                sendGameRules()
+            case .gameRequest:
+                game = Game(ruleState: asm.saveRuleState())
+                rulesPlayer = localPlayerNumber
+                sendGameData()
+                playingGame = true
+                print("Playing Game")
             }
-        } else if let rules = decode(rulesData: data) {
-            print("Recieved Rules")
-            asm.apply(state: rules)
-            rulesPlayer = localPlayerNumber == .one ? .two : .one
-            playingGame = true
-            print("Playing game")
         }
     }
     
@@ -311,7 +298,7 @@ extension OnlineMatchManager: GKMatchDelegate {
         case .disconnected:
 //            print("\(player.displayName) Disconnected")
             if let game = game {
-                game.winner = game.localPlayer
+                game.winner = localPlayerNumber
             }
         default:
             print("\(player.displayName) Connection Unknown")
