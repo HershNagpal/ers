@@ -10,25 +10,15 @@ import GameKit
 
 @MainActor
 final class HomeViewModel: ObservableObject {
-    @Published var showAlert = false
-    @Published var alertType: AlertType = .notSignedIn
-    
-    func authenticateUser() {
-        GKLocalPlayer.local.authenticateHandler = { vc, error in
-            guard error == nil else {
-                print(error?.localizedDescription ?? "")
-                self.alertType = .authError
-//                showAlert = true
-                return
-            }
-        }
-    }
 }
 
 struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
-    
-    @State var path = [String]()
+    @EnvironmentObject var asm: AppStorageManager
+    @EnvironmentObject var onlineMatchManager: OnlineMatchManager
+    @Binding var path: [String]
+    @State var showAlert = false
+    @State var alertType: AlertType = .notSignedIn
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -42,7 +32,10 @@ struct HomeView: View {
                     TitleText("ers")
                 }
                 Spacer()
-                NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
+                HStack {
+                    NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
+                    MultiplayerToggleView(showGameCenterAlert: $showAlert, backgroundColor: .black, foregroundColor: .white)
+                }
                 NavigationButton(text: "singleplayer", onPress: {path.append("singleplayer")})
 
                 HStack(spacing: 32) {
@@ -53,23 +46,41 @@ struct HomeView: View {
                     Spacer()
                 }
             }
-            .onAppear {
-                vm.authenticateUser()
-                AchievementManager.syncAchievements()
+            .onChange(of: onlineMatchManager.acceptedInvite) {
+                if $1 {
+                    asm.online = true
+                    path.removeAll()
+                    path.append("multiplayer")
+                }
             }
             .padding(24)
             .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
+            .onAppear {
+                onlineMatchManager.authenticatePlayer()
+                AchievementManager.syncAchievements()
+                guard GKLocalPlayer.local.isAuthenticated else {
+                    asm.online = false
+                    return
+                }
+            }
             .navigationDestination(for: String.self) { string in
                 switch string {
                 case "options":
                     SettingsView()
                         .navigationTitle("options")
                 case "multiplayer":
-                    GameView(path: $path, isSingleplayer: false)
-                        .navigationBarBackButtonHidden()
-                        .statusBar(hidden: true)
+                    if asm.online {
+                        OnlineGameView(path: $path)
+                            .navigationBarBackButtonHidden()
+                            .statusBar(hidden: true)
+                            .environmentObject(onlineMatchManager)
+                    } else {
+                        LocalGameView(vm: LocalGameViewModel(ruleState: asm.asRuleState()), path: $path, isSingleplayer: false)
+                            .navigationBarBackButtonHidden()
+                            .statusBar(hidden: true)
+                    }
                 case "singleplayer":
-                    GameView(path: $path, isSingleplayer: true)
+                    LocalGameView(vm: LocalGameViewModel(ruleState: asm.asRuleState()), path: $path, isSingleplayer: true)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)
                 case "tutorial":
@@ -82,25 +93,14 @@ struct HomeView: View {
                     Spacer()
                 }
             }
-            .alert(isPresented: $vm.showAlert) {
-                switch vm.alertType {
+            .alert(isPresented: $showAlert) {
+                switch alertType {
                 case .authError:
                     Alert(title: Text("auth error"))
                 case .notSignedIn:
                     Alert(
                         title: Text("not signed in"),
-                        message: Text("sign in to play"),
-                        primaryButton: .default(
-                            Text("sign in"),
-                            action: {
-                                vm.showAlert = false
-                                vm.authenticateUser()
-                            }
-                        ),
-                        secondaryButton: .destructive(
-                            Text("cancel"),
-                            action: {vm.showAlert = false}
-                        )
+                        message: Text("sign in to play")
                     )
                 }
             }

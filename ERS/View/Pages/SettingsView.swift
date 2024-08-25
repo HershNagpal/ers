@@ -87,12 +87,6 @@ struct SettingsView: View {
             }
             
             Section(header: RuleSectionText("extra rules")) {
-//                if (purchasedRules) {
-//                    RuleToggleView(ruleName: "rules with ads switch", ruleDescription: "add to ten description", isDisabled: $freeSettingsDisabled, isOn: $rulesUnlockedWithAds)
-//                        .onChange(of: addToTenOn) { value in
-//                            UserDefaults.standard.set(addToTenOn, forKey: "addToTenOn")
-//                        }
-//                }
                 RuleToggleView(ruleName: "divorce", ruleDescription: "divorce description", isDisabled: asm.disableRuleToggles, isOn: $asm.divorceOn)
                     .onChange(of: asm.divorceOn) { _, value in
                         asm.divorceOn = value

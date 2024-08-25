@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card {
+struct Card: Codable, Identifiable, Equatable {
     let id: UUID
     let value: Value
     let suit: Suit
@@ -42,7 +42,7 @@ struct Card {
     }
 }
 
-enum Suit: String, CaseIterable {
+enum Suit: String, CaseIterable, Codable {
     case diamonds = "D"
     case spades = "S"
     case hearts = "H"
@@ -50,6 +50,6 @@ enum Suit: String, CaseIterable {
     case none = "N"
 }
 
-enum Value: Int, CaseIterable {
+enum Value: Int, CaseIterable, Codable {
     case none = 0, ace = 1, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king
 }
