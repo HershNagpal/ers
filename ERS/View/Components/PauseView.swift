@@ -13,16 +13,24 @@ struct PauseView: View {
     @Binding var path: [String]
     @State var showForfeit: Bool = false
     let resetGame: () -> Void
+    let ruleState: RuleState
+    let localPlayer: PlayerNumber
     
     var body: some View {
         VStack(spacing: 20) {
             Spacer()
             if asm.online {
-                LargeText("paused")
+                LargeText("menu")
             } else {
-                LargeText("Menu")
+                LargeText("paused")
             }
             Spacer()
+            
+            if asm.online {
+                RuleDisplayView(localPlayer: localPlayer, rulesPlayer: nil, dismiss: nil, ruleState: ruleState)
+                Spacer()
+            }
+            
             HStack(spacing: 32) {
                 Spacer()
                 NavigationIcon(iconName: "play.fill", onPress: {isPaused = false})

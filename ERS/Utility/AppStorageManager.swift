@@ -32,41 +32,8 @@ final class AppStorageManager: ObservableObject {
     
     @AppStorage("online") var online: Bool = false
     
-    func saveRuleState() -> RuleState {
+    func asRuleState() -> RuleState {
         RuleState(doublesOn: doublesOn, sandwichOn: sandwichOn, couplesOn: couplesOn, divorceOn: divorceOn, queenOfDeathOn: queenOfDeathOn, topAndBottomOn: topAndBottomOn, addToTenOn: addToTenOn, sequenceOn: sequenceOn, burnAmount: burnAmount)
-    }
-    
-    func apply(state: RuleState) -> Void {
-        doublesOn = state.doublesOn
-        sandwichOn = state.sandwichOn
-        couplesOn = state.couplesOn
-        divorceOn = state.divorceOn
-        queenOfDeathOn = state.queenOfDeathOn
-        topAndBottomOn = state.topAndBottomOn
-        addToTenOn = state.addToTenOn
-        sequenceOn = state.sequenceOn
-        burnAmount = state.burnAmount
-    }
-    
-    func reset() {
-        doublesOn = true
-        sandwichOn = true
-        couplesOn = true
-        divorceOn = false
-        queenOfDeathOn = false
-        topAndBottomOn = false
-        addToTenOn = false
-        sequenceOn = false
-        burnAmount = 1
-    }
-    
-    func turnOffExtraRules() {
-        divorceOn = false
-        queenOfDeathOn = false
-        topAndBottomOn = false
-        addToTenOn = false
-        sequenceOn = false
-        burnAmount = 1
     }
     
     var disableRuleToggles: Binding<Bool> { Binding (

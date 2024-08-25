@@ -78,7 +78,6 @@ final class OnlineMatchManager: NSObject, ObservableObject {
         // Present the interface where the player selects opponents and starts the game.
         if let viewController = GKMatchmakerViewController(matchRequest: request) {
             viewController.matchmakerDelegate = self
-//            viewController.matchmakingMode = .inviteOnly
             rootViewController?.present(viewController, animated: true) { }
         }
     }
@@ -87,12 +86,10 @@ final class OnlineMatchManager: NSObject, ObservableObject {
     /// - Parameter match: The object that represents the real-time match.
     /// - Tag:startMyMatchWith
     func startMyMatchWith(match: GKMatch) {
-//        print("Starting Match")
+        print("Starting Match")
         GKAccessPoint.shared.isActive = false
-//        print("playingGame = \(playingGame)")
         myMatch = match
         myMatch?.delegate = self
-//        ruleState = asm.saveRuleState()
         asm.online = true
         
         // For automatch, check whether the opponent connected to the match before loading the avatar.
@@ -120,7 +117,7 @@ final class OnlineMatchManager: NSObject, ObservableObject {
             if Bool.random() {
                 print("Won coin toss, sending game.")
                 rulesPlayer = localPlayerNumber
-                game = Game(ruleState: asm.saveRuleState())
+                game = Game(ruleState: asm.asRuleState())
                 sendGameData()
                 playingGame = true
                 print("Playing game")
@@ -244,7 +241,7 @@ extension OnlineMatchManager: GKMatchDelegate {
     /// - Tag:didReceiveData
     func match(_ match: GKMatch, didReceive data: Data, fromRemotePlayer player: GKPlayer) {
         // Decode the data representation of the game data.
-        print("Data Recieved")
+//        print("Data Recieved")
         if let gameData = decode(matchData: data) {
             print("Recieved Game")
             self.game = Game(gameData: gameData, localPlayer: localPlayerNumber)
@@ -264,7 +261,7 @@ extension OnlineMatchManager: GKMatchDelegate {
                 // TODO: Add
                 break
             case .gameRequest:
-                game = Game(ruleState: asm.saveRuleState())
+                game = Game(ruleState: asm.asRuleState())
                 rulesPlayer = localPlayerNumber
                 sendGameData()
                 playingGame = true
@@ -276,10 +273,10 @@ extension OnlineMatchManager: GKMatchDelegate {
     /// Handles a connected, disconnected, or unknown player state.
     /// - Tag:didChange
     func match(_ match: GKMatch, player: GKPlayer, didChange state: GKPlayerConnectionState) {
-//        print("State changed: \(state)")
+        print("State changed: \(state)")
         switch state {
         case .connected:
-//            print("\(player.displayName) Connected")
+            print("\(player.displayName) Connected")
             
             // For automatch, set the opponent and load their avatar.
             if match.expectedPlayerCount == 0 {
@@ -296,7 +293,7 @@ extension OnlineMatchManager: GKMatchDelegate {
                 }
             }
         case .disconnected:
-//            print("\(player.displayName) Disconnected")
+            print("\(player.displayName) Disconnected")
             if let game = game {
                 game.winner = localPlayerNumber
             }

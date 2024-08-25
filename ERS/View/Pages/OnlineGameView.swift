@@ -12,9 +12,9 @@ struct OnlineGameView: View {
     @Binding var path: [String]
     @EnvironmentObject var onlineMatch: OnlineMatchManager
     @EnvironmentObject var asm: AppStorageManager
-    @State var ruleState: RuleState?
     @State var playingGame: Bool = false
     @State var showSheet: Bool = false
+    @State var showMenuButton: Bool = false
     
     var body: some View {
         ZStack {
@@ -37,25 +37,24 @@ struct OnlineGameView: View {
                     Spacer()
                     VStack() {
                         Spacer()
-//                        Text("\(onlineMatch.playingGame)")
+                        if showMenuButton {
+                            NavigationButton(text: "back to menu", onPress: {path.removeAll()})
+                        }
+//                        Spacer()
                     }
+                    Spacer()
                 }
+                .padding()
                 .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
             }
         }
         .onChange(of: onlineMatch.goHome) {
-            print("Going Home")
             path.removeAll()
         }
         .onAppear {
-            print("Appearing")
-            ruleState = asm.saveRuleState()
             onlineMatch.choosePlayer()
-        }
-        .onDisappear {
-            print("Disappearing")
-            if let ruleState = ruleState {
-                asm.apply(state: ruleState)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                showMenuButton = true
             }
         }
     }
@@ -63,4 +62,6 @@ struct OnlineGameView: View {
 
 #Preview {
     OnlineGameView(path: .constant([]))
+        .environmentObject(AppStorageManager())
+        .environmentObject(OnlineMatchManager(asm: AppStorageManager()))
 }

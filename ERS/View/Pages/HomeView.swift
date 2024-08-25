@@ -58,9 +58,6 @@ struct HomeView: View {
             .onAppear {
                 onlineMatchManager.authenticatePlayer()
                 AchievementManager.syncAchievements()
-                if !asm.purchasedRules {
-                    asm.turnOffExtraRules()
-                }
                 guard GKLocalPlayer.local.isAuthenticated else {
                     asm.online = false
                     return
@@ -78,12 +75,12 @@ struct HomeView: View {
                             .statusBar(hidden: true)
                             .environmentObject(onlineMatchManager)
                     } else {
-                        LocalGameView(vm: LocalGameViewModel(ruleState: asm.saveRuleState()), path: $path, isSingleplayer: false)
+                        LocalGameView(vm: LocalGameViewModel(ruleState: asm.asRuleState()), path: $path, isSingleplayer: false)
                             .navigationBarBackButtonHidden()
                             .statusBar(hidden: true)
                     }
                 case "singleplayer":
-                    LocalGameView(vm: LocalGameViewModel(ruleState: asm.saveRuleState()), path: $path, isSingleplayer: true)
+                    LocalGameView(vm: LocalGameViewModel(ruleState: asm.asRuleState()), path: $path, isSingleplayer: true)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)
                 case "tutorial":

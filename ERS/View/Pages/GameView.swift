@@ -105,6 +105,15 @@ struct GameView: View {
                     .rotationEffect(Angle(degrees: 180))
                     .ignoresSafeArea()
                     .environmentObject(asm)
+                    .onChange(of: localPlayer == .two ? game.deck1.deck.count : game.deck2.deck.count) {
+                        if asm.online && $0 < $1 {
+                            if localPlayer == .one {
+                                confettiCounter2 += 1
+                            } else {
+                                confettiCounter1 += 1
+                            }
+                        }
+                    }
                     .confettiCannon(counter: localPlayer == .two ? $confettiCounter1: $confettiCounter2, num: 40, confettis: [.shape(.slimRectangle)], colors: [.red, .yellow, .green, .blue, .purple], confettiSize: 20, rainHeight: 200, fadesOut: true, opacity: 1, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 150)
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck2, lastDeckCount: game.deck1.numCards())
                     .rotationEffect(Angle(degrees: 180))
@@ -135,7 +144,7 @@ struct GameView: View {
                 PauseView(isPaused: $isPaused, path: $path, resetGame: {
                     game.restart()
                     isPaused = false
-                })
+                }, ruleState: game.ruleState, localPlayer: localPlayer)
             }
         }
         .onAppear {

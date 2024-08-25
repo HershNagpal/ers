@@ -8,39 +8,40 @@
 import SwiftUI
 
 struct RuleDisplayView: View {
-    @EnvironmentObject var asm: AppStorageManager
     let localPlayer: PlayerNumber
-    let rulesPlayer: PlayerNumber
-    let dismiss: () -> Void
+    let rulesPlayer: PlayerNumber?
+    let dismiss: (() -> Void)?
     let ruleState: RuleState
     
     var body: some View {
         VStack(spacing: 8) {
             MediumText("You are player \(localPlayer.rawValue)")
-            MediumText("Selected player \(rulesPlayer.rawValue)'s rules")
+            if let rulesPlayer = rulesPlayer {
+                MediumText("Selected player \(rulesPlayer.rawValue)'s rules")
+            }
             if ruleState.doublesOn {
-                MediumText("Doubles")
+                MediumText("doubles")
             }
             if ruleState.sandwichOn {
-                MediumText("Sandwich")
+                MediumText("sandwich")
             }
             if ruleState.couplesOn {
-                MediumText("Couples")
+                MediumText("couples")
             }
             if ruleState.divorceOn {
-                MediumText("Divorce")
+                MediumText("divorce")
             }
             if ruleState.queenOfDeathOn {
-                MediumText("Queen of Death")
+                MediumText("queen of death")
             }
             if ruleState.topAndBottomOn {
-                MediumText("Top and Bottom")
+                MediumText("top and bototm")
             }
             if ruleState.addToTenOn {
-                MediumText("Add to Ten")
+                MediumText("add to ten")
             }
             if ruleState.sequenceOn {
-                MediumText("Sequence")
+                MediumText("sequence")
             }
             MediumText("Burn Amount: \(ruleState.burnAmount)")
         }
