@@ -117,7 +117,7 @@ final class OnlineMatchManager: NSObject, ObservableObject {
         }
         
         if localPlayerNumber == .one {
-            if false {
+            if Bool.random() {
                 print("Won coin toss, sending game.")
                 rulesPlayer = localPlayerNumber
                 game = Game(ruleState: asm.saveRuleState())
