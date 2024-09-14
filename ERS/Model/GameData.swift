@@ -21,7 +21,7 @@ struct GameData: Codable {
             let data = try encoder.encode(self)
             return data
         } catch {
-            print("Error: \(error.localizedDescription).")
+            print("Error enconding GameData: \(error.localizedDescription).")
             return nil
         }
     }

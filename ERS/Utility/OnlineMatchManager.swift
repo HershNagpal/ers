@@ -102,7 +102,7 @@ final class OnlineMatchManager: NSObject, ObservableObject {
                     self.opponentAvatar = Image(uiImage: image)
                 }
                 if let error {
-                    print("Error: \(error.localizedDescription).")
+                    print("Error loading avatar during automatch: \(error.localizedDescription).")
                 }
             }
         
@@ -114,7 +114,7 @@ final class OnlineMatchManager: NSObject, ObservableObject {
         }
         
         if localPlayerNumber == .one {
-            if Bool.random() {
+            if false {
                 print("Won coin toss, sending game.")
                 rulesPlayer = localPlayerNumber
                 game = Game(ruleState: asm.asRuleState())
@@ -123,7 +123,10 @@ final class OnlineMatchManager: NSObject, ObservableObject {
                 print("Playing game")
             } else {
                 print("Lost coin toss, requesting game.")
-                sendAction(action: .gameRequest, player: localPlayerNumber)
+                // Put a delay here to ensure the other player is connected before sending any action to them
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    self.sendAction(action: .gameRequest, player: self.localPlayerNumber)
+                }
             }
         }
         print("Match loaded as player \(localPlayerNumber.rawValue)")
@@ -134,9 +137,9 @@ final class OnlineMatchManager: NSObject, ObservableObject {
 //        guard game != nil else { return }
         do {
             let data = GameAction(action: action, player: player).encode()
-            try myMatch?.sendData(toAllPlayers: data!, with: GKMatch.SendDataMode.reliable)
+            try myMatch?.sendData(toAllPlayers: data!, with: GKMatch.SendDataMode.unreliable)
         } catch {
-            print("Error: \(error.localizedDescription).")
+            print("Error sending action: \(error.localizedDescription).")
         }
     }
     
@@ -145,9 +148,9 @@ final class OnlineMatchManager: NSObject, ObservableObject {
         guard let game = game else { return }
         do {
             let data = game.getGameData().encode()
-            try myMatch?.sendData(toAllPlayers: data!, with: GKMatch.SendDataMode.reliable)
+            try myMatch?.sendData(toAllPlayers: data!, with: GKMatch.SendDataMode.unreliable)
         } catch {
-            print("Error: \(error.localizedDescription).")
+            print("Error sending game: \(error.localizedDescription).")
         }
     }
     
@@ -173,7 +176,7 @@ extension OnlineMatchManager {
             }
             if let error {
                 // If you can’t authenticate the player, disable Game Center features in your game.
-                print("Error: \(error.localizedDescription).")
+                print("Error Authenticating: \(error.localizedDescription).")
                 return
             }
             
@@ -191,13 +194,13 @@ extension OnlineMatchManager: GKMatchmakerViewControllerDelegate {
                                   didFind match: GKMatch) {
         print("Found Match")
         // Dismiss the view controller.
-        viewController.dismiss(animated: true) { }
         match.delegate = self
         
         // Start the game with the player.
         if !playingGame && match.expectedPlayerCount == 0 {
             startMyMatchWith(match: match)
         }
+        viewController.dismiss(animated: true) { }
     }
     
     /// Dismisses the matchmaker interface when either player cancels matchmaking.
@@ -288,7 +291,7 @@ extension OnlineMatchManager: GKMatchDelegate {
                         self.opponentAvatar = Image(uiImage: image)
                     }
                     if let error {
-                        print("Error: \(error.localizedDescription).")
+                        print("Error loading image: \(error.localizedDescription).")
                     }
                 }
             }
@@ -296,9 +299,12 @@ extension OnlineMatchManager: GKMatchDelegate {
             print("\(player.displayName) Disconnected")
             if let game = game {
                 game.winner = localPlayerNumber
+            } else {
+                goHome.toggle()
             }
         default:
             print("\(player.displayName) Connection Unknown")
+            goHome.toggle()
         }
     }
     

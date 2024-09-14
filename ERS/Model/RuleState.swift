@@ -26,7 +26,7 @@ struct RuleState: Codable {
             let data = try encoder.encode(self)
             return data
         } catch {
-            print("Error: \(error.localizedDescription).")
+            print("Error encoding RuleState: \(error.localizedDescription).")
             return nil
         }
     }

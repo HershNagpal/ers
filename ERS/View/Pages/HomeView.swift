@@ -69,7 +69,7 @@ struct HomeView: View {
                     SettingsView()
                         .navigationTitle("options")
                 case "multiplayer":
-                    if asm.online {
+                    if asm.online && GKLocalPlayer.local.isAuthenticated {
                         OnlineGameView(path: $path)
                             .navigationBarBackButtonHidden()
                             .statusBar(hidden: true)

@@ -62,7 +62,7 @@ struct GameView: View {
     }
     
     private func playerTwoTurn()  {
-        guard isSingleplayer else { return }
+        guard isSingleplayer && !asm.online else { return }
         let slapSkipDict = [20, 20, 10, 10]
         let randomTime = Double(4/(asm.difficulty+1))
         let chanceToSkipSlap = slapSkipDict[asm.difficulty]

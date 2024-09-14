@@ -25,7 +25,6 @@
 		B33ED3892A2E982D001C5126 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33ED3882A2E982D001C5126 /* PurchaseManager.swift */; };
 		B34FD3222C76E656009DB3CD /* NavigationIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD3212C76E656009DB3CD /* NavigationIcon.swift */; };
 		B34FD32A2C78FC1E009DB3CD /* MultiplayerToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD3292C78FC1E009DB3CD /* MultiplayerToggleView.swift */; };
-		B34FD32D2C790533009DB3CD /* MatchmakingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD32C2C790533009DB3CD /* MatchmakingView.swift */; };
 		B34FD32F2C790595009DB3CD /* OnlineMatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD32E2C790595009DB3CD /* OnlineMatchManager.swift */; };
 		B34FD3312C790E1A009DB3CD /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD3302C790E1A009DB3CD /* GameData.swift */; };
 		B34FD3332C791E65009DB3CD /* OnlineGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD3322C791E65009DB3CD /* OnlineGameView.swift */; };
@@ -93,7 +92,6 @@
 		B33ED3882A2E982D001C5126 /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
 		B34FD3212C76E656009DB3CD /* NavigationIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationIcon.swift; sourceTree = "<group>"; };
 		B34FD3292C78FC1E009DB3CD /* MultiplayerToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerToggleView.swift; sourceTree = "<group>"; };
-		B34FD32C2C790533009DB3CD /* MatchmakingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakingView.swift; sourceTree = "<group>"; };
 		B34FD32E2C790595009DB3CD /* OnlineMatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineMatchManager.swift; sourceTree = "<group>"; };
 		B34FD3302C790E1A009DB3CD /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		B34FD3322C791E65009DB3CD /* OnlineGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineGameView.swift; sourceTree = "<group>"; };
@@ -278,7 +276,6 @@
 				B3AE850129CB49E300D735F9 /* HomeView.swift */,
 				B3AE850F29CE2B5D00D735F9 /* TutorialView.swift */,
 				B31074782B75BDAD00A259BE /* AchievementsView.swift */,
-				B34FD32C2C790533009DB3CD /* MatchmakingView.swift */,
 				B34FD3322C791E65009DB3CD /* OnlineGameView.swift */,
 				B34FD3342C793436009DB3CD /* LocalGameView.swift */,
 			);
@@ -434,7 +431,6 @@
 				B3564A612A11FF4F00F2915E /* SettingsButton.swift in Sources */,
 				B3AE852429CE4F8000D735F9 /* TutorialText.swift in Sources */,
 				B31B8CEE297A2BAE00FDC910 /* ERSApp.swift in Sources */,
-				B34FD32D2C790533009DB3CD /* MatchmakingView.swift in Sources */,
 				B310747B2B75BF1100A259BE /* AchievementView.swift in Sources */,
 				B34FD3312C790E1A009DB3CD /* GameData.swift in Sources */,
 				B3AE853829CED6AE00D735F9 /* RuleSectionText.swift in Sources */,
@@ -692,6 +688,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S327B8WXV8;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
@@ -710,6 +707,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S327B8WXV8;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
