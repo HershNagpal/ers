@@ -30,12 +30,16 @@ final class OnlineMatchManager: NSObject, ObservableObject {
     func resetController() {
 //        print("Resetting Match Manager")
         game = nil
-        localPlayerNumber = .none
-        myMatch = nil
-        opponent = nil
-        opponentAvatar = nil
         matchAvailable = false
         playingGame = false
+        myMatch = nil
+        localPlayerNumber = .none
+        opponent = nil
+        opponentAvatar = nil
+        localPlayerNumber = .none
+        acceptedInvite = false
+        rulesPlayer = .none
+        
     }
     
     var rootViewController: UIViewController? {
@@ -114,7 +118,7 @@ final class OnlineMatchManager: NSObject, ObservableObject {
         }
         
         if localPlayerNumber == .one {
-            if false {
+            if false { // TODO: Change this after testing
                 print("Won coin toss, sending game.")
                 rulesPlayer = localPlayerNumber
                 game = Game(ruleState: asm.asRuleState())

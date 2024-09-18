@@ -15,35 +15,39 @@ struct RuleDisplayView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            MediumText("You are player \(localPlayer.rawValue)")
-            if let rulesPlayer = rulesPlayer {
-                MediumText("Selected player \(rulesPlayer.rawValue)'s rules")
+            VStack {
+                RuleSectionText("You are Player \(localPlayer.rawValue.capitalized)")
+                if let rulesPlayer = rulesPlayer {
+                    MediumText("Player \(rulesPlayer.rawValue.capitalized)'s rules were selected:")
+                }
             }
-            if ruleState.doublesOn {
-                MediumText("doubles")
+            VStack(alignment: .leading, spacing: 8) {
+                if ruleState.doublesOn {
+                    MediumText("doubles")
+                }
+                if ruleState.sandwichOn {
+                    MediumText("sandwich")
+                }
+                if ruleState.couplesOn {
+                    MediumText("couples")
+                }
+                if ruleState.divorceOn {
+                    MediumText("divorce")
+                }
+                if ruleState.queenOfDeathOn {
+                    MediumText("queen of death")
+                }
+                if ruleState.topAndBottomOn {
+                    MediumText("top and bototm")
+                }
+                if ruleState.addToTenOn {
+                    MediumText("add to ten")
+                }
+                if ruleState.sequenceOn {
+                    MediumText("sequence")
+                }
+                MediumText("Burn Amount: \(ruleState.burnAmount)")
             }
-            if ruleState.sandwichOn {
-                MediumText("sandwich")
-            }
-            if ruleState.couplesOn {
-                MediumText("couples")
-            }
-            if ruleState.divorceOn {
-                MediumText("divorce")
-            }
-            if ruleState.queenOfDeathOn {
-                MediumText("queen of death")
-            }
-            if ruleState.topAndBottomOn {
-                MediumText("top and bototm")
-            }
-            if ruleState.addToTenOn {
-                MediumText("add to ten")
-            }
-            if ruleState.sequenceOn {
-                MediumText("sequence")
-            }
-            MediumText("Burn Amount: \(ruleState.burnAmount)")
         }
     }
 }

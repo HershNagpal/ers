@@ -53,6 +53,13 @@ struct HomeView: View {
                     path.append("multiplayer")
                 }
             }
+            .onChange(of: onlineMatchManager.playingGame) {
+                if $1 {
+                    asm.online = true
+                    path.removeAll()
+                    path.append("multiplayer")
+                }
+            }
             .padding(24)
             .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
             .onAppear {
@@ -62,6 +69,7 @@ struct HomeView: View {
                     asm.online = false
                     return
                 }
+                onlineMatchManager.resetController()
             }
             .navigationDestination(for: String.self) { string in
                 switch string {
