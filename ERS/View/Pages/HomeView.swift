@@ -16,12 +16,12 @@ struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
     @EnvironmentObject var asm: AppStorageManager
     @EnvironmentObject var onlineMatchManager: OnlineMatchManager
-    @Binding var path: [String]
+    @EnvironmentObject var navigationManger: NavigationManager
     @State var showAlert = false
     @State var alertType: AlertType = .notSignedIn
     
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack(path: $navigationManger.path) {
             VStack(spacing: 20) {
                 Spacer()
                 ZStack {
@@ -33,31 +33,17 @@ struct HomeView: View {
                 }
                 Spacer()
                 HStack {
-                    NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
+                    NavigationButton(text: "multiplayer", onPress: { navigationManger.path.append(PathComponent.multiplayer.rawValue) })
                     MultiplayerToggleView(showGameCenterAlert: $showAlert, backgroundColor: .black, foregroundColor: .white)
                 }
-                NavigationButton(text: "singleplayer", onPress: {path.append("singleplayer")})
+                NavigationButton(text: "singleplayer", onPress: { navigationManger.path.append(PathComponent.singleplayer.rawValue) })
 
                 HStack(spacing: 32) {
                     Spacer()
-                    NavigationIcon(iconName: "trophy.fill", onPress: {path.append("achievements")})
-                    NavigationIcon(iconName: "doc.questionmark", onPress: {path.append("tutorial")})
-                    NavigationIcon(iconName: "gearshape.fill", onPress: {path.append("options")})
+                    NavigationIcon(iconName: "trophy.fill", onPress: { navigationManger.path.append(PathComponent.achievements.rawValue) })
+                    NavigationIcon(iconName: "doc.questionmark", onPress: { navigationManger.path.append(PathComponent.tutorial.rawValue) })
+                    NavigationIcon(iconName: "gearshape.fill", onPress: { navigationManger.path.append(PathComponent.options.rawValue) })
                     Spacer()
-                }
-            }
-            .onChange(of: onlineMatchManager.acceptedInvite) {
-                if $1 {
-                    asm.online = true
-                    path.removeAll()
-                    path.append("multiplayer")
-                }
-            }
-            .onChange(of: onlineMatchManager.playingGame) {
-                if $1 {
-                    asm.online = true
-                    path.removeAll()
-                    path.append("multiplayer")
                 }
             }
             .padding(24)
@@ -73,29 +59,29 @@ struct HomeView: View {
             }
             .navigationDestination(for: String.self) { string in
                 switch string {
-                case "options":
+                case PathComponent.options.rawValue:
                     SettingsView()
                         .navigationTitle("options")
-                case "multiplayer":
+                case PathComponent.multiplayer.rawValue:
                     if asm.online && GKLocalPlayer.local.isAuthenticated {
-                        OnlineGameView(path: $path)
+                        OnlineGameView(navigateHome: navigationManger.navigateHome)
                             .navigationBarBackButtonHidden()
                             .statusBar(hidden: true)
                             .environmentObject(onlineMatchManager)
                     } else {
-                        LocalGameView(vm: LocalGameViewModel(ruleState: asm.asRuleState()), path: $path, isSingleplayer: false)
+                        LocalGameView(vm: LocalGameViewModel(ruleState: asm.asRuleState()), navigateHome: navigationManger.navigateHome, isSingleplayer: false)
                             .navigationBarBackButtonHidden()
                             .statusBar(hidden: true)
                     }
-                case "singleplayer":
-                    LocalGameView(vm: LocalGameViewModel(ruleState: asm.asRuleState()), path: $path, isSingleplayer: true)
+                case PathComponent.singleplayer.rawValue:
+                    LocalGameView(vm: LocalGameViewModel(ruleState: asm.asRuleState()), navigateHome: navigationManger.navigateHome, isSingleplayer: true)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)
-                case "tutorial":
-                    TutorialView(path: $path)
+                case PathComponent.tutorial.rawValue:
+                    TutorialView(navigateHome: navigationManger.navigateHome)
                         .navigationTitle("tutorial")
-                case "achievements":
-                    AchievementsView(path: $path)
+                case PathComponent.achievements.rawValue:
+                    AchievementsView()
                         .navigationTitle("achievements")
                 default:
                     Spacer()

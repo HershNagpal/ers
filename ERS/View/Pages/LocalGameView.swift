@@ -19,11 +19,10 @@ final class LocalGameViewModel: ObservableObject {
 struct LocalGameView: View {
     @EnvironmentObject var asm: AppStorageManager
     @ObservedObject var vm: LocalGameViewModel
-    
-    @Binding var path: [String]
+    let navigateHome: () -> Void
     let isSingleplayer: Bool
     
     var body: some View {
-        GameView(path: $path, game: vm.game, localPlayer: .one, isSingleplayer: isSingleplayer, sendAction: nil)
+        GameView(game: vm.game, localPlayer: .one, isSingleplayer: isSingleplayer, sendAction: nil, navigateHome: navigateHome)
     }
 }

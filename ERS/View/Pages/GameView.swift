@@ -11,7 +11,6 @@ import ConfettiSwiftUI
 
 struct GameView: View {
     @EnvironmentObject var asm: AppStorageManager
-    @Binding var path: [String]
     @ObservedObject var game: Game
     @State var isPaused: Bool = false
     @State var confettiCounter1: Int = 0
@@ -21,6 +20,7 @@ struct GameView: View {
     let localPlayer: PlayerNumber
     let isSingleplayer: Bool
     let sendAction: ((GameAction.Action, PlayerNumber) -> Void)?
+    let navigateHome: () -> Void
     
     private func checkAchievements() {
         AchievementManager.setAchievementProgress(.hundredGames, percentComplete: min(AchievementManager.getAchievementProgress(.hundredGames)+1,100))
@@ -135,16 +135,16 @@ struct GameView: View {
             .background(.ersGreyBackground)
             
             if game.winner != .none {
-                GameEndView(path: $path, winner: $game.winner)
+                GameEndView(winner: $game.winner, navigateHome: navigateHome)
                     .onAppear {
                         checkAchievements()
                     }
             }
             if isPaused {
-                PauseView(isPaused: $isPaused, path: $path, resetGame: {
+                PauseView(isPaused: $isPaused, resetGame: {
                     game.restart()
                     isPaused = false
-                }, ruleState: game.ruleState, localPlayer: localPlayer)
+                }, ruleState: game.ruleState, localPlayer: localPlayer, navigateHome: navigateHome)
             }
         }
         .onAppear {

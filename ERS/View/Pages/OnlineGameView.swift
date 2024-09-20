@@ -9,17 +9,17 @@ import SwiftUI
 import GameKit
 
 struct OnlineGameView: View {
-    @Binding var path: [String]
     @EnvironmentObject var onlineMatch: OnlineMatchManager
     @EnvironmentObject var asm: AppStorageManager
     @State var playingGame: Bool = false
     @State var showSheet: Bool = false
     @State var showMenuButton: Bool = false
+    var navigateHome: () -> Void
     
     var body: some View {
         ZStack {
             if onlineMatch.playingGame && onlineMatch.localPlayerNumber != .none, let _ = onlineMatch.game {
-                GameView(path: $path, game: onlineMatch.game!, localPlayer: onlineMatch.localPlayerNumber, isSingleplayer: false, sendAction: {onlineMatch.sendAction(action: $0, player: $1)})
+                GameView(game: onlineMatch.game!, localPlayer: onlineMatch.localPlayerNumber, isSingleplayer: false, sendAction: {onlineMatch.sendAction(action: $0, player: $1)}, navigateHome: navigateHome)
                     .onAppear {
                         onlineMatch.acceptedInvite = false
                         showSheet = true
@@ -38,7 +38,7 @@ struct OnlineGameView: View {
                     VStack() {
                         Spacer()
                         if showMenuButton {
-                            NavigationButton(text: "back to menu", onPress: {path.removeAll()})
+                            NavigationButton(text: "back to menu", onPress: { navigateHome() })
                         }
 //                        Spacer()
                     }
@@ -49,7 +49,7 @@ struct OnlineGameView: View {
             }
         }
         .onChange(of: onlineMatch.goHome) {
-            path.removeAll()
+            navigateHome()
         }
         .onAppear {
             onlineMatch.choosePlayer()
@@ -61,7 +61,7 @@ struct OnlineGameView: View {
 }
 
 #Preview {
-    OnlineGameView(path: .constant([]))
+    OnlineGameView(navigateHome: {})
         .environmentObject(AppStorageManager())
         .environmentObject(OnlineMatchManager(asm: AppStorageManager()))
 }

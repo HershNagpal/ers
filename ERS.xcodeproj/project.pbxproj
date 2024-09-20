@@ -22,6 +22,8 @@
 		B31B8D03297A2D4C00FDC910 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8D02297A2D4C00FDC910 /* Deck.swift */; };
 		B31B8D19297A611B00FDC910 /* CardTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8D18297A611B00FDC910 /* CardTest.swift */; };
 		B31B8D1B297A662300FDC910 /* DeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B8D1A297A662300FDC910 /* DeckTest.swift */; };
+		B33610252C9D0BE500CB41DF /* MatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33610242C9D0BE500CB41DF /* MatchManager.swift */; };
+		B33610272C9D0C8100CB41DF /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33610262C9D0C8100CB41DF /* NavigationManager.swift */; };
 		B33ED3892A2E982D001C5126 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33ED3882A2E982D001C5126 /* PurchaseManager.swift */; };
 		B34FD3222C76E656009DB3CD /* NavigationIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD3212C76E656009DB3CD /* NavigationIcon.swift */; };
 		B34FD32A2C78FC1E009DB3CD /* MultiplayerToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD3292C78FC1E009DB3CD /* MultiplayerToggleView.swift */; };
@@ -89,6 +91,8 @@
 		B31B8D0E297A60D400FDC910 /* ERSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ERSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B31B8D18297A611B00FDC910 /* CardTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTest.swift; sourceTree = "<group>"; };
 		B31B8D1A297A662300FDC910 /* DeckTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckTest.swift; sourceTree = "<group>"; };
+		B33610242C9D0BE500CB41DF /* MatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchManager.swift; sourceTree = "<group>"; };
+		B33610262C9D0C8100CB41DF /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 		B33ED3882A2E982D001C5126 /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
 		B34FD3212C76E656009DB3CD /* NavigationIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationIcon.swift; sourceTree = "<group>"; };
 		B34FD3292C78FC1E009DB3CD /* MultiplayerToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerToggleView.swift; sourceTree = "<group>"; };
@@ -241,6 +245,8 @@
 				B33ED3882A2E982D001C5126 /* PurchaseManager.swift */,
 				B38A58B22C406B7C0060C6E7 /* AppStorageManager.swift */,
 				B34FD32E2C790595009DB3CD /* OnlineMatchManager.swift */,
+				B33610242C9D0BE500CB41DF /* MatchManager.swift */,
+				B33610262C9D0C8100CB41DF /* NavigationManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -435,6 +441,7 @@
 				B34FD3312C790E1A009DB3CD /* GameData.swift in Sources */,
 				B3AE853829CED6AE00D735F9 /* RuleSectionText.swift in Sources */,
 				B3AE851029CE2B5D00D735F9 /* TutorialView.swift in Sources */,
+				B33610272C9D0C8100CB41DF /* NavigationManager.swift in Sources */,
 				B38341942C7A70D30057E5F7 /* RuleDisplayView.swift in Sources */,
 				B3AE84F629CA1C1A00D735F9 /* CardStackView.swift in Sources */,
 				B3AE84F429C94CDC00D735F9 /* Game.swift in Sources */,
@@ -448,6 +455,7 @@
 				B3AE84F929CA4B3400D735F9 /* PlayerInteractionView.swift in Sources */,
 				B34FD32A2C78FC1E009DB3CD /* MultiplayerToggleView.swift in Sources */,
 				B3AE84F229C94CBA00D735F9 /* GameView.swift in Sources */,
+				B33610252C9D0BE500CB41DF /* MatchManager.swift in Sources */,
 				B34FD32F2C790595009DB3CD /* OnlineMatchManager.swift in Sources */,
 				B310747F2B769D7200A259BE /* AchievementTitleText.swift in Sources */,
 				B31074792B75BDAD00A259BE /* AchievementsView.swift in Sources */,
