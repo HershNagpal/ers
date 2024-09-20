@@ -26,7 +26,7 @@ struct ERSApp: App {
         let asm = AppStorageManager()
         self._asm = StateObject(wrappedValue: asm)
         
-        let onlineMatchManager = OnlineMatchManager(asm: asm)
+        let onlineMatchManager = OnlineMatchManager(asm: asm, navigationManager: navigationManager)
         self._onlineMatchManager = StateObject(wrappedValue: onlineMatchManager)
     }
     

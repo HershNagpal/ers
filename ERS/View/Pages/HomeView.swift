@@ -33,16 +33,16 @@ struct HomeView: View {
                 }
                 Spacer()
                 HStack {
-                    NavigationButton(text: "multiplayer", onPress: { navigationManger.path.append(PathComponent.multiplayer.rawValue) })
+                    NavigationButton(text: "multiplayer", onPress: { navigationManger.navigateToMultiplayer() })
                     MultiplayerToggleView(showGameCenterAlert: $showAlert, backgroundColor: .black, foregroundColor: .white)
                 }
-                NavigationButton(text: "singleplayer", onPress: { navigationManger.path.append(PathComponent.singleplayer.rawValue) })
+                NavigationButton(text: "singleplayer", onPress: { navigationManger.navigateToSingleplayer() })
 
                 HStack(spacing: 32) {
                     Spacer()
-                    NavigationIcon(iconName: "trophy.fill", onPress: { navigationManger.path.append(PathComponent.achievements.rawValue) })
-                    NavigationIcon(iconName: "doc.questionmark", onPress: { navigationManger.path.append(PathComponent.tutorial.rawValue) })
-                    NavigationIcon(iconName: "gearshape.fill", onPress: { navigationManger.path.append(PathComponent.options.rawValue) })
+                    NavigationIcon(iconName: "trophy.fill", onPress: { navigationManger.navigateToAchievements() })
+                    NavigationIcon(iconName: "doc.questionmark", onPress: { navigationManger.navigateToTutorial() })
+                    NavigationIcon(iconName: "gearshape.fill", onPress: { navigationManger.navigateToOptions() })
                     Spacer()
                 }
             }

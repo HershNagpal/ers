@@ -21,7 +21,6 @@ struct OnlineGameView: View {
             if onlineMatch.playingGame && onlineMatch.localPlayerNumber != .none, let _ = onlineMatch.game {
                 GameView(game: onlineMatch.game!, localPlayer: onlineMatch.localPlayerNumber, isSingleplayer: false, sendAction: {onlineMatch.sendAction(action: $0, player: $1)}, navigateHome: navigateHome)
                     .onAppear {
-                        onlineMatch.acceptedInvite = false
                         showSheet = true
                     }
                     .onDisappear {
@@ -48,9 +47,6 @@ struct OnlineGameView: View {
                 .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
             }
         }
-        .onChange(of: onlineMatch.goHome) {
-            navigateHome()
-        }
         .onAppear {
             onlineMatch.choosePlayer()
             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
@@ -63,5 +59,5 @@ struct OnlineGameView: View {
 #Preview {
     OnlineGameView(navigateHome: {})
         .environmentObject(AppStorageManager())
-        .environmentObject(OnlineMatchManager(asm: AppStorageManager()))
+        .environmentObject(OnlineMatchManager(asm: AppStorageManager(), navigationManager: NavigationManager()))
 }
