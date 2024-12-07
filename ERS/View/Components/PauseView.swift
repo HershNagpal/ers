@@ -10,11 +10,11 @@ import SwiftUI
 struct PauseView: View {
     @EnvironmentObject var asm: AppStorageManager
     @Binding var isPaused: Bool
-    @Binding var path: [String]
     @State var showForfeit: Bool = false
     let resetGame: () -> Void
     let ruleState: RuleState
     let localPlayer: PlayerNumber
+    let navigateHome: () -> Void
     
     var body: some View {
         VStack(spacing: 20) {
@@ -39,7 +39,7 @@ struct PauseView: View {
                 }
                 NavigationIcon(iconName: "house", onPress: {
                     if !asm.online {
-                        path.removeAll()
+                        navigateHome()
                     } else {
                         showForfeit.toggle()
                     }
@@ -49,7 +49,7 @@ struct PauseView: View {
             Spacer()
         }
         .alert("Forfeit the match?", isPresented: $showForfeit) {
-            Button("Yes", role: .destructive) { path.removeAll() }
+            Button("Yes", role: .destructive) { navigateHome() }
             Button("No", role: .cancel) { showForfeit = false }
         }
         .padding(24)

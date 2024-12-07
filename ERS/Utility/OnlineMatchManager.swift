@@ -16,26 +16,26 @@ final class OnlineMatchManager: NSObject, ObservableObject {
     @Published var playingGame = false
     @Published var myMatch: GKMatch? = nil
     @Published var opponent: GKPlayer? = nil
-    @Published var opponentAvatar: Image? = nil
     @Published var localPlayerNumber: PlayerNumber = .none
-    @Published var goHome: Bool = false
-    @Published var acceptedInvite: Bool = false
     @Published var rulesPlayer: PlayerNumber = .none
     @ObservedObject var asm: AppStorageManager
+    @ObservedObject var navigationManager: NavigationManager
     
-    init( asm: AppStorageManager) {
+    init( asm: AppStorageManager, navigationManager: NavigationManager) {
         self.asm = asm
+        self.navigationManager = navigationManager
     }
     
     func resetController() {
 //        print("Resetting Match Manager")
         game = nil
-        localPlayerNumber = .none
-        myMatch = nil
-        opponent = nil
-        opponentAvatar = nil
         matchAvailable = false
         playingGame = false
+        myMatch = nil
+        localPlayerNumber = .none
+        opponent = nil
+        localPlayerNumber = .none
+        rulesPlayer = .none
     }
     
     var rootViewController: UIViewController? {
@@ -68,6 +68,7 @@ final class OnlineMatchManager: NSObject, ObservableObject {
     
     func choosePlayer() {
         // Create a match request.
+        print("Creating request")
         let request = GKMatchRequest()
         request.minPlayers = 2
         request.maxPlayers = 2
@@ -95,16 +96,6 @@ final class OnlineMatchManager: NSObject, ObservableObject {
         // For automatch, check whether the opponent connected to the match before loading the avatar.
         if myMatch?.expectedPlayerCount == 0 {
             guard let opponent = myMatch?.players[0] else { return }
-            
-            // Load the opponent's avatar.
-            opponent.loadPhoto(for: GKPlayer.PhotoSize.small) { (image, error) in
-                if let image {
-                    self.opponentAvatar = Image(uiImage: image)
-                }
-                if let error {
-                    print("Error loading avatar during automatch: \(error.localizedDescription).")
-                }
-            }
         
             if opponent.gamePlayerID < GKLocalPlayer.local.gamePlayerID {
                 localPlayerNumber = .two
@@ -114,7 +105,7 @@ final class OnlineMatchManager: NSObject, ObservableObject {
         }
         
         if localPlayerNumber == .one {
-            if false {
+            if false { // TODO: Change this after testing
                 print("Won coin toss, sending game.")
                 rulesPlayer = localPlayerNumber
                 game = Game(ruleState: asm.asRuleState())
@@ -160,7 +151,7 @@ final class OnlineMatchManager: NSObject, ObservableObject {
         print("Dashboard Closed")
         gameCenterViewController.dismiss(animated: true)
         resetController()
-        goHome.toggle()
+        navigationManager.navigateHome()
     }
 }
 
@@ -208,7 +199,7 @@ extension OnlineMatchManager: GKMatchmakerViewControllerDelegate {
         print("Controller Cancelled")
         viewController.dismiss(animated: true)
         resetController()
-        goHome.toggle()
+        navigationManager.navigateHome()
     }
     
     /// Reports an error during the matchmaking process.
@@ -228,12 +219,16 @@ extension OnlineMatchManager: GKLocalPlayerListener {
     /// Presents the matchmaker interface when the local player accepts an invitation from another player.
     func player(_ player: GKPlayer, didAccept invite: GKInvite) {
         print("Accepted Invite")
+        rootViewController?.dismiss(animated: true)
+        navigationManager.navigateHome()
+        resetController()
         // Present the matchmaker view controller in the invitation state.
         if let viewController = GKMatchmakerViewController(invite: invite) {
             viewController.matchmakerDelegate = self
             rootViewController?.present(viewController, animated: true) { }
         }
-        acceptedInvite = true
+        asm.online = true
+        navigationManager.navigateToMultiplayer()
     }
 }
 
@@ -281,37 +276,27 @@ extension OnlineMatchManager: GKMatchDelegate {
         case .connected:
             print("\(player.displayName) Connected")
             
-            // For automatch, set the opponent and load their avatar.
+            // For automatch, set the opponent
             if match.expectedPlayerCount == 0 {
                 opponent = match.players[0]
-                
-                // Load the opponent's avatar.
-                opponent?.loadPhoto(for: GKPlayer.PhotoSize.small) { (image, error) in
-                    if let image {
-                        self.opponentAvatar = Image(uiImage: image)
-                    }
-                    if let error {
-                        print("Error loading image: \(error.localizedDescription).")
-                    }
-                }
             }
         case .disconnected:
             print("\(player.displayName) Disconnected")
             if let game = game {
                 game.winner = localPlayerNumber
             } else {
-                goHome.toggle()
+                navigationManager.navigateHome()
             }
         default:
             print("\(player.displayName) Connection Unknown")
-            goHome.toggle()
+            navigationManager.navigateHome()
         }
     }
     
     /// Handles an error during the matchmaking process.
     func match(_ match: GKMatch, didFailWithError error: Error?) {
         print("\n\nMatch object fails with error: \(error!.localizedDescription)")
-        goHome.toggle()
+        navigationManager.navigateHome()
     }
 
     /// Reinvites a player when they disconnect from the match.
