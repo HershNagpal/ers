@@ -70,7 +70,7 @@ struct PlayerInteractionView: View {
                 }
             }
             Button(action: {isPaused = true}) {
-                if image != nil && asm.online {
+                if image != nil {
                     image
                 } else {
                     Image(systemName: "pause")

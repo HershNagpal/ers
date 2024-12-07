@@ -62,7 +62,7 @@ struct GameView: View {
     }
     
     private func playerTwoTurn()  {
-        guard isSingleplayer && !asm.online else { return }
+        guard isSingleplayer else { return }
         let slapSkipDict = [20, 20, 10, 10]
         let randomTime = Double(4/(asm.difficulty+1))
         let chanceToSkipSlap = slapSkipDict[asm.difficulty]
@@ -101,12 +101,12 @@ struct GameView: View {
                     .sensoryFeedback(.impact(flexibility: .solid), trigger: burn)
             }
             VStack(spacing: 0) {
-                PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: isSingleplayer || asm.online, player: localPlayer == .one ? .two : .one, confettiCounter: localPlayer == .two ? $confettiCounter1: $confettiCounter2, sendAction: sendAction, image: nil)
+                PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: isSingleplayer, player: localPlayer == .one ? .two : .one, confettiCounter: localPlayer == .two ? $confettiCounter1: $confettiCounter2, sendAction: sendAction, image: nil)
                     .rotationEffect(Angle(degrees: 180))
                     .ignoresSafeArea()
                     .environmentObject(asm)
                     .onChange(of: localPlayer == .two ? game.deck1.deck.count : game.deck2.deck.count) {
-                        if asm.online && $0 < $1 {
+                        if $0 < $1 {
                             if localPlayer == .one {
                                 confettiCounter2 += 1
                             } else {

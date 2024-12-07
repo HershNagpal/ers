@@ -19,38 +19,19 @@ struct PauseView: View {
     var body: some View {
         VStack(spacing: 20) {
             Spacer()
-            if asm.online {
-                LargeText("menu")
-            } else {
-                LargeText("paused")
-            }
+            LargeText("paused")
             Spacer()
-            
-            if asm.online {
-                RuleDisplayView(localPlayer: localPlayer, rulesPlayer: nil, dismiss: nil, ruleState: ruleState)
-                Spacer()
-            }
             
             HStack(spacing: 32) {
                 Spacer()
                 NavigationIcon(iconName: "play.fill", onPress: {isPaused = false})
-                if !asm.online {
-                    NavigationIcon(iconName: "arrow.counterclockwise", onPress: {resetGame()})
-                }
+                NavigationIcon(iconName: "arrow.counterclockwise", onPress: { resetGame()} )
                 NavigationIcon(iconName: "house", onPress: {
-                    if !asm.online {
-                        navigateHome()
-                    } else {
-                        showForfeit.toggle()
-                    }
+                    navigateHome()
                 })
                 Spacer()
             }
             Spacer()
-        }
-        .alert("Forfeit the match?", isPresented: $showForfeit) {
-            Button("Yes", role: .destructive) { navigateHome() }
-            Button("No", role: .cancel) { showForfeit = false }
         }
         .padding(24)
         .background(.ultraThinMaterial)

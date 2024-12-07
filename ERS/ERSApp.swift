@@ -12,7 +12,6 @@ import GameKit
 struct ERSApp: App {
     @StateObject private var purchaseManager: PurchaseManager
     @StateObject private var asm: AppStorageManager
-    @StateObject private var onlineMatchManager: OnlineMatchManager
     @StateObject private var navigationManager: NavigationManager
     @State var path = [String]()
 
@@ -25,9 +24,6 @@ struct ERSApp: App {
         
         let asm = AppStorageManager()
         self._asm = StateObject(wrappedValue: asm)
-        
-        let onlineMatchManager = OnlineMatchManager(asm: asm, navigationManager: navigationManager)
-        self._onlineMatchManager = StateObject(wrappedValue: onlineMatchManager)
     }
     
     var body: some Scene {
@@ -35,7 +31,6 @@ struct ERSApp: App {
             HomeView()
                 .environmentObject(purchaseManager)
                 .environmentObject(asm)
-                .environmentObject(onlineMatchManager)
                 .environmentObject(navigationManager)
                 .task {
                     await purchaseManager.updatePurchasedProducts()
