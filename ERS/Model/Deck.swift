@@ -7,7 +7,11 @@
 
 import Combine
 
-class Deck: ObservableObject {
+class Deck: ObservableObject, Codable, Equatable {
+    static func == (lhs: Deck, rhs: Deck) -> Bool {
+        return lhs.deck != rhs.deck
+    }
+    
     
     var deck: [Card]
     

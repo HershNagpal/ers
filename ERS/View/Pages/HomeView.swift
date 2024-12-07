@@ -10,28 +10,15 @@ import GameKit
 
 @MainActor
 final class HomeViewModel: ObservableObject {
-    @Published var showAlert = false
-    @Published var alertType: AlertType = .notSignedIn
-    
-    func authenticateUser() {
-        GKLocalPlayer.local.authenticateHandler = { vc, error in
-            guard error == nil else {
-                print(error?.localizedDescription ?? "")
-                self.alertType = .authError
-//                showAlert = true
-                return
-            }
-        }
-    }
 }
 
 struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
-    
-    @State var path = [String]()
+    @EnvironmentObject var asm: AppStorageManager
+    @EnvironmentObject var navigationManger: NavigationManager
     
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack(path: $navigationManger.path) {
             VStack(spacing: 20) {
                 Spacer()
                 ZStack {
@@ -42,66 +29,40 @@ struct HomeView: View {
                     TitleText("ers")
                 }
                 Spacer()
-                NavigationButton(text: "multiplayer", onPress: {path.append("multiplayer")})
-                NavigationButton(text: "singleplayer", onPress: {path.append("singleplayer")})
+                NavigationButton(text: "multiplayer", onPress: { navigationManger.navigateToMultiplayer() })
+                NavigationButton(text: "singleplayer", onPress: { navigationManger.navigateToSingleplayer() })
 
                 HStack(spacing: 32) {
                     Spacer()
-                    NavigationIcon(iconName: "trophy.fill", onPress: {path.append("achievements")})
-                    NavigationIcon(iconName: "doc.questionmark", onPress: {path.append("tutorial")})
-                    NavigationIcon(iconName: "gearshape.fill", onPress: {path.append("options")})
+                    NavigationIcon(iconName: "trophy.fill", onPress: { navigationManger.navigateToAchievements() })
+                    NavigationIcon(iconName: "doc.questionmark", onPress: { navigationManger.navigateToTutorial() })
+                    NavigationIcon(iconName: "gearshape.fill", onPress: { navigationManger.navigateToOptions() })
                     Spacer()
                 }
-            }
-            .onAppear {
-                vm.authenticateUser()
-                AchievementManager.syncAchievements()
             }
             .padding(24)
             .background(LinearGradient(gradient: Gradient(colors: [.ersDarkBackground, .ersGreyBackground]), startPoint: .bottom, endPoint: .top))
             .navigationDestination(for: String.self) { string in
                 switch string {
-                case "options":
+                case PathComponent.options.rawValue:
                     SettingsView()
                         .navigationTitle("options")
-                case "multiplayer":
-                    GameView(path: $path, isSingleplayer: false)
+                case PathComponent.multiplayer.rawValue:
+                    LocalGameView(vm: LocalGameViewModel(ruleState: asm.asRuleState()), navigateHome: navigationManger.navigateHome, isSingleplayer: false)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)
-                case "singleplayer":
-                    GameView(path: $path, isSingleplayer: true)
+                case PathComponent.singleplayer.rawValue:
+                    LocalGameView(vm: LocalGameViewModel(ruleState: asm.asRuleState()), navigateHome: navigationManger.navigateHome, isSingleplayer: true)
                         .navigationBarBackButtonHidden()
                         .statusBar(hidden: true)
-                case "tutorial":
-                    TutorialView(path: $path)
+                case PathComponent.tutorial.rawValue:
+                    TutorialView(navigateHome: navigationManger.navigateHome)
                         .navigationTitle("tutorial")
-                case "achievements":
-                    AchievementsView(path: $path)
+                case PathComponent.achievements.rawValue:
+                    AchievementsView()
                         .navigationTitle("achievements")
                 default:
                     Spacer()
-                }
-            }
-            .alert(isPresented: $vm.showAlert) {
-                switch vm.alertType {
-                case .authError:
-                    Alert(title: Text("auth error"))
-                case .notSignedIn:
-                    Alert(
-                        title: Text("not signed in"),
-                        message: Text("sign in to play"),
-                        primaryButton: .default(
-                            Text("sign in"),
-                            action: {
-                                vm.showAlert = false
-                                vm.authenticateUser()
-                            }
-                        ),
-                        secondaryButton: .destructive(
-                            Text("cancel"),
-                            action: {vm.showAlert = false}
-                        )
-                    )
                 }
             }
         }

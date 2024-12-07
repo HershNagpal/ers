@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class AppStorageManager: ObservableObject {
+final class AppStorageManager: ObservableObject {
     @AppStorage("purchasedRules") var purchasedRules: Bool = false
     @AppStorage("rulesWithAds") var rulesWithAds: Bool = false
     
@@ -29,6 +29,10 @@ class AppStorageManager: ObservableObject {
     
     @AppStorage("difficulty") var difficulty: Int = 1
     @AppStorage("burnAmount") var burnAmount: Int = 1
+    
+    func asRuleState() -> RuleState {
+        RuleState(doublesOn: doublesOn, sandwichOn: sandwichOn, couplesOn: couplesOn, divorceOn: divorceOn, queenOfDeathOn: queenOfDeathOn, topAndBottomOn: topAndBottomOn, addToTenOn: addToTenOn, sequenceOn: sequenceOn, burnAmount: burnAmount)
+    }
     
     var disableRuleToggles: Binding<Bool> { Binding (
         get: { [self] in !purchasedRules },

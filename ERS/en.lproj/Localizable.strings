@@ -22,6 +22,7 @@
 
 // In Game
 "paused" = "Paused";
+"menu" = "Menu";
 "resume" = "Resume";
 "restart" = "Restart";
 "back to menu" = "Back to Menu";
@@ -29,7 +30,7 @@
 "player two wins" = "Player Two wins!";
 
 // Options
-"visuals" = "Visuals";
+"general" = "General";
 "easy deal" = "Easy Deal";
 "easy deal description" = "Lights up the deal button on your turn.";
 "easy claim" = "Easy Claim";
@@ -49,7 +50,7 @@
 "hard" = "Hard";
 "ouch" = "Ouch";
 
-
+// Rules
 "basic rules" = "Basic Rules";
 "extra rules" = "Extra Rules";
 "doubles" = "Doubles";
@@ -69,6 +70,7 @@
 "add to ten" = "Add to Ten";
 "add to ten description" = "Two or three cards at the top of the stack that add up to ten.";
 
+// Other Rules
 "burn amount" = "Burn Amount";
 "burn amount description" = "The amount of cards burnt when slapping incorrectly";
 "restore purchases" = "Restore Purchases";

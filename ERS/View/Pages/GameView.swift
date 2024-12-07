@@ -11,14 +11,16 @@ import ConfettiSwiftUI
 
 struct GameView: View {
     @EnvironmentObject var asm: AppStorageManager
-    @Binding var path: [String]
-    @StateObject var game = Game()
+    @ObservedObject var game: Game
     @State var isPaused: Bool = false
     @State var confettiCounter1: Int = 0
     @State var confettiCounter2: Int = 0
     @State var burn: Bool = false
     @State var showBurnAlert: Bool = false
+    let localPlayer: PlayerNumber
     let isSingleplayer: Bool
+    let sendAction: ((GameAction.Action, PlayerNumber) -> Void)?
+    let navigateHome: () -> Void
     
     private func checkAchievements() {
         AchievementManager.setAchievementProgress(.hundredGames, percentComplete: min(AchievementManager.getAchievementProgress(.hundredGames)+1,100))
@@ -99,11 +101,20 @@ struct GameView: View {
                     .sensoryFeedback(.impact(flexibility: .solid), trigger: burn)
             }
             VStack(spacing: 0) {
-                PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: isSingleplayer, player: .two, confettiCounter: $confettiCounter2)
+                PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: isSingleplayer, player: localPlayer == .one ? .two : .one, confettiCounter: localPlayer == .two ? $confettiCounter1: $confettiCounter2, sendAction: sendAction, image: nil)
                     .rotationEffect(Angle(degrees: 180))
                     .ignoresSafeArea()
                     .environmentObject(asm)
-                    .confettiCannon(counter: $confettiCounter2, num: 40, confettis: [.shape(.slimRectangle)], colors: [.red, .yellow, .green, .blue, .purple], confettiSize: 20, rainHeight: 200, fadesOut: true, opacity: 1, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 150)
+                    .onChange(of: localPlayer == .two ? game.deck1.deck.count : game.deck2.deck.count) {
+                        if $0 < $1 {
+                            if localPlayer == .one {
+                                confettiCounter2 += 1
+                            } else {
+                                confettiCounter1 += 1
+                            }
+                        }
+                    }
+                    .confettiCannon(counter: localPlayer == .two ? $confettiCounter1: $confettiCounter2, num: 40, confettis: [.shape(.slimRectangle)], colors: [.red, .yellow, .green, .blue, .purple], confettiSize: 20, rainHeight: 200, fadesOut: true, opacity: 1, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 150)
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck2, lastDeckCount: game.deck1.numCards())
                     .rotationEffect(Angle(degrees: 180))
                     .padding([.top, .trailing], 10)
@@ -112,28 +123,28 @@ struct GameView: View {
                     .environmentObject(asm)
                 StackInfoView(stack: $game.stack, burnPile: $game.burnPile, deck: $game.deck1, lastDeckCount: game.deck1.numCards())
                     .padding([.bottom, .leading], 10)
-                PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: false, player: .one, confettiCounter: $confettiCounter1)
+                PlayerInteractionView(isPaused: $isPaused, burn: $burn, game: game, isDisabled: false, player: localPlayer, confettiCounter: localPlayer == .one ? $confettiCounter1: $confettiCounter2, sendAction: sendAction, image: nil)
                     .ignoresSafeArea()
                     .environmentObject(asm)
-                    .confettiCannon(counter: $confettiCounter1, num: 40, confettis: [.shape(.slimRectangle)], colors: [.red, .yellow, .green, .blue, .purple], confettiSize: 20, rainHeight: 200, fadesOut: true, opacity: 1, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 150)
+                    .confettiCannon(counter: localPlayer == .one ? $confettiCounter1: $confettiCounter2, num: 40, confettis: [.shape(.slimRectangle)], colors: [.red, .yellow, .green, .blue, .purple], confettiSize: 20, rainHeight: 200, fadesOut: true, opacity: 1, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 150)
             }
-                .onChange(of: game.burnPile.count) {
-                    burn.toggle()
-                    showBurnAlert.toggle()
-                }
-                .background(.ersGreyBackground)
+            .onChange(of: game.burnPile) {
+                burn.toggle()
+                showBurnAlert.toggle()
+            }
+            .background(.ersGreyBackground)
             
             if game.winner != .none {
-                GameEndView(path: $path, winner: $game.winner)
+                GameEndView(winner: $game.winner, navigateHome: navigateHome)
                     .onAppear {
                         checkAchievements()
                     }
             }
             if isPaused {
-                PauseView(isPaused: $isPaused, path: $path, resetGame: {
+                PauseView(isPaused: $isPaused, resetGame: {
                     game.restart()
                     isPaused = false
-                })
+                }, ruleState: game.ruleState, localPlayer: localPlayer, navigateHome: navigateHome)
             }
         }
         .onAppear {

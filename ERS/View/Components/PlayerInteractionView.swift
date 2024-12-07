@@ -17,12 +17,18 @@ struct PlayerInteractionView: View {
     @Binding var confettiCounter: Int
     @State var deal: Bool = false
     
+    let sendAction: ((GameAction.Action, PlayerNumber) -> Void)?
+    let image: Image?
+    
     var body: some View {
         ZStack {
             HStack(spacing: 0) {
                 Button(action: { if !isDisabled {
                     game.deal(player)
                     deal.toggle()
+                    if let sendAction = sendAction {
+                        sendAction(.deal, player)
+                    }
                 }}) {
                     VStack {
                         Image("deckIcon")
@@ -43,6 +49,9 @@ struct PlayerInteractionView: View {
                 }
                 Button(action: { if !isDisabled {
                     if game.slap(player) && asm.confettiSlap { confettiCounter += 1 }
+                    if let sendAction = sendAction {
+                        sendAction(.slap, player)
+                    }
                 }}) {
                     VStack {
                         Image(systemName: (game.stackClaimSlap == player && asm.easyClaim) ? "checkmark" : "hand.wave.fill")
@@ -61,12 +70,16 @@ struct PlayerInteractionView: View {
                 }
             }
             Button(action: {isPaused = true}) {
-                Image(systemName: "pause")
-                    .font(.system(size: 40))
-                    .frame(width: 75, height: 75)
-                    .background(.ersGreyBackground)
-                    .foregroundColor(.white)
-                    .cornerRadius(75)
+                if image != nil {
+                    image
+                } else {
+                    Image(systemName: "pause")
+                        .font(.system(size: 40))
+                        .frame(width: 75, height: 75)
+                        .background(.ersGreyBackground)
+                        .foregroundColor(.white)
+                        .cornerRadius(75)
+                }
             }
         }
     }

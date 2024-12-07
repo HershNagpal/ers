@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TutorialView: View {
-    @Binding var path: [String]
     @State var tutorialNumber: Int = 1
     @State var tutorialStack1: [Card] = [Card(value: .two, suit: .hearts)]
     @State var tutorialStack2: [Card] = [Card(value: .eight, suit: .spades), Card(value: .two, suit: .hearts)]
@@ -18,6 +17,7 @@ struct TutorialView: View {
     @State var tutorialStackAce: [Card] = [Card(value: .ace, suit: .diamonds), Card(value: .three, suit: .spades), Card(value: .two, suit: .diamonds)]
     @State var tutorialStackFace: [Card] = [Card(value: .jack, suit: .hearts), Card(value: .queen, suit: .hearts), Card(value: .king, suit: .clubs)]
     @State var tutorialStackJack: [Card] = [Card(value: .four, suit: .hearts), Card(value: .jack, suit: .hearts), Card(value: .four, suit: .clubs)]
+    let navigateHome: () -> Void
     
     var body: some View {
         VStack() {
@@ -123,7 +123,7 @@ struct TutorialView: View {
             Spacer()
             
             tutorialNumber >= 15
-                ? NavigationButton(text: "back to menu", onPress: {path.removeAll()})
+                ? NavigationButton(text: "back to menu", onPress: { navigateHome() })
                 : NavigationButton(text: "next", onPress: {withAnimation {tutorialNumber += 1}})
         }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

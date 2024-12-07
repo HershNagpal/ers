@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum PlayerNumber: String {
+enum PlayerNumber: String, Codable {
     case one, two, none
     
     private func localizedString() -> String {

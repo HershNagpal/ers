@@ -9,8 +9,6 @@ import SwiftUI
 import GameKit
 
 struct AchievementsView: View {
-    @Binding var path: [String]
-    
     var body: some View {
         VStack {
             ScrollView {
@@ -38,7 +36,6 @@ struct AchievementsView: View {
 
 struct AchievementsView_Previews: PreviewProvider {
     static var previews: some View {
-        @State var path = ["a"]
-        AchievementsView(path: $path)
+        AchievementsView()
     }
 }
